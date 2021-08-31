@@ -49,7 +49,7 @@ class FMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   val one = Wire(Vec(lanes, UInt(floatType.widthHardfloat().W)))
   val zero = Wire(Vec(lanes, UInt(floatType.widthHardfloat().W)))
   for (i <- 0 until lanes) {
-    one(i) := floatType.oneHardfloat()
+    one(i) := floatType.oneHardfloatChisel()
     zero(i) := 0.U
   }
 

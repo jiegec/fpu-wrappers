@@ -28,8 +28,10 @@ trait FloatType {
   def extractHardfloat(data: UInt, offset: Int) =
     data((offset + 1) * widthHardfloat() - 1, offset * widthHardfloat())
   // generate the representation of 1.0
-  def one() = (((BigInt(1) << (exp() - 1)) - 1) << (sig() - 1)).U(width().W)
-  def oneHardfloat() = (BigInt(1) << (exp() + sig() - 1)).U(widthHardfloat().W)
+  def oneBigInt() = (((BigInt(1) << (exp() - 1)) - 1) << (sig() - 1))
+  // chisel
+  def oneChisel() = (((BigInt(1) << (exp() - 1)) - 1) << (sig() - 1)).U(width().W)
+  def oneHardfloatChisel() = (BigInt(1) << (exp() + sig() - 1)).U(widthHardfloat().W)
 }
 
 object FpKind extends Enumeration {
@@ -77,6 +79,33 @@ trait EmitHardfloatModule extends EmitVerilogApp {
       for (lanes <- Seq(1, 2, 4, 8)) {
         emit(
           () => genModule(kind, lanes, stages),
+          s"${name}_${floatName}${lanes}l${stages}s"
+        )
+      }
+    }
+  }
+}
+
+trait SpinalGen extends App {
+  def work[T <: spinal.core.Component](gen: => T, netlistName: String = null): Unit = {
+    // verilog
+    val verilog = spinal.core.SpinalConfig(
+      netlistFileName = netlistName match {
+        case null => null
+        case s    => s"$s.v"
+      }
+    )
+    verilog.generateVerilog(gen)
+  }
+}
+
+trait EmitFlopocoModule extends SpinalGen {
+  def emitFlopoco[T <: spinal.core.Component](stages: Int, genModule: (FloatType, Int, Int) => T, name: String) {
+    for (kind <- Seq(FloatH, FloatS, FloatD)) {
+      val floatName = kind.kind().toString()
+      for (lanes <- Seq(1, 2, 4, 8)) {
+        work(
+          genModule(kind, lanes, stages),
           s"${name}_${floatName}${lanes}l${stages}s"
         )
       }
