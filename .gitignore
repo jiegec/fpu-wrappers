@@ -1,0 +1,9 @@
+.metals
+.bsp
+.vscode/
+.bloop/
+target/
+project/project
+*.v
+*.anno.json
+*.fir
