@@ -1,9 +1,8 @@
-.metals
-.bsp
-.vscode/
+.metals/
+.bsp/
 .bloop/
 target/
-project/project
+project/project/
 test_run_dir/
 
 *.v

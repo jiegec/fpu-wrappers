@@ -1,0 +1,8 @@
+{
+	"files.watcherExclude": {
+		"**/target": true
+	},
+	"cSpell.words": [
+		"hardfloat"
+	]
+}

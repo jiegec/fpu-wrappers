@@ -20,15 +20,10 @@ class IEEEToHF(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   }
 }
 
-object IEEEToHF extends EmitVerilogApp {
-  for (kind <- Seq(FloatH, FloatS, FloatD)) {
-    val name = kind.kind().toString()
-    for (concurrency <- Seq(1, 2, 4, 8)) {
-      val stages = 1
-      emit(
-        () => new IEEEToHF(kind, concurrency, stages),
-        s"IEEEToHF_${name}${concurrency}l${stages}s"
-      )
-    }
-  }
+object IEEEToHF extends EmitHardfloatModule {
+  emitHardfloat(
+    1,
+    (floatType, lanes, stages) => new IEEEToHF(floatType, lanes, stages),
+    "IEEEToHF"
+  )
 }
