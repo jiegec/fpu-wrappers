@@ -20,91 +20,94 @@ object FCmpOp extends ChiselEnum {
     BitPat(op.litValue().U)
 }
 
-class FCmpRequest(val floatType: FloatType) extends Bundle {
+class FCmpRequest(val floatType: FloatType, val lanes: Int) extends Bundle {
   val op = FCmpOp()
-  val r1 = UInt(floatType.widthHardfloat().W)
-  val r2 = UInt(floatType.widthHardfloat().W)
+  val r1 = Vec(lanes, UInt(floatType.widthHardfloat().W))
+  val r2 = Vec(lanes, UInt(floatType.widthHardfloat().W))
 }
 
-class FCmpResponse(val floatType: FloatType) extends Bundle {
+class FCmpResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
   // result
-  val res = UInt(floatType.width().W)
+  val res = Vec(lanes, UInt(floatType.width().W))
   // exception status
   val exc = Bits(5.W)
 }
 
-class FCmp(floatType: FloatType) extends Module {
-  val fLen = floatType.widthHardfloat()
-
+class FCmp(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   val io = IO(new Bundle {
-    val req = Flipped(Valid(new FCmpRequest(floatType)))
-    val resp = Valid(new FCmpResponse(floatType))
+    val req = Flipped(Valid(new FCmpRequest(floatType, lanes)))
+    val resp = Valid(new FCmpResponse(floatType, lanes))
   })
 
   // replicate small units for higher throughput
   val valid = io.req.valid
-  val stages = 2
-
-  val cmp = Module(
-    new CompareRecFN(
-      floatType.exp(),
-      floatType.sig()
+  val results = for (i <- 0 until lanes) yield {
+    val cmp = Module(
+      new CompareRecFN(
+        floatType.exp(),
+        floatType.sig()
+      )
     )
-  )
-  cmp.suggestName(s"cmp${floatType.kind()}")
-  cmp.io.a := io.req.bits.r1
-  cmp.io.b := io.req.bits.r2
-  cmp.io.signaling := true.B
+    cmp.suggestName(s"cmp${floatType.kind()}_${i}")
+    cmp.io.a := io.req.bits.r1(i)
+    cmp.io.b := io.req.bits.r2(i)
+    cmp.io.signaling := true.B
 
-  val result = Wire(UInt(floatType.width().W))
-  val exception = Wire(UInt(5.W))
-  exception := cmp.io.exceptionFlags
+    val result = Wire(UInt(floatType.width().W))
+    val exception = Wire(UInt(5.W))
+    exception := cmp.io.exceptionFlags
+    result := 0.U
+    switch(io.req.bits.op) {
+      is(FCmpOp.EQ) {
+        when(cmp.io.eq) {
+          result := 1.U
+        }
+      }
+      is(FCmpOp.NE) {
+        when(!cmp.io.eq) {
+          result := 1.U
+        }
+      }
+      is(FCmpOp.GE) {
+        when(cmp.io.gt || cmp.io.eq) {
+          result := 1.U
+        }
+      }
+      is(FCmpOp.LE) {
+        when(cmp.io.lt || cmp.io.eq) {
+          result := 1.U
+        }
+      }
+      is(FCmpOp.GT) {
+        when(cmp.io.gt) {
+          result := 1.U
+        }
+      }
+      is(FCmpOp.LT) {
+        when(cmp.io.lt) {
+          result := 1.U
+        }
+      }
+    }
 
-  result := 0.U
-  switch(io.req.bits.op) {
-    is(FCmpOp.EQ) {
-      when(cmp.io.eq) {
-        result := 1.U
-      }
-    }
-    is(FCmpOp.NE) {
-      when(!cmp.io.eq) {
-        result := 1.U
-      }
-    }
-    is(FCmpOp.GE) {
-      when(cmp.io.gt || cmp.io.eq) {
-        result := 1.U
-      }
-    }
-    is(FCmpOp.LE) {
-      when(cmp.io.lt || cmp.io.eq) {
-        result := 1.U
-      }
-    }
-    is(FCmpOp.GT) {
-      when(cmp.io.gt) {
-        result := 1.U
-      }
-    }
-    is(FCmpOp.LT) {
-      when(cmp.io.lt) {
-        result := 1.U
-      }
-    }
+    // stages
+    val res = Pipe(
+      valid,
+      result,
+      stages
+    ).bits
+    val exc = Pipe(
+      valid,
+      exception,
+      stages
+    ).bits
+    (res, exc)
   }
 
-  // stages
-  val res = Pipe(
-    valid,
-    result,
-    stages
-  ).bits
-  val exc = Pipe(
-    valid,
-    exception,
-    stages
-  ).bits
+  // collect result
+  val res = results.map(_._1)
+  // exception flags are OR'ed
+  val exc = results.map(_._2).reduce(_ | _)
 
   val resValid = ShiftRegister(valid, stages)
 
@@ -115,7 +118,13 @@ class FCmp(floatType: FloatType) extends Module {
 
 object FCmp extends EmitVerilogApp {
   for (kind <- Seq(FloatH, FloatS, FloatD)) {
-    val name = kind.getClass().getSimpleName().stripSuffix("$")
-    emit(() => new FCmp(kind), s"FCmp_${name}")
+    val name = kind.kind().toString()
+    for (concurrency <- Seq(1, 2, 4, 8)) {
+      val stages = 1
+      emit(
+        () => new FCmp(kind, concurrency, stages),
+        s"FCmp_${name}${concurrency}l${stages}s"
+      )
+    }
   }
 }
