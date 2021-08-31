@@ -15,7 +15,6 @@ class IEEEToHFSpec extends FreeSpec with ChiselScalatestTester {
     test(new IEEEToHF(FloatS, 2, 2))
       .withAnnotations(
         Seq(
-          VerilatorBackendAnnotation,
           WriteVcdAnnotation
         )
       ) { dut =>

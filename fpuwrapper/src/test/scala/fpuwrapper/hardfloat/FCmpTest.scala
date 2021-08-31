@@ -15,7 +15,6 @@ class FCmpSpec extends FreeSpec with ChiselScalatestTester {
     test(new FCmp(FloatS, 2, 2))
       .withAnnotations(
         Seq(
-          VerilatorBackendAnnotation,
           WriteVcdAnnotation
         )
       ) { dut =>

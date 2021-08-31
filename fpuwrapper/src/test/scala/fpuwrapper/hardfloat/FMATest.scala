@@ -15,7 +15,6 @@ class FMASpec extends FreeSpec with ChiselScalatestTester {
     test(new FMA(FloatS, 2, 3))
       .withAnnotations(
         Seq(
-          VerilatorBackendAnnotation,
           WriteVcdAnnotation
         )
       ) { dut =>
