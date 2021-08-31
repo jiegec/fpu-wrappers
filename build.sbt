@@ -1,7 +1,5 @@
 ThisBuild / scalaVersion := "2.12.14"
 
-val spinalVersion = "1.6.0"
-
 lazy val hardfloat =
   Project(id = "hardfloat", base = file("berkeley-hardfloat") / "src")
     .settings(

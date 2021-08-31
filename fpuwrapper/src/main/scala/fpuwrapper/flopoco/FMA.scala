@@ -84,40 +84,36 @@ class FMA(floatType: FloatType, lanes: Int, stages: Int) extends Component {
 
   for (i <- 0 until lanes) {
     val fma = new FMABlackBox(floatType)
-    fma.A := op1(i)
-    fma.B := op2(i)
-    fma.C := op3(i)
+    fma.A := op1(i).asBits
+    fma.B := op2(i).asBits
+    fma.C := op3(i).asBits
     fma.negateAB := negateAB
     fma.negateC := negateC
     fma.RndMode := 0
-    io.resp.res(i) := fma.R
+    io.resp.res(i) := fma.R.asUInt
   }
 
-  io.resp.valid := io.req.valid
+  io.resp.valid := Delay(io.req.valid, stages)
 }
 
-
 class FMABlackBox(floatType: FloatType) extends BlackBox {
-  val clock = in(Bool)
-  val reset = in(Bool)
-  val A = in(UInt(floatType.width bits))
-  val B = in(UInt(floatType.width bits))
-  val C = in(UInt(floatType.width bits))
+  val clk = in(Bool)
+  val A = in(Bits(floatType.width bits))
+  val B = in(Bits(floatType.width bits))
+  val C = in(Bits(floatType.width bits))
   val negateAB = in(Bool)
   val negateC = in(Bool)
   val RndMode = in(Bits(2 bits))
-  val R = out(UInt(floatType.width bits))
+  val R = out(Bits(floatType.width bits))
 
   setDefinitionName(s"FMA_S")
 
   // Map the clk
   mapCurrentClockDomain(
-    clock = clock,
-    reset = reset,
-    resetActiveLevel = HIGH
+    clock = clk
   )
 
-  addRTLPath(s"./src/main/resources/flopoco/flopoco.vhdl")
+  addRTLPath(s"./fpuwrapper/src/main/resources/flopoco/flopoco.vhdl")
 }
 
 object FMA extends EmitFlopocoModule {

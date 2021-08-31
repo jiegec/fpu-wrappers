@@ -1,4 +1,4 @@
-val spinalVersion = "1.6.0"
+val spinalVersion = "1.6.1"
 
 name := "fpu-wrappers"
 version := "1.0"
