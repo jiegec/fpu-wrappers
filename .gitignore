@@ -4,6 +4,8 @@
 .bloop/
 target/
 project/project
+test_run_dir/
+
 *.v
 *.anno.json
 *.fir

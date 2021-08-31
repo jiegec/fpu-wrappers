@@ -11,5 +11,6 @@ libraryDependencies ++= Seq(
     "com.github.spinalhdl" %% "spinalhdl-idsl-plugin" % spinalVersion
   ),
   "org.scalatest" %% "scalatest-funsuite" % "3.2.3" % "test",
-  "edu.berkeley.cs" %% "chisel3" % "3.4.3"
+  "edu.berkeley.cs" %% "chisel3" % "3.4.3",
+  "edu.berkeley.cs" %% "chiseltest" % "0.3.3" % "test"
 )
