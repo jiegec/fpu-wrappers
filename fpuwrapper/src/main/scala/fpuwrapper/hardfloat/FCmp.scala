@@ -30,7 +30,7 @@ class FCmpResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
   // result
   val res = Vec(lanes, UInt(floatType.width().W))
   // exception status
-  val exc = Bits(5.W)
+  val exc = Vec(lanes, Bits(5.W))
 }
 
 class FCmp(floatType: FloatType, lanes: Int, stages: Int) extends Module {
@@ -106,8 +106,8 @@ class FCmp(floatType: FloatType, lanes: Int, stages: Int) extends Module {
 
   // collect result
   val res = results.map(_._1)
-  // exception flags are OR'ed
-  val exc = results.map(_._2).reduce(_ | _)
+  // exception flags
+  val exc = results.map(_._2)
 
   val resValid = ShiftRegister(valid, stages)
 
@@ -116,15 +116,10 @@ class FCmp(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   io.resp.bits.exc := exc
 }
 
-object FCmp extends EmitVerilogApp {
-  for (kind <- Seq(FloatH, FloatS, FloatD)) {
-    val name = kind.kind().toString()
-    for (concurrency <- Seq(1, 2, 4, 8)) {
-      val stages = 1
-      emit(
-        () => new FCmp(kind, concurrency, stages),
-        s"FCmp_${name}${concurrency}l${stages}s"
-      )
-    }
-  }
+object FCmp extends EmitHardfloatModule {
+  emitHardfloat(
+    1,
+    (floatType, lanes, stages) => new FCmp(floatType, lanes, stages),
+    "FCmp"
+  )
 }

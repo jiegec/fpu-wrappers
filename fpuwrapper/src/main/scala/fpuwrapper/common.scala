@@ -69,3 +69,17 @@ trait EmitVerilogApp extends App {
     )
   }
 }
+
+trait EmitHardfloatModule extends EmitVerilogApp {
+  def emitHardfloat(stages: Int, genModule: (FloatType, Int, Int) => RawModule, name: String) {
+    for (kind <- Seq(FloatH, FloatS, FloatD)) {
+      val floatName = kind.kind().toString()
+      for (lanes <- Seq(1, 2, 4, 8)) {
+        emit(
+          () => genModule(kind, lanes, stages),
+          s"${name}_${floatName}${lanes}l${stages}s"
+        )
+      }
+    }
+  }
+}
