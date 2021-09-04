@@ -9,8 +9,18 @@ import java.nio.file.StandardCopyOption
 import scala.sys.process._
 
 object Synthesis {
-  def build(sources: Seq[String], toplevelName: String) {
-    val dir = s"synWorkspace/${toplevelName}/"
+  def build(
+      sources: Seq[String],
+      toplevelName: String,
+      folderName: String = null
+  ) {
+    val actualFolderName = if (folderName == null) {
+      toplevelName
+    } else {
+      folderName
+    }
+
+    val dir = s"synWorkspace/${actualFolderName}/"
     Files.createDirectories(Paths.get(dir))
 
     val names = for (file <- sources) yield {
@@ -32,6 +42,6 @@ object Synthesis {
       template.getBytes(StandardCharsets.UTF_8)
     )
 
-    Process("dc_shell -f syn.tcl", new java.io.File(dir))!
+    Process("dc_shell -f syn.tcl", new java.io.File(dir)) !
   }
 }

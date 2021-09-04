@@ -5,3 +5,4 @@ alib-*
 *.ddc
 *.sdc
 *.sdf
+*.tcl

@@ -91,7 +91,6 @@ class FMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
 
   // replicate small units for higher throughput
   val reqValid = io.req.valid
-  require(stages >= 3)
   val results = for (i <- 0 until lanes) yield {
     // MulAddRecFNPipe only support stages <= 2
     val fma = Module(
@@ -250,13 +249,18 @@ class MulAddRecFNPipe(latency: Int, expWidth: Int, sigWidth: Int)
 }
 
 object FMA extends EmitHardfloatModule {
-  emitHardfloat(
-    3,
-    (floatType, lanes, stages) => new FMA(floatType, lanes, stages),
-    "FMA"
-  )
+  for (stages <- Seq(1, 2, 3)) {
+    emitHardfloat(
+      stages,
+      (floatType, lanes, stages) => new FMA(floatType, lanes, stages),
+      "FMA"
+    )
+  }
 }
 
 object FMASynth extends App {
-  Synthesis.build(Seq("FMA_S1l3s.v"), "FMA_S1l3s")
+  for (stages <- Seq(3)) {
+    val name = s"FMA_S1l${stages}s"
+    Synthesis.build(Seq(s"${name}.v"), s"${name}_FMA", s"hardfloat_${name}")
+  }
 }

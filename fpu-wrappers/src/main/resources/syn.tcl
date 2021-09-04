@@ -12,6 +12,11 @@ set toplevel_name TOPLEVEL_NAME
 
 # load design
 read_file -format verilog $input_files
+# check module exists
+set rc [llength [get_designs -exact $toplevel_name]]
+if {$rc == 0} {
+	quit
+}
 current_design $toplevel_name
 
 # setup
@@ -22,7 +27,7 @@ set_host_options -max_cores 16
 create_clock clock -period 1.0000
 # dff clock to output: 0.14ns
 # assume all input comes from output of dff
-set_input_delay 0.14 -clock clock [all inputs]
+set_input_delay 0.14 -clock clock [all_inputs]
 
 # synthesis flow
 link
