@@ -1,0 +1,7 @@
+alib-*
+*.log
+*.svf
+*.txt
+*.ddc
+*.sdc
+*.sdf

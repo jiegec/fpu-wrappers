@@ -256,3 +256,7 @@ object FMA extends EmitHardfloatModule {
     "FMA"
   )
 }
+
+object FMASynth extends App {
+  Synthesis.build(Seq("FMA_S1l3s.v"), "FMA_S1l3s")
+}

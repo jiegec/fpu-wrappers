@@ -18,12 +18,12 @@ class FMATest extends AnyFunSuite {
         )
       ) { dut =>
         dut.clockDomain.forkStimulus(period = 10)
-	dut.clockDomain.waitRisingEdge()
+        dut.clockDomain.waitRisingEdge()
 
         dut.io.req.valid #= false
-	sleep(160)
+        sleep(160)
 
-	dut.clockDomain.waitSampling()
+        dut.clockDomain.waitSampling()
         dut.io.req.valid #= true
         dut.io.req.operands(0)(0) #= BigInt("3f800000", 16) // 1.0
         dut.io.req.operands(1)(0) #= BigInt("40000000", 16) // 2.0

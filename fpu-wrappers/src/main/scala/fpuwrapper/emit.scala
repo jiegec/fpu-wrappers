@@ -20,7 +20,11 @@ trait EmitVerilogApp extends App {
 }
 
 trait EmitHardfloatModule extends EmitVerilogApp {
-  def emitHardfloat(stages: Int, genModule: (FloatType, Int, Int) => RawModule, name: String) {
+  def emitHardfloat(
+      stages: Int,
+      genModule: (FloatType, Int, Int) => RawModule,
+      name: String
+  ) {
     for (kind <- Seq(FloatH, FloatS, FloatD)) {
       val floatName = kind.kind().toString()
       for (lanes <- Seq(1, 2, 4, 8)) {
@@ -34,7 +38,10 @@ trait EmitHardfloatModule extends EmitVerilogApp {
 }
 
 trait SpinalGen extends App {
-  def work[T <: spinal.core.Component](gen: => T, netlistName: String = null): Unit = {
+  def work[T <: spinal.core.Component](
+      gen: => T,
+      netlistName: String = null
+  ): Unit = {
     // verilog
     val verilog = spinal.core.SpinalConfig(
       netlistFileName = netlistName match {
@@ -47,7 +54,11 @@ trait SpinalGen extends App {
 }
 
 trait EmitFlopocoModule extends SpinalGen {
-  def emitFlopoco[T <: spinal.core.Component](stages: Int, genModule: (FloatType, Int, Int) => T, name: String) {
+  def emitFlopoco[T <: spinal.core.Component](
+      stages: Int,
+      genModule: (FloatType, Int, Int) => T,
+      name: String
+  ) {
     for (kind <- Seq(FloatH, FloatS, FloatD)) {
       val floatName = kind.kind().toString()
       for (lanes <- Seq(1, 2, 4, 8)) {

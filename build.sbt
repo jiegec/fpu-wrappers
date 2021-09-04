@@ -16,7 +16,7 @@ lazy val hardfloat =
       )
     )
 
-lazy val fpuwrappers = (project in file("fpu-wrappers"))
+lazy val core = (project in file("fpu-wrappers"))
   .dependsOn(hardfloat)
 
 fork := true

@@ -27,8 +27,10 @@ trait FloatType {
   // generate the representation of 1.0
   def oneBigInt() = (((BigInt(1) << (exp() - 1)) - 1) << (sig() - 1))
   // chisel
-  def oneChisel() = (((BigInt(1) << (exp() - 1)) - 1) << (sig() - 1)).U(width().W)
-  def oneHardfloatChisel() = (BigInt(1) << (exp() + sig() - 1)).U(widthHardfloat().W)
+  def oneChisel() =
+    (((BigInt(1) << (exp() - 1)) - 1) << (sig() - 1)).U(width().W)
+  def oneHardfloatChisel() =
+    (BigInt(1) << (exp() + sig() - 1)).U(widthHardfloat().W)
 }
 
 object FpKind extends Enumeration {
