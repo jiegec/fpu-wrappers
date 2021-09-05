@@ -1,9 +1,9 @@
 package fpuwrapper.flopoco
 
-import fpuwrapper.FloatType
 import spinal.lib._
 import spinal.core._
-import fpuwrapper.EmitFlopocoModule
+import fpuwrapper._
+import scala.io.Source
 
 object FMAOp extends SpinalEnum {
   // 1 * op[1] + op[2]
@@ -83,7 +83,7 @@ class FMA(floatType: FloatType, lanes: Int, stages: Int) extends Component {
   }
 
   for (i <- 0 until lanes) {
-    val fma = new FMABlackBox(floatType)
+    val fma = new FMABlackBox(floatType, stages)
     fma.A := op1(i).asBits
     fma.B := op2(i).asBits
     fma.C := op3(i).asBits
@@ -96,7 +96,7 @@ class FMA(floatType: FloatType, lanes: Int, stages: Int) extends Component {
   io.resp.valid := Delay(io.req.valid, stages)
 }
 
-class FMABlackBox(floatType: FloatType) extends BlackBox {
+class FMABlackBox(floatType: FloatType, stages: Int) extends BlackBox {
   val clk = in(Bool)
   val A = in(Bits(floatType.width bits))
   val B = in(Bits(floatType.width bits))
@@ -106,14 +106,16 @@ class FMABlackBox(floatType: FloatType) extends BlackBox {
   val RndMode = in(Bits(2 bits))
   val R = out(Bits(floatType.width bits))
 
-  setDefinitionName(s"FMA_S")
+  setDefinitionName(s"FMA_${floatType.kind().toString()}")
 
   // Map the clk
   mapCurrentClockDomain(
     clock = clk
   )
 
-  addRTLPath(s"./fpuwrapper/src/main/resources/flopoco/flopoco.vhdl")
+  val fileName = s"FMA_${floatType.kind().toString()}${stages}l.vhdl"
+  assert(getClass().getResource(s"/flopoco/${fileName}") != null, s"file ${fileName} not found")
+  addRTLPath(s"./fpuwrapper/src/main/resources/flopoco/${fileName}")
 }
 
 object FMA extends EmitFlopocoModule {
@@ -122,4 +124,11 @@ object FMA extends EmitFlopocoModule {
     (floatType, lanes, stages) => new FMA(floatType, lanes, stages),
     "FMA"
   )
+}
+
+object FMASynth extends App {
+  for (stages <- Seq(4)) {
+    val name = s"FMA_S1l${stages}s"
+    Synthesis.build(Seq(s"${name}.v"), s"${name}_FMA", s"hardfloat_${name}")
+  }
 }
