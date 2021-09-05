@@ -1,3 +1,6 @@
 [submodule "berkeley-hardfloat"]
 	path = berkeley-hardfloat
 	url = git@github.com:ucb-bar/berkeley-hardfloat.git
+[submodule "opencores-fpu"]
+	path = opencores-fpu
+	url = git@github.com:jiegec/opencores-fpu.git
