@@ -2,6 +2,14 @@ hardfloat_FMA_D1l3s:
   Area: 60210.696391
   Comb Area: 52785.466016
   Max Freq: 719 MHz
+hardfloat_FMA_D1l4s:
+  Area: 42139.188394
+  Comb Area: 32240.157932
+  Max Freq: 654 MHz
+hardfloat_FMA_H1l2s:
+  Area: 6681.175236
+  Comb Area: 5761.560035
+  Max Freq: 840 MHz
 hardfloat_FMA_H1l3s:
   Area: 6092.889671
   Comb Area: 4213.440031
