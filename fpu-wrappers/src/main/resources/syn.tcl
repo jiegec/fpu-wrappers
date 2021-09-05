@@ -27,9 +27,11 @@ set_host_options -max_cores 16
 # timing
 # 1GHz clock
 create_clock clock -period 1.0000
+create_clock clk -period 1.0000
 # dff clock to output: 0.14ns
 # assume all input comes from output of dff
 set_input_delay 0.14 -clock clock [all_inputs]
+set_input_delay 0.14 -clock clk [all_inputs]
 
 # synthesis flow
 link
