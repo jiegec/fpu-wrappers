@@ -18,7 +18,7 @@ tasks = [{
 home = os.getenv('HOME')
 flopoco = home + "/flopoco/build/flopoco"
 
-for frequency in [100, 150, 200]:
+for frequency in [100, 150, 200, 250]:
     for task in tasks:
         out = subprocess.check_output(
             [flopoco, "IEEEFMA", f"wE={task['exp']}", f"wF={task['frac']}",
