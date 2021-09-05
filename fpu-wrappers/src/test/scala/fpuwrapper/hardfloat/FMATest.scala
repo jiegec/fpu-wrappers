@@ -27,7 +27,8 @@ class FMATest extends FreeSpec with ChiselScalatestTester {
             dut.io.req.valid.poke(false.B)
           }
 
-          def expectResp(expectedCycles: Int)(x: FMA => Unit) {
+          def expectResp()(x: FMA => Unit) {
+            val expectedCycles = stages - 1
             var cycles = 0
             while (dut.io.resp.valid.peek().litToBoolean == false) {
               dut.clock.step(1)
@@ -50,7 +51,7 @@ class FMATest extends FreeSpec with ChiselScalatestTester {
           dut.io.req.bits.operands(2)(1).poke("h081400000".U) // 6
           dut.io.req.bits.op.poke(FMAOp.FMADD)
           enqueueReq()
-          expectResp(stages - 1) { dut =>
+          expectResp() { dut =>
             dut.io.resp.bits.res(0).expect("h081200000".U) // 5
             dut.io.resp.bits.res(1).expect("h082500000".U) // 26
           }
