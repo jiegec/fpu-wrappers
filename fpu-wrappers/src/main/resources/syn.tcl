@@ -7,11 +7,13 @@ if {$rc == 1} {
 }
 
 # args
-set input_files [list INPUT_FILES]
+set input_verilog [list INPUT_VERILOG]
+set input_vhdl [list INPUT_VHDL]
 set toplevel_name TOPLEVEL_NAME
 
 # load design
-read_file -format verilog $input_files
+read_file -format verilog $input_verilog
+read_file -format vhdl $input_vhdl
 # check module exists
 set rc [llength [get_designs -exact $toplevel_name]]
 if {$rc == 0} {

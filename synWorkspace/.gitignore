@@ -6,3 +6,7 @@ alib-*
 *.sdc
 *.sdf
 *.tcl
+*.syn
+*.mr
+*.vhdl
+*.vif

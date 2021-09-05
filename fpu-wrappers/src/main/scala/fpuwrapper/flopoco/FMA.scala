@@ -114,21 +114,32 @@ class FMABlackBox(floatType: FloatType, stages: Int) extends BlackBox {
   )
 
   val fileName = s"FMA_${floatType.kind().toString()}${stages}l.vhdl"
-  assert(getClass().getResource(s"/flopoco/${fileName}") != null, s"file ${fileName} not found")
-  addRTLPath(s"./fpuwrapper/src/main/resources/flopoco/${fileName}")
+  assert(
+    getClass().getResource(s"/flopoco/${fileName}") != null,
+    s"file ${fileName} not found"
+  )
+  addRTLPath(s"./fpu-wrappers/src/main/resources/flopoco/${fileName}")
 }
 
 object FMA extends EmitFlopocoModule {
   emitFlopoco(
     3,
     (floatType, lanes, stages) => new FMA(floatType, lanes, stages),
-    "FMA"
+    "FlopocoFMA"
   )
 }
 
 object FMASynth extends App {
-  for (stages <- Seq(4)) {
+  for (stages <- Seq(3)) {
     val name = s"FMA_S1l${stages}s"
-    Synthesis.build(Seq(s"${name}.v"), s"${name}_FMA", s"hardfloat_${name}")
+    val fileName = s"FMA_S${stages}l.vhdl"
+    Synthesis.build(
+      Seq(
+        s"Flopoco${name}.v",
+        s"./fpu-wrappers/src/main/resources/flopoco/${fileName}"
+      ),
+      s"FMA",
+      s"flopoco_${name}"
+    )
   }
 }

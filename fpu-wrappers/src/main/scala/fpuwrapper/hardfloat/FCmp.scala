@@ -120,6 +120,6 @@ object FCmp extends EmitHardfloatModule {
   emitHardfloat(
     1,
     (floatType, lanes, stages) => new FCmp(floatType, lanes, stages),
-    "FCmp"
+    "HardfloatFCmp"
   )
 }

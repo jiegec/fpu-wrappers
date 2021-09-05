@@ -253,7 +253,7 @@ object FMA extends EmitHardfloatModule {
     emitHardfloat(
       stages,
       (floatType, lanes, stages) => new FMA(floatType, lanes, stages),
-      "FMA"
+      "HardfloatFMA"
     )
   }
 }

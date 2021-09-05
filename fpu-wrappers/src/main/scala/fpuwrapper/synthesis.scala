@@ -23,18 +23,25 @@ object Synthesis {
     val dir = s"synWorkspace/${actualFolderName}/"
     Files.createDirectories(Paths.get(dir))
 
-    val names = for (file <- sources) yield {
+    val names = (for (file <- sources) yield {
       val name = Paths.get(file).getFileName()
       Files.copy(
         Paths.get(file),
         Paths.get(s"${dir}/${name}"),
         StandardCopyOption.REPLACE_EXISTING
       )
-      name
-    }
+      name.toString()
+    }).toList
 
     var template = Source.fromResource("syn.tcl").mkString
-    template = template.replace("INPUT_FILES", sources.mkString(" "))
+    template = template.replace(
+      "INPUT_VERILOG",
+      names.filter((s) => s.endsWith(".v")).mkString(" ")
+    )
+    template = template.replace(
+      "INPUT_VHDL",
+      names.filter((s) => s.endsWith(".vhdl")).mkString(" ")
+    )
     template = template.replace("TOPLEVEL_NAME", toplevelName)
 
     Files.write(
