@@ -14,7 +14,7 @@ class FMATest extends AnyFunSuite {
         new FMA(
           FloatS,
           2,
-          6
+          3
         )
       ) { dut =>
         dut.clockDomain.forkStimulus(period = 10)
