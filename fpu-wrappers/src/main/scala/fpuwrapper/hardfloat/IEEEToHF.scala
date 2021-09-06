@@ -22,7 +22,6 @@ class IEEEToHF(floatType: FloatType, lanes: Int, stages: Int) extends Module {
 
 object IEEEToHF extends EmitHardfloatModule {
   emitHardfloat(
-    1,
     (floatType, lanes, stages) => new IEEEToHF(floatType, lanes, stages),
     "HardfloatIEEEToHF"
   )

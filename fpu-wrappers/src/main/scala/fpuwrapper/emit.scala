@@ -21,17 +21,21 @@ trait EmitVerilogApp extends App {
 
 trait EmitHardfloatModule extends EmitVerilogApp {
   def emitHardfloat(
-      stages: Int,
       genModule: (FloatType, Int, Int) => RawModule,
-      name: String
+      name: String,
+      allStages: Seq[Int] = Seq(1, 2, 3),
+      floatTypes: Seq[FloatType] = Seq(FloatH, FloatS, FloatD),
+      lanes: Seq[Int] = Seq(1, 2, 4)
   ) {
-    for (kind <- Seq(FloatH, FloatS, FloatD)) {
-      val floatName = kind.kind().toString()
-      for (lanes <- Seq(1, 2, 4, 8)) {
-        emit(
-          () => genModule(kind, lanes, stages),
-          s"${name}_${floatName}${lanes}l${stages}s"
-        )
+    for (floatType <- floatTypes) {
+      val floatName = floatType.kind().toString()
+      for (lanes <- lanes) {
+        for (stages <- allStages) {
+          emit(
+            () => genModule(floatType, lanes, stages),
+            s"${name}_${floatName}${lanes}l${stages}s"
+          )
+        }
       }
     }
   }

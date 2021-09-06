@@ -5,5 +5,6 @@ This repo intends to create wrappers for open source FPU hardware implementation
 1. [berkeley-hardfloat](https://github.com/ucb-bar/berkeley-hardfloat)
 2. [fpnew](https://github.com/pulp-platform/fpnew)
 3. [flopoco](http://flopoco.gforge.inria.fr/)
+4. [CNRV-FPU](https://github.com/cnrv/CNRV-FPU)
 
 And make performance comparison.

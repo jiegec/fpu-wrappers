@@ -253,18 +253,25 @@ class MulAddRecFNPipe(latency: Int, expWidth: Int, sigWidth: Int)
 }
 
 object FMA extends EmitHardfloatModule {
-  for (stages <- Seq(2)) {
-    emitHardfloat(
-      stages,
-      (floatType, lanes, stages) => new FMA(floatType, lanes, stages),
-      "HardfloatFMA"
-    )
-  }
+  emitHardfloat(
+    (floatType, lanes, stages) => new FMA(floatType, lanes, stages),
+    "HardfloatFMA"
+  )
 }
 
-object FMASynth extends App {
-  for (stages <- Seq(2, 3)) {
-    val name = s"HardfloatFMA_S1l${stages}s"
-    Synthesis.build(Seq(s"${name}.v"), s"${name}_FMA", s"hardfloat_${name}")
+object FMASynth extends EmitHardfloatModule {
+  for (floatType <- Seq(FloatH)) {
+    val floatName = floatType.kind().toString()
+    for (stages <- Seq(2)) {
+      emitHardfloat(
+        (floatType, lanes, stages) => new FMA(floatType, lanes, stages),
+        "HardfloatFMA",
+        allStages = Seq(stages),
+        floatTypes = Seq(floatType),
+        lanes = Seq(1)
+      )
+      val name = s"HardfloatFMA_${floatName}1l${stages}s"
+      Synthesis.build(Seq(s"${name}.v"), s"${name}_FMA", s"hardfloat_${name}")
+    }
   }
 }
