@@ -1,7 +1,7 @@
 ThisBuild / scalaVersion := "2.12.14"
 
 lazy val hardfloat =
-  Project(id = "hardfloat", base = file("berkeley-hardfloat") / "src")
+  Project(id = "hardfloat", base = file("thirdparty/berkeley-hardfloat") / "src")
     .settings(
       Compile / scalaSource := baseDirectory.value / "main" / "scala",
       Compile / resourceDirectory := baseDirectory.value / "main" / "resources",
