@@ -2,14 +2,6 @@ flopoco_FMA_S1l3s:
   Area: 18633.300135
   Comb Area: 14741.294535
   Max Freq: 690 MHz (1.45 ns)
-hardfloat_FMA_H1l2s:
-  Area: 6681.175236
-  Comb Area: 5761.560035
-  Max Freq: 840 MHz (1.19 ns)
-hardfloat_FMA_S1l2s:
-  Area: 17903.928111
-  Comb Area: 15243.076923
-  Max Freq: 781 MHz (1.28 ns)
 hardfloat_HardfloatFMA_D1l3s:
   Area: 60100.253339
   Comb Area: 48413.702922
@@ -22,10 +14,18 @@ hardfloat_HardfloatFMA_D1l5s:
   Area: 57363.432429
   Comb Area: 49689.545263
   Max Freq: 926 MHz (1.08 ns)
+hardfloat_HardfloatFMA_H1l2s:
+  Area: 6681.175236
+  Comb Area: 5761.560035
+  Max Freq: 840 MHz (1.19 ns)
 hardfloat_HardfloatFMA_H1l3s:
   Area: 5732.193674
   Comb Area: 3664.096828
   Max Freq: 1031 MHz (0.97 ns)
+hardfloat_HardfloatFMA_S1l2s:
+  Area: 17903.928111
+  Comb Area: 15243.076923
+  Max Freq: 781 MHz (1.28 ns)
 hardfloat_HardfloatFMA_S1l3s:
   Area: 16581.163363
   Comb Area: 12623.402502
