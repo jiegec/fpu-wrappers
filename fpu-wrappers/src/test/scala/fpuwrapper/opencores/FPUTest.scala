@@ -9,7 +9,6 @@ import fpuwrapper.FloatS
 class FPUTest extends AnyFunSuite {
   test("FPU") {
     SimConfig.withWave.withIVerilog
-      .withLogging
       .doSim(
         new FPU(
         )

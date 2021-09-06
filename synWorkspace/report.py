@@ -34,4 +34,4 @@ for key in sorted(keys):
 	print('{}:'.format(key))
 	print('  Area: {}'.format(value['area']))
 	print('  Comb Area: {}'.format(value['comb_area']))
-	print('  Max Freq: {:.0f} MHz'.format(1000.0 / value['max_comb_delay']))
+	print('  Max Freq: {:.0f} MHz ({:.2f} ns)'.format(1000.0 / value['max_comb_delay'], value['max_comb_delay']))

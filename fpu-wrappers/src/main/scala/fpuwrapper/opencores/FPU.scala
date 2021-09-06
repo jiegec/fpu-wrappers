@@ -80,6 +80,28 @@ class FPUBlackBox(val floatType: FloatType) extends BlackBox {
 }
 
 object FPU extends App {
-  val verilog = spinal.core.SpinalConfig()
+  val verilog = spinal.core.SpinalConfig(netlistFileName = "OpencoresFPU.v")
   verilog.generateVerilog(new FPU())
+}
+
+object FPUSynth extends App {
+  val files = Seq(
+    "except.v",
+    "fpu.v",
+    "post_norm.v",
+    "pre_norm_fmul.v",
+    "pre_norm.v",
+    "primitives.v"
+  )
+  val sources = for (file <- files) yield {
+    s"./fpu-wrappers/src/main/resources/opencores/${file}"
+  }
+
+  Synthesis.build(
+    Seq(
+      s"OpencoresFPU.v"
+    ) ++ sources,
+    s"FPU_1",
+    s"opencores_FPU"
+  )
 }

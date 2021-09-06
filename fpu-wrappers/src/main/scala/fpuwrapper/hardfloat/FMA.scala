@@ -89,6 +89,11 @@ class FMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
     }
   }
 
+  // when stages > 2, add extra stages
+  val extraStages = (stages - 2) max 0
+  val inputStages = extraStages / 2
+  val outputStages = extraStages - inputStages
+
   // replicate small units for higher throughput
   val reqValid = io.req.valid
   val results = for (i <- 0 until lanes) yield {
@@ -101,36 +106,34 @@ class FMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
       )
     )
     fma.suggestName(s"fma_${floatType.kind()}_${i}")
-    // TODO: mask
-    // when stages > 2, handle the rest here
-    fma.io.validin := Pipe(reqValid, reqValid, (stages - 2) max 0).bits
+    fma.io.validin := Pipe(reqValid, reqValid, inputStages).bits
     fma.io.a := Pipe(
       reqValid,
       op1(i),
-      (stages - 2) max 0
+      inputStages
     ).bits
     fma.io.b := Pipe(
       reqValid,
       op2(i),
-      (stages - 2) max 0
+      inputStages
     ).bits
     fma.io.c := Pipe(
       reqValid,
       op3(i),
-      (stages - 2) max 0
+      inputStages
     ).bits
 
     fma.io.op := Pipe(
       reqValid,
       Cat(neg, sign),
-      (stages - 2) max 0
+      inputStages
     ).bits
     // TODO
     fma.io.roundingMode := 0.U
     fma.io.detectTininess := 0.U
 
-    val res = fma.io.out
-    val exc = fma.io.exceptionFlags
+    val res = Pipe(true.B, fma.io.out, outputStages).bits
+    val exc = Pipe(true.B, fma.io.exceptionFlags, outputStages).bits
     (res, exc)
   }
 
@@ -249,7 +252,7 @@ class MulAddRecFNPipe(latency: Int, expWidth: Int, sigWidth: Int)
 }
 
 object FMA extends EmitHardfloatModule {
-  for (stages <- Seq(1, 2, 3, 4)) {
+  for (stages <- Seq(5)) {
     emitHardfloat(
       stages,
       (floatType, lanes, stages) => new FMA(floatType, lanes, stages),
@@ -259,8 +262,8 @@ object FMA extends EmitHardfloatModule {
 }
 
 object FMASynth extends App {
-  for (stages <- Seq(4)) {
-    val name = s"FMA_D1l${stages}s"
+  for (stages <- Seq(5)) {
+    val name = s"HardfloatFMA_D1l${stages}s"
     Synthesis.build(Seq(s"${name}.v"), s"${name}_FMA", s"hardfloat_${name}")
   }
 }
