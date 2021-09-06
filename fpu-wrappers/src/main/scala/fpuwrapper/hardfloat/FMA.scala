@@ -27,23 +27,22 @@ object FMAOp extends ChiselEnum {
     BitPat(op.litValue().U)
 }
 
-class FMARequest(val floatType: FloatType, val lanes: Int) extends Bundle {
+class HFFMARequest(val floatType: FloatType, val lanes: Int) extends Bundle {
   val op = FMAOp()
   val operands = Vec(3, Vec(lanes, UInt(floatType.widthHardfloat.W)))
 }
 
-class FMAResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
+class HFFMAResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
   // result
   val res = Vec(lanes, UInt(floatType.widthHardfloat.W))
   // exception status
   val exc = Vec(lanes, Bits(5.W))
 }
 
-class FMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
-
+class HFFMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   val io = IO(new Bundle {
-    val req = Flipped(Valid(new FMARequest(floatType, lanes)))
-    val resp = Valid(new FMAResponse(floatType, lanes))
+    val req = Flipped(Valid(new HFFMARequest(floatType, lanes)))
+    val resp = Valid(new HFFMAResponse(floatType, lanes))
   })
 
   val one = Wire(Vec(lanes, UInt(floatType.widthHardfloat().W)))
@@ -252,25 +251,25 @@ class MulAddRecFNPipe(latency: Int, expWidth: Int, sigWidth: Int)
   io.exceptionFlags := roundRawFNToRecFN.io.exceptionFlags
 }
 
-object FMA extends EmitHardfloatModule {
+object HFFMA extends EmitHardfloatModule {
   emitHardfloat(
-    (floatType, lanes, stages) => new FMA(floatType, lanes, stages),
-    "HardfloatFMA"
+    (floatType, lanes, stages) => new HFFMA(floatType, lanes, stages),
+    "Hardfloat_HFFMA"
   )
 }
 
-object FMASynth extends EmitHardfloatModule {
+object HFFMASynth extends EmitHardfloatModule {
   for (floatType <- Seq(FloatH)) {
     val floatName = floatType.kind().toString()
     for (stages <- Seq(2)) {
       emitHardfloat(
-        (floatType, lanes, stages) => new FMA(floatType, lanes, stages),
-        "HardfloatFMA",
+        (floatType, lanes, stages) => new HFFMA(floatType, lanes, stages),
+        "Hardfloat_HFFMA",
         allStages = Seq(stages),
         floatTypes = Seq(floatType),
         lanes = Seq(1)
       )
-      val name = s"HardfloatFMA_${floatName}1l${stages}s"
+      val name = s"Hardfloat_HFFMA_${floatName}1l${stages}s"
       Synthesis.build(Seq(s"${name}.v"), s"${name}_FMA", s"hardfloat_${name}")
     }
   }
