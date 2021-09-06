@@ -1,4 +1,6 @@
 alib-*
+formality_svf
+FM_WORK
 *.log
 *.svf
 *.txt
@@ -10,3 +12,4 @@ alib-*
 *.mr
 *.vhdl
 *.vif
+*.lck

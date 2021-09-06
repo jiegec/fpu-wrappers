@@ -32,6 +32,10 @@ create_clock clk -period 1.0000
 # assume all input comes from output of dff
 set_input_delay 0.14 -clock clock [all_inputs]
 set_input_delay 0.14 -clock clk [all_inputs]
+# dff setup time: 0.02ns
+# assume all output goes to dff
+set_output_delay 0.02 -clock clock [all_outputs]
+set_output_delay 0.02 -clock clk [all_outputs]
 
 # synthesis flow
 link
