@@ -1,6 +1,12 @@
 [submodule "berkeley-hardfloat"]
-	path = berkeley-hardfloat
+	path = thirdparty/berkeley-hardfloat
 	url = git@github.com:ucb-bar/berkeley-hardfloat.git
 [submodule "opencores-fpu"]
 	path = opencores-fpu
 	url = git@github.com:jiegec/opencores-fpu.git
+[submodule "thirdparty/CNRV-FPU"]
+	path = thirdparty/CNRV-FPU
+	url = git@github.com:cnrv/CNRV-FPU.git
+[submodule "thirdparty/fpnew"]
+	path = thirdparty/fpnew
+	url = git@github.com:pulp-platform/fpnew.git
