@@ -89,18 +89,18 @@ class FMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
     }
   }
 
-  // when stages > 2, add extra stages
-  val extraStages = (stages - 2) max 0
+  // when stages > 3, add extra stages
+  val extraStages = (stages - 3) max 0
   val inputStages = extraStages / 2
   val outputStages = extraStages - inputStages
 
   // replicate small units for higher throughput
   val reqValid = io.req.valid
   val results = for (i <- 0 until lanes) yield {
-    // MulAddRecFNPipe only support stages <= 2
+    // MulAddRecFNPipe only support stages <= 3
     val fma = Module(
       new MulAddRecFNPipe(
-        stages min 2,
+        stages min 3,
         floatType.exp(),
         floatType.sig()
       )
@@ -150,9 +150,10 @@ class FMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
 }
 
 // https://github.com/chipsalliance/rocket-chip/blob/master/src/main/scala/tile/FPU.scala
+// with modifications of extra stages
 class MulAddRecFNPipe(latency: Int, expWidth: Int, sigWidth: Int)
     extends Module {
-  require(latency <= 2)
+  require(latency <= 3)
 
   val io = IO(new Bundle {
     val validin = Input(Bool())
@@ -191,7 +192,7 @@ class MulAddRecFNPipe(latency: Int, expWidth: Int, sigWidth: Int)
   val roundingMode_stage0 = Wire(UInt(3.W))
   val detectTininess_stage0 = Wire(UInt(1.W))
 
-  val postmul_regs = if (latency > 0) 1 else 0
+  val postmul_regs = if (latency > 0) (latency + 1) / 2 else 0
   mulAddRecFNToRaw_postMul.io.fromPreMul := Pipe(
     io.validin,
     mulAddRecFNToRaw_preMul.io.toPostMul,
@@ -222,7 +223,7 @@ class MulAddRecFNPipe(latency: Int, expWidth: Int, sigWidth: Int)
     new _root_.hardfloat.RoundRawFNToRecFN(expWidth, sigWidth, 0)
   )
 
-  val round_regs = if (latency == 2) 1 else 0
+  val round_regs = if (latency >= 2) 1 else 0
   roundRawFNToRecFN.io.invalidExc := Pipe(
     valid_stage0,
     mulAddRecFNToRaw_postMul.io.invalidExc,
