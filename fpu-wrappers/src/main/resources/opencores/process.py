@@ -1,7 +1,7 @@
 import glob
 import os
 
-for file in glob.glob('../../../../../opencores-fpu/verilog/*.v'):
+for file in glob.glob('../../../../../thirdparty/opencores-fpu/verilog/*.v'):
 	name = os.path.basename(file)
 	with open(file, 'r') as r:
 		with open(name, 'w') as w:

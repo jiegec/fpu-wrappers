@@ -2,7 +2,7 @@
 	path = thirdparty/berkeley-hardfloat
 	url = git@github.com:ucb-bar/berkeley-hardfloat.git
 [submodule "opencores-fpu"]
-	path = opencores-fpu
+	path = thirdparty/opencores-fpu
 	url = git@github.com:jiegec/opencores-fpu.git
 [submodule "thirdparty/CNRV-FPU"]
 	path = thirdparty/CNRV-FPU
