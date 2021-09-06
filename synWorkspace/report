@@ -14,10 +14,6 @@ hardfloat_FMA_S1l2s:
   Area: 17903.928111
   Comb Area: 15243.076923
   Max Freq: 781 MHz (1.28 ns)
-hardfloat_FMA_S1l3s:
-  Area: 21356.395368
-  Comb Area: 16616.594497
-  Max Freq: 1031 MHz (0.97 ns)
 hardfloat_HardfloatFMA_D1l3s:
   Area: 60100.253339
   Comb Area: 48413.702922
@@ -30,6 +26,10 @@ hardfloat_HardfloatFMA_D1l5s:
   Area: 57363.432429
   Comb Area: 49689.545263
   Max Freq: 926 MHz (1.08 ns)
+hardfloat_HardfloatFMA_S1l3s:
+  Area: 16581.163363
+  Comb Area: 12623.402502
+  Max Freq: 1031 MHz (0.97 ns)
 opencores_FPU:
   Area: 63666.674905
   Comb Area: 54181.008399
