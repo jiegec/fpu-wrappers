@@ -1,3 +1,19 @@
+Mul_16w0s:
+  Area: 1341.916822
+  Comb Area: 1341.916822
+  Max Freq: 182 MHz (5.50 ns)
+Mul_8w0s:
+  Area: 338.990407
+  Comb Area: 338.990407
+  Max Freq: 437 MHz (2.29 ns)
+Mul_8w1s:
+  Area: 727.456809
+  Comb Area: 593.392806
+  Max Freq: 1042 MHz (0.96 ns)
+Mul_8w2s:
+  Area: 789.38161
+  Comb Area: 577.432805
+  Max Freq: 1042 MHz (0.96 ns)
 flopoco_FMA_S1l3s:
   Area: 18633.300135
   Comb Area: 14741.294535

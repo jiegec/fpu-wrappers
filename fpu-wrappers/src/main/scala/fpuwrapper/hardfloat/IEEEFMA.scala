@@ -140,9 +140,9 @@ object IEEEFMA extends EmitHardfloatModule {
 }
 
 object IEEEFMASynth extends EmitHardfloatModule {
-  for (floatType <- Seq(FloatH)) {
+  for (floatType <- Seq(FloatS)) {
     val floatName = floatType.kind().toString()
-    for (stages <- Seq(2)) {
+    for (stages <- Seq(2, 3, 4)) {
       emitHardfloat(
         (floatType, lanes, stages) => new IEEEFMA(floatType, lanes, stages),
         "Hardfloat_IEEEFMA",
@@ -151,7 +151,11 @@ object IEEEFMASynth extends EmitHardfloatModule {
         lanes = Seq(1)
       )
       val name = s"Hardfloat_IEEEFMA_${floatName}1l${stages}s"
-      Synthesis.build(Seq(s"${name}.v"), s"${name}_FMA", s"hardfloat_${name}")
+      Synthesis.build(
+        Seq(s"${name}.v"),
+        s"${name}_IEEEFMA",
+        s"hardfloat_${name}"
+      )
     }
   }
 }
