@@ -1,7 +1,47 @@
+Mul_11w0s:
+  Area: 628.18561
+  Comb Area: 628.18561
+  Max Freq: 258 MHz (3.87 ns)
+Mul_11w1s:
+  Area: 1228.600812
+  Comb Area: 991.435207
+  Max Freq: 1031 MHz (0.97 ns)
+Mul_11w2s:
+  Area: 1332.979216
+  Comb Area: 991.754408
+  Max Freq: 1042 MHz (0.96 ns)
 Mul_16w0s:
   Area: 1341.916822
   Comb Area: 1341.916822
   Max Freq: 182 MHz (5.50 ns)
+Mul_16w1s:
+  Area: 2288.664032
+  Comb Area: 1933.075225
+  Max Freq: 1031 MHz (0.97 ns)
+Mul_16w2s:
+  Area: 2578.816834
+  Comb Area: 2060.436023
+  Max Freq: 1042 MHz (0.96 ns)
+Mul_24w0s:
+  Area: 2616.801619
+  Comb Area: 2616.801619
+  Max Freq: 118 MHz (8.48 ns)
+Mul_24w1s:
+  Area: 4267.065664
+  Comb Area: 3644.306451
+  Max Freq: 1031 MHz (0.97 ns)
+Mul_32w0s:
+  Area: 4339.843231
+  Comb Area: 4339.843231
+  Max Freq: 94 MHz (10.61 ns)
+Mul_32w1s:
+  Area: 7729.428094
+  Comb Area: 6826.092077
+  Max Freq: 1042 MHz (0.96 ns)
+Mul_32w2s:
+  Area: 8009.68571
+  Comb Area: 6701.923285
+  Max Freq: 1042 MHz (0.96 ns)
 Mul_8w0s:
   Area: 338.990407
   Comb Area: 338.990407
