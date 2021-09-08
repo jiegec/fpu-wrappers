@@ -102,6 +102,18 @@ hardfloat_Hardfloat_HFFMA_S1l2s:
   Area: 18824.820134
   Comb Area: 16893.97933
   Max Freq: 752 MHz (1.33 ns)
+hardfloat_Hardfloat_HFFMA_S1l3s:
+  Area: 17607.072132
+  Comb Area: 15305.001746
+  Max Freq: 926 MHz (1.08 ns)
+hardfloat_Hardfloat_HFMul_S1l1s:
+  Area: 13054.960857
+  Comb Area: 12346.975262
+  Max Freq: 943 MHz (1.06 ns)
+hardfloat_Hardfloat_HFMul_S1l3s:
+  Area: 11367.669711
+  Comb Area: 8916.213685
+  Max Freq: 1042 MHz (0.96 ns)
 hardfloat_Hardfloat_IEEEFMA_H1l2s:
   Area: 8426.880053
   Comb Area: 7468.641656
