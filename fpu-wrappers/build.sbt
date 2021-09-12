@@ -14,3 +14,5 @@ libraryDependencies ++= Seq(
   "edu.berkeley.cs" %% "chisel3" % "3.4.3",
   "edu.berkeley.cs" %% "chiseltest" % "0.3.3" % "test"
 )
+
+fork := true

@@ -118,7 +118,7 @@ class FMABlackBox(floatType: FloatType, stages: Int) extends BlackBox {
     getClass().getResource(s"/flopoco/${fileName}") != null,
     s"file ${fileName} not found"
   )
-  addRTLPath(s"./fpu-wrappers/src/main/resources/flopoco/${fileName}")
+  addRTLPath(s"../fpu-wrappers/src/main/resources/flopoco/${fileName}")
 }
 
 object FMA extends EmitFlopocoModule {

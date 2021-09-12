@@ -10,6 +10,7 @@ class FMATest extends AnyFunSuite {
   test("FMA") {
     SimConfig.withWave.withGhdl
       .addSimulatorFlag("-fexplicit --ieee=synopsys -fsynopsys --std=93c")
+      .withLogging
       .doSim(
         new FMA(
           FloatS,
