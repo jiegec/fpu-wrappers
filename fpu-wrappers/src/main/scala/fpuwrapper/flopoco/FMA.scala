@@ -120,8 +120,6 @@ class FMABlackBox(floatType: FloatType, stages: Int) extends BlackBox {
     s"file ${fileName} not found"
   )
   val res = getClass().getResource(s"/flopoco/${fileName}");
-  val absolutePath = Paths.get(res.toURI()).toFile().getAbsolutePath();
-
   addRTLPath(Paths.get(res.toURI()).toFile().getAbsolutePath())
 }
 

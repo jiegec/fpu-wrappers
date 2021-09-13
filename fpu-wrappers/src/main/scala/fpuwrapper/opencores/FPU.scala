@@ -4,6 +4,7 @@ import spinal.lib._
 import spinal.core._
 import fpuwrapper._
 import scala.io.Source
+import java.nio.file.Paths
 
 object FPUOp extends SpinalEnum {
   val FADD = newElement()
@@ -75,7 +76,8 @@ class FPUBlackBox(val floatType: FloatType) extends BlackBox {
     "primitives.v"
   )
   for (file <- files) {
-    addRTLPath(s"./fpu-wrappers/src/main/resources/opencores/${file}")
+    val res = getClass().getResource(s"/opencores/${file}");
+    addRTLPath(Paths.get(res.toURI()).toFile().getAbsolutePath())
   }
 }
 
