@@ -119,8 +119,7 @@ class FMABlackBox(floatType: FloatType, stages: Int) extends BlackBox {
     getClass().getResource(s"/flopoco/${fileName}") != null,
     s"file ${fileName} not found"
   )
-  val res = getClass().getResource(s"/flopoco/${fileName}");
-  addRTLPath(Paths.get(res.toURI()).toFile().getAbsolutePath())
+  addRTLPath(Resource.path(s"/flopoco/${fileName}"))
 }
 
 object FMA extends EmitFlopocoModule {
@@ -138,7 +137,7 @@ object FMASynth extends App {
     Synthesis.build(
       Seq(
         s"Flopoco${name}.v",
-        s"./fpu-wrappers/src/main/resources/flopoco/${fileName}"
+        s"./src/main/resources/flopoco/${fileName}"
       ),
       s"FMA",
       s"flopoco_${name}"

@@ -9,7 +9,7 @@ import fpuwrapper.FloatS
 class FMATest extends AnyFunSuite {
   test("FMA") {
     SimConfig.withWave.withGhdl
-      .addSimulatorFlag("-fexplicit --ieee=synopsys -fsynopsys --std=93c")
+      .addSimulatorFlag("--std=08")
       .withLogging
       .doSim(
         new FMA(
