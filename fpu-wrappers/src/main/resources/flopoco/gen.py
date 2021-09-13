@@ -28,7 +28,7 @@ for frequency in [100, 150, 200, 250]:
         for line in out.splitlines():
             if 'Pipeline depth' in line:
                 stages = int(line.split(' ')[-1])
-        file = f"FMA_{task['type']}{stages}l.vhdl"
-        file_vhdl08 = f"FMA_{task['type']}{stages}l_vhdl08.vhdl"
+        file = f"FMA_{task['type']}{stages}s.vhdl"
+        file_vhdl08 = f"FMA_{task['type']}{stages}s_vhdl08.vhdl"
         os.rename('flopoco.vhdl', file)
         os.system(f"sed -e 's/std_logic_arith/numeric_std/g' -e 's/std_logic_unsigned/numeric_std_unsigned/g' {file} > {file_vhdl08}")
