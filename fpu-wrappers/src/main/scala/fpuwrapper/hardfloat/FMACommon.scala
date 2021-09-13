@@ -69,7 +69,7 @@ class MulAddRecFNPipe(latency: Int, expWidth: Int, sigWidth: Int)
   val roundingMode_stage0 = Wire(UInt(3.W))
   val detectTininess_stage0 = Wire(UInt(1.W))
 
-  val postmul_regs = if (latency > 0) (latency + 1) / 2 else 0
+  val postmul_regs = if (latency > 0) latency else 0
   mulAddRecFNToRaw_postMul.io.fromPreMul := Pipe(
     io.validin,
     mulAddRecFNToRaw_preMul.io.toPostMul,
@@ -100,7 +100,7 @@ class MulAddRecFNPipe(latency: Int, expWidth: Int, sigWidth: Int)
     new _root_.hardfloat.RoundRawFNToRecFN(expWidth, sigWidth, 0)
   )
 
-  val round_regs = if (latency >= 2) 1 else 0
+  val round_regs = if (latency >= 2) 0 else 0
   roundRawFNToRecFN.io.invalidExc := Pipe(
     valid_stage0,
     mulAddRecFNToRaw_postMul.io.invalidExc,

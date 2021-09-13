@@ -136,7 +136,7 @@ object HFFMA extends EmitHardfloatModule {
 object HFFMASynth extends EmitHardfloatModule {
   for (floatType <- Seq(FloatS)) {
     val floatName = floatType.kind().toString()
-    for (stages <- Seq(1, 2, 3)) {
+    for (stages <- Seq(3)) {
       emitHardfloat(
         (floatType, lanes, stages) => new HFFMA(floatType, lanes, stages),
         "Hardfloat_HFFMA",
