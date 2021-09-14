@@ -130,10 +130,16 @@ object FMA extends EmitFlopocoModule {
   )
 }
 
-object FMASynth extends App {
+object FMASynth extends SpinalGen {
   for (floatType <- Seq(FloatS)) {
     val floatName = floatType.kind().toString()
-    for (stages <- Seq(3)) {
+    for (stages <- Seq(4)) {
+      val lanes = 1
+      work(
+        new FMA(floatType, lanes, stages),
+        s"FlopocoFMA_${floatName}${lanes}l${stages}s"
+      )
+
       val name = s"FMA_${floatName}1l${stages}s"
       val fileName = s"FMA_${floatName}${stages}s.vhdl"
       Synthesis.build(

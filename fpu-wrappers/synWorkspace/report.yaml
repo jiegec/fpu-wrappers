@@ -98,6 +98,11 @@ flopoco_FMA_S1l3s:
   Area: 22360.279347
   Comb Area: 18722.676148
   Max Freq: 730 MHz (1.37 ns)
+flopoco_FMA_S1l4s:
+  Cells: 7186
+  Area: 19055.601738
+  Comb Area: 16321.334525
+  Max Freq: 730 MHz (1.37 ns)
 hardfloat_Hardfloat_HFFMA_D1l3s:
   Cells: 18780
   Area: 53216.06686
