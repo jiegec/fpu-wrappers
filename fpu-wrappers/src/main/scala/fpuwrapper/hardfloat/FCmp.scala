@@ -17,7 +17,7 @@ object FCmpOp extends ChiselEnum {
   val NOP = EQ
 
   implicit def bitpat(op: FCmpOp.Type): BitPat =
-    BitPat(op.litValue().U)
+    BitPat(op.litValue.U)
 }
 
 class FCmpRequest(val floatType: FloatType, val lanes: Int) extends Bundle {

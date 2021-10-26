@@ -2,11 +2,11 @@ package fpuwrapper.hardfloat
 
 import chisel3._
 import chisel3.tester._
-import org.scalatest.FreeSpec
+import org.scalatest.freespec.AnyFreeSpec
 import chisel3.experimental.BundleLiterals._
 import fpuwrapper.FloatS
 
-class HFFMATest extends FreeSpec with ChiselScalatestTester {
+class HFFMATest extends AnyFreeSpec with ChiselScalatestTester {
   for (stages <- 1 to 5) {
     s"HFFMA of ${stages} stages should work" in {
       test(new HFFMA(FloatS, 2, stages))

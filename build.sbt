@@ -4,7 +4,7 @@ val spinalVersion = "1.6.1"
 lazy val commonSettings = Seq(
   Compile / scalaSource := baseDirectory.value / "main" / "scala",
   Compile / resourceDirectory := baseDirectory.value / "main" / "resources",
-  scalacOptions ++= Seq("-Xsource:2.11", "-unchecked", "-deprecation"),
+  scalacOptions := Seq("-Xsource:2.11", "-unchecked", "-deprecation"),
   libraryDependencies ++= Seq(
     "edu.berkeley.cs" %% "chisel3" % "3.5-SNAPSHOT",
     "edu.berkeley.cs" %% "chiseltest" % "0.5-SNAPSHOT",
