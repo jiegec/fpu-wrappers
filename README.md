@@ -6,5 +6,6 @@ This repo intends to create wrappers for open source FPU hardware implementation
 2. [fpnew](https://github.com/pulp-platform/fpnew)
 3. [flopoco](http://flopoco.gforge.inria.fr/)
 4. [CNRV-FPU](https://github.com/cnrv/CNRV-FPU)
+5. [fudian](https://github.com/OpenXiangShan/fudian)
 
 And make performance comparison.
