@@ -8,4 +8,19 @@ This repo intends to create wrappers for open source FPU hardware implementation
 4. [CNRV-FPU](https://github.com/cnrv/CNRV-FPU)
 5. [fudian](https://github.com/OpenXiangShan/fudian)
 
+|        | berkeley-hardfloat | fpnew | flopoco | CNRV-FPU | fudian |
+| ------ | ------------------ | ----- | ------- | -------- | ------ |
+| add    | Y                  | Y     | Y       | Y        | Y      |
+| mul    | Y                  | Y     | Y       | Y        | Y      |
+| fma    | Y                  | Y     | Y       | Y        | Y      |
+| cmp    | Y                  | Y     |         |          | Y      |
+| div    | Y                  | Y     | Y       | Y        |        |
+| sqrt   | Y                  | Y     | Y       | Y        |        |
+| fp2int | Y                  | Y     |         | Y        | Y      |
+| int2fp | Y                  | Y     |         | Y        | Y      |
+| fp2fp  | Y                  | Y     |         |          | Y      |
+| pow    |                    |       | Y       |          |        |
+| log    |                    |       | Y       |          |        |
+| exp    |                    |       | Y       |          |        |
+
 And make performance comparison.
