@@ -3,11 +3,7 @@ package fpuwrapper.hardfloat
 import chisel3._
 import chisel3.tester._
 import org.scalatest.FreeSpec
-import chiseltest.experimental.TestOptionBuilder._
-import chiseltest.internal.VerilatorBackendAnnotation
-import chiseltest.internal.WriteVcdAnnotation
 import chisel3.experimental.BundleLiterals._
-import chiseltest.legacy.backends.verilator.VerilatorFlags
 import fpuwrapper.FloatS
 
 class HFMulTest extends FreeSpec with ChiselScalatestTester {
@@ -16,7 +12,6 @@ class HFMulTest extends FreeSpec with ChiselScalatestTester {
       test(new HFMul(FloatS, 2, stages))
         .withAnnotations(
           Seq(
-            WriteVcdAnnotation
           )
         ) { dut =>
           dut.clock.step(16)

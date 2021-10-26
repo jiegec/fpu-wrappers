@@ -10,3 +10,6 @@
 [submodule "thirdparty/fpnew"]
 	path = thirdparty/fpnew
 	url = git@github.com:pulp-platform/fpnew.git
+[submodule "thirdparty/fudian"]
+	path = thirdparty/fudian
+	url = git@github.com:OpenXiangShan/fudian.git
