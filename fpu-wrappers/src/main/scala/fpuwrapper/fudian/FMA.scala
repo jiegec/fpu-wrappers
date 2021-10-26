@@ -1,9 +1,8 @@
 package fpuwrapper.fudian
 
-import fpuwrapper.FloatType
+import fpuwrapper.{FloatType, FloatD, Synthesis, EmitChiselModule}
 import chisel3._
 import chisel3.util._
-import fpuwrapper.EmitChiselModule
 
 class FMARequest(val floatType: FloatType, val lanes: Int) extends Bundle {
   val operands = Vec(3, Vec(lanes, UInt(floatType.width.W)))
@@ -72,8 +71,29 @@ class FMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
 }
 
 object FMA extends EmitChiselModule {
-  emitHardfloat(
+  emitChisel(
     (floatType, lanes, stages) => new FMA(floatType, lanes, stages),
     "Fudian_FMA"
   )
+}
+
+object FMASynth extends EmitChiselModule {
+  for (floatType <- Seq(FloatD)) {
+    val floatName = floatType.kind().toString()
+    for (stages <- Seq(4)) {
+      emitChisel(
+        (floatType, lanes, stages) => new FMA(floatType, lanes, stages),
+        "Fudian_FMA",
+        allStages = Seq(stages),
+        floatTypes = Seq(floatType),
+        lanes = Seq(1)
+      )
+      val name = s"Fudian_FMA_${floatName}1l${stages}s"
+      Synthesis.build(
+        Seq(s"${name}.v"),
+        s"${name}_FMA",
+        s"fudian_${name}"
+      )
+    }
+  }
 }

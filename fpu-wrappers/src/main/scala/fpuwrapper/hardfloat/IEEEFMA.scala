@@ -133,7 +133,7 @@ class IEEEFMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
 }
 
 object IEEEFMA extends EmitChiselModule {
-  emitHardfloat(
+  emitChisel(
     (floatType, lanes, stages) => new IEEEFMA(floatType, lanes, stages),
     "Hardfloat_IEEEFMA"
   )
@@ -143,7 +143,7 @@ object IEEEFMASynth extends EmitChiselModule {
   for (floatType <- Seq(FloatD)) {
     val floatName = floatType.kind().toString()
     for (stages <- Seq(4)) {
-      emitHardfloat(
+      emitChisel(
         (floatType, lanes, stages) => new IEEEFMA(floatType, lanes, stages),
         "Hardfloat_IEEEFMA",
         allStages = Seq(stages),

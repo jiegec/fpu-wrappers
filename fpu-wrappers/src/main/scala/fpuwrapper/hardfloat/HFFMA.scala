@@ -127,7 +127,7 @@ class HFFMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
 }
 
 object HFFMA extends EmitChiselModule {
-  emitHardfloat(
+  emitChisel(
     (floatType, lanes, stages) => new HFFMA(floatType, lanes, stages),
     "Hardfloat_HFFMA"
   )
@@ -137,7 +137,7 @@ object HFFMASynth extends EmitChiselModule {
   for (floatType <- Seq(FloatS)) {
     val floatName = floatType.kind().toString()
     for (stages <- Seq(3)) {
-      emitHardfloat(
+      emitChisel(
         (floatType, lanes, stages) => new HFFMA(floatType, lanes, stages),
         "Hardfloat_HFFMA",
         allStages = Seq(stages),

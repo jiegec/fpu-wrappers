@@ -20,7 +20,7 @@ trait EmitVerilogApp extends App {
 }
 
 trait EmitChiselModule extends EmitVerilogApp {
-  def emitHardfloat(
+  def emitChisel(
       genModule: (FloatType, Int, Int) => RawModule,
       name: String,
       allStages: Seq[Int] = Seq(1, 2, 3),
