@@ -72,14 +72,14 @@ class HFMul(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   io.resp.bits.exc := exc
 }
 
-object HFMul extends EmitHardfloatModule {
+object HFMul extends EmitChiselModule {
   emitHardfloat(
     (floatType, lanes, stages) => new HFMul(floatType, lanes, stages),
     "Hardfloat_HFMul"
   )
 }
 
-object HFMulSynth extends EmitHardfloatModule {
+object HFMulSynth extends EmitChiselModule {
   for (floatType <- Seq(FloatS)) {
     val floatName = floatType.kind().toString()
     for (stages <- Seq(1, 2, 3)) {

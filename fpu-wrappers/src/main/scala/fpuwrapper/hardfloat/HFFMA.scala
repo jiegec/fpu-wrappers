@@ -126,14 +126,14 @@ class HFFMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   io.resp.bits.exc := exc
 }
 
-object HFFMA extends EmitHardfloatModule {
+object HFFMA extends EmitChiselModule {
   emitHardfloat(
     (floatType, lanes, stages) => new HFFMA(floatType, lanes, stages),
     "Hardfloat_HFFMA"
   )
 }
 
-object HFFMASynth extends EmitHardfloatModule {
+object HFFMASynth extends EmitChiselModule {
   for (floatType <- Seq(FloatS)) {
     val floatName = floatType.kind().toString()
     for (stages <- Seq(3)) {

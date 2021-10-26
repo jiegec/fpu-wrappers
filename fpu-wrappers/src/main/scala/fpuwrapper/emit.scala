@@ -19,7 +19,7 @@ trait EmitVerilogApp extends App {
   }
 }
 
-trait EmitHardfloatModule extends EmitVerilogApp {
+trait EmitChiselModule extends EmitVerilogApp {
   def emitHardfloat(
       genModule: (FloatType, Int, Int) => RawModule,
       name: String,

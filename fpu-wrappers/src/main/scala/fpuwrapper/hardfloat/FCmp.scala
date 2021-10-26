@@ -116,7 +116,7 @@ class FCmp(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   io.resp.bits.exc := exc
 }
 
-object FCmp extends EmitHardfloatModule {
+object FCmp extends EmitChiselModule {
   emitHardfloat(
     (floatType, lanes, stages) => new FCmp(floatType, lanes, stages),
     "HardfloatFCmp"
