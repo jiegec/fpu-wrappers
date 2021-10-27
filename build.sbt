@@ -7,6 +7,7 @@ scalacOptions := Seq("-Xsource:2.11", "-unchecked", "-deprecation")
 lazy val commonSettings = Seq(
   Compile / scalaSource := baseDirectory.value / "main" / "scala",
   Compile / resourceDirectory := baseDirectory.value / "main" / "resources",
+  target := baseDirectory.value.getParentFile / "target",
   libraryDependencies ++= Seq(
     "edu.berkeley.cs" %% "chisel3" % chisel3Version,
     "edu.berkeley.cs" %% "chiseltest" % chiselTestVersion,
