@@ -15,14 +15,44 @@ class FMAResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
   val exc = Vec(lanes, Bits(5.W))
 }
 
+// adapted from fudian.FCMA
+// insert pipeline stages between FMUL and FCMA_ADD
+class FCMAPipe(val expWidth: Int, val precision: Int, val stages: Int)
+    extends Module {
+  val io = IO(new Bundle() {
+    val a, b, c = Input(UInt((expWidth + precision).W))
+    val rm = Input(UInt(3.W))
+    val result = Output(UInt((expWidth + precision).W))
+    val fflags = Output(UInt(5.W))
+  })
+
+  val fmul = Module(new fudian.FMUL(expWidth, precision))
+  val fadd = Module(new fudian.FCMA_ADD(expWidth, 2 * precision, precision))
+
+  fmul.io.a := io.a
+  fmul.io.b := io.b
+  fmul.io.rm := io.rm
+
+  val mul_to_fadd = ShiftRegister(fmul.io.to_fadd, stages)
+  fadd.io.a := ShiftRegister(Cat(io.c, 0.U(precision.W)), stages)
+  fadd.io.b := mul_to_fadd.fp_prod.asUInt()
+  fadd.io.b_inter_valid := true.B
+  fadd.io.b_inter_flags := mul_to_fadd.inter_flags
+  fadd.io.rm := ShiftRegister(io.rm, stages)
+
+  io.result := fadd.io.result
+  io.fflags := fadd.io.fflags
+}
+
 class FMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   val io = IO(new Bundle {
     val req = Flipped(Valid(new FMARequest(floatType, lanes)))
     val resp = Valid(new FMAResponse(floatType, lanes))
   })
 
-  val inputStages = stages / 2
-  val outputStages = stages - inputStages
+  val internalStages = if (stages > 1) 1 else 0
+  val inputStages = (stages - internalStages) / 2
+  val outputStages = stages - internalStages - inputStages
 
   val reqValid = io.req.valid
   val results = for (i <- 0 until lanes) yield {

@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets
 import java.nio.file.StandardCopyOption
 import scala.sys.process._
 
+// synthesis code with Synopsys Design Compiler
 object Synthesis {
   def build(
       sources: Seq[String],
@@ -23,6 +24,7 @@ object Synthesis {
     val dir = s"synWorkspace/${actualFolderName}/"
     Files.createDirectories(Paths.get(dir))
 
+    // copy files to synWorkspace
     val names = (for (file <- sources) yield {
       val name = Paths.get(file).getFileName()
       Files.copy(
@@ -33,6 +35,7 @@ object Synthesis {
       name.toString()
     }).toList
 
+    // apply template
     var template = Source.fromResource("syn.tcl").mkString
     template = template.replace(
       "INPUT_VERILOG",
