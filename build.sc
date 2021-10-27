@@ -45,7 +45,7 @@ object fudian extends ScalaModule {
   override def millSourcePath = os.pwd / "thirdparty" / "fudian"
 }
 
-object `fpu-wrappers` extends ScalaModule {
+object `fpu-wrappers` extends ScalaModule with ScalafmtModule {
   def scalaVersion = defaultVersions("scala")
 
   override def ivyDeps = super.ivyDeps() ++ Agg(
