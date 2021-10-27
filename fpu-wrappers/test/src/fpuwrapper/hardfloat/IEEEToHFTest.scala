@@ -6,7 +6,7 @@ import org.scalatest.freespec.AnyFreeSpec
 import chisel3.experimental.BundleLiterals._
 import fpuwrapper.FloatS
 
-class IEEEToHFSpec extends AnyFreeSpec with ChiselScalatestTester {
+class IEEEToHFTest extends AnyFreeSpec with ChiselScalatestTester {
   for (stages <- 1 to 5) {
     s"IEEEToHF of ${stages} stages should work" in {
       test(new IEEEToHF(FloatS, 2, stages))
@@ -45,7 +45,6 @@ class IEEEToHFSpec extends AnyFreeSpec with ChiselScalatestTester {
             dut.io.hardfloat.bits(0).expect("h080000000".U)
             dut.io.hardfloat.bits(1).expect("h083480000".U)
           }
-
         }
     }
   }
