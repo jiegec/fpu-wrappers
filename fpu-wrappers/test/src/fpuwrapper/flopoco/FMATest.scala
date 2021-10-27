@@ -8,9 +8,7 @@ import fpuwrapper.FloatS
 // FMA's testbench
 class FMATest extends AnyFunSuite {
   test("FMA") {
-    SimConfig.withWave.withGhdl
-      .addSimulatorFlag("--std=08")
-      .withLogging
+    SimConfig.withWave.withIVerilog.withLogging
       .doSim(
         new FMA(
           FloatS,

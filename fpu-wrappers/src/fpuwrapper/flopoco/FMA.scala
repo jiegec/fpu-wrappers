@@ -114,7 +114,7 @@ class FMABlackBox(floatType: FloatType, stages: Int) extends BlackBox {
     clock = clk
   )
 
-  val fileName = s"FMA_${floatType.kind().toString()}${stages}s_vhdl08.vhdl"
+  val fileName = s"FMA_${floatType.kind().toString()}${stages}s.v"
   assert(
     getClass().getResource(s"/flopoco/${fileName}") != null,
     s"file ${fileName} not found"
