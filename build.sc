@@ -5,65 +5,63 @@ import coursier.maven.MavenRepository
 
 // learned from https://github.com/OpenXiangShan/fudian/blob/main/build.sc
 val defaultVersions = Map(
-  "scala" -> "2.12.14",
-  "chisel3" -> "3.5.0-RC1",
-  "chisel3-plugin" -> "3.5.0-RC",
-  "chiseltest" -> "0.5.0-RC1",
-  "scalatest" -> "3.2.10",
-  "spinalhdl-core" -> "1.6.1",
-  "spinalhdl-lib" -> "1.6.1",
-  "spinalhdl-idsl-plugin" -> "1.6.1"
+  "chisel3" -> ("edu.berkeley.cs", "3.5.0-RC1", false),
+  "chisel3-plugin" -> ("edu.berkeley.cs", "3.5.0-RC", false),
+  "chiseltest" -> ("edu.berkeley.cs", "0.5.0-RC1", false),
+  "scalatest" -> ("org.scalatest", "3.2.10", false),
+  "spinalhdl-core" -> ("com.github.spinalhdl", "1.6.1", false),
+  "spinalhdl-lib" -> ("com.github.spinalhdl", "1.6.1", false),
+  "spinalhdl-idsl-plugin" -> ("com.github.spinalhdl", "1.6.1", false)
 )
 
-def getVersion(org: String, dep: String, cross: Boolean = false) = {
-  val version = sys.env.getOrElse(dep + "Version", defaultVersions(dep))
+def getVersion(dep: String) = {
+  val (org, ver, cross) = defaultVersions(dep)
+  val version = sys.env.getOrElse(dep + "Version", ver)
   if (cross)
     ivy"$org:::$dep:$version"
   else
     ivy"$org::$dep:$version"
 }
 
-object hardfloat extends ScalaModule {
-  def scalaVersion = defaultVersions("scala")
+trait CommonModule extends ScalaModule {
+  def scalaVersion = "2.12.14"
+}
 
+object hardfloat extends CommonModule {
   override def ivyDeps = super.ivyDeps() ++ Agg(
-    getVersion("edu.berkeley.cs", "chisel3"),
-    getVersion("org.scalatest", "scalatest")
+    getVersion("chisel3"),
+    getVersion("scalatest")
   )
 
   override def millSourcePath = os.pwd / "thirdparty" / "berkeley-hardfloat"
 }
 
-object fudian extends ScalaModule {
-  def scalaVersion = defaultVersions("scala")
-
+object fudian extends CommonModule {
   override def ivyDeps = super.ivyDeps() ++ Agg(
-    getVersion("edu.berkeley.cs", "chisel3"),
-    getVersion("org.scalatest", "scalatest")
+    getVersion("chisel3"),
+    getVersion("scalatest")
   )
 
   override def millSourcePath = os.pwd / "thirdparty" / "fudian"
 }
 
-object `fpu-wrappers` extends ScalaModule with ScalafmtModule {
-  def scalaVersion = defaultVersions("scala")
-
+object `fpu-wrappers` extends CommonModule with ScalafmtModule {
   override def ivyDeps = super.ivyDeps() ++ Agg(
-    getVersion("edu.berkeley.cs", "chisel3"),
-    getVersion("edu.berkeley.cs", "chiseltest"),
-    getVersion("com.github.spinalhdl", "spinalhdl-core"),
-    getVersion("com.github.spinalhdl", "spinalhdl-lib")
+    getVersion("chisel3"),
+    getVersion("chiseltest"),
+    getVersion("spinalhdl-core"),
+    getVersion("spinalhdl-lib")
   )
 
   override def scalacPluginIvyDeps = super.scalacPluginIvyDeps() ++ Agg(
-    getVersion("com.github.spinalhdl", "spinalhdl-idsl-plugin")
+    getVersion("spinalhdl-idsl-plugin")
   )
 
   override def moduleDeps = super.moduleDeps ++ Seq(hardfloat, fudian)
 
   object test extends Tests with TestModule.ScalaTest {
     override def ivyDeps = super.ivyDeps() ++ Agg(
-      getVersion("org.scalatest", "scalatest")
+      getVersion("scalatest")
     )
   }
 }
