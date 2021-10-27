@@ -6,6 +6,7 @@ project/project/
 test_run_dir/
 simWorkspace/
 tmp/
+out/
 
 *.v
 *.anno.json
