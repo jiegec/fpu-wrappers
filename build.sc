@@ -6,7 +6,7 @@ import coursier.maven.MavenRepository
 // learned from https://github.com/OpenXiangShan/fudian/blob/main/build.sc
 val defaultVersions = Map(
   "chisel3" -> ("edu.berkeley.cs", "3.5.0-RC1", false),
-  "chisel3-plugin" -> ("edu.berkeley.cs", "3.5.0-RC", false),
+  "chisel3-plugin" -> ("edu.berkeley.cs", "3.5.0-RC1", true),
   "chiseltest" -> ("edu.berkeley.cs", "0.5.0-RC1", false),
   "scalatest" -> ("org.scalatest", "3.2.10", false),
   "spinalhdl-core" -> ("com.github.spinalhdl", "1.6.1", false),
@@ -54,7 +54,8 @@ object `fpu-wrappers` extends CommonModule with ScalafmtModule {
   )
 
   override def scalacPluginIvyDeps = super.scalacPluginIvyDeps() ++ Agg(
-    getVersion("spinalhdl-idsl-plugin")
+    getVersion("spinalhdl-idsl-plugin"),
+    getVersion("chisel3-plugin")
   )
 
   override def moduleDeps = super.moduleDeps ++ Seq(hardfloat, fudian)
