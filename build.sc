@@ -12,6 +12,7 @@ val defaultVersions = Map(
   "scalatest" -> "3.2.10",
   "spinalhdl-core" -> "1.6.1",
   "spinalhdl-lib" -> "1.6.1",
+  "spinalhdl-idsl-plugin" -> "1.6.1"
 )
 
 def getVersion(org: String, dep: String, cross: Boolean = false) = {
@@ -51,8 +52,18 @@ object `fpu-wrappers` extends ScalaModule {
     getVersion("edu.berkeley.cs", "chisel3"),
     getVersion("edu.berkeley.cs", "chiseltest"),
     getVersion("com.github.spinalhdl", "spinalhdl-core"),
-    getVersion("com.github.spinalhdl", "spinalhdl-lib"),
+    getVersion("com.github.spinalhdl", "spinalhdl-lib")
+  )
+
+  override def scalacPluginIvyDeps = super.scalacPluginIvyDeps() ++ Agg(
+    getVersion("com.github.spinalhdl", "spinalhdl-idsl-plugin")
   )
 
   override def moduleDeps = super.moduleDeps ++ Seq(hardfloat, fudian)
+
+  object test extends Tests with TestModule.ScalaTest {
+    override def ivyDeps = super.ivyDeps() ++ Agg(
+      getVersion("org.scalatest", "scalatest")
+    )
+  }
 }
