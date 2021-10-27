@@ -15,7 +15,8 @@ import firrtl.stage.RunFirrtlTransformAnnotation
 /** Specifies a global prefix for all module names. */
 case class ModulePrefix(prefix: String) extends NoTargetAnnotation
 
-// add prefix to module names
+/** FIRRTL pass to add prefix to module names
+  */
 object PrefixModulesPass extends Transform with DependencyAPIMigration {
   // we run after deduplication to save some work
   override def prerequisites = Seq(Dependency[DedupModules])

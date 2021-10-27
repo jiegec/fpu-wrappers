@@ -3,6 +3,8 @@ package fpuwrapper
 import chisel3._
 import _root_.hardfloat.{recFNFromFN, fNFromRecFN}
 
+/** Trait for floating point type
+  */
 trait FloatType {
   // must implement
   // exp bits
@@ -33,24 +35,32 @@ trait FloatType {
     (BigInt(1) << (exp() + sig() - 1)).U(widthHardfloat().W)
 }
 
+/** Enum of floating point types
+  */
 object FpKind extends Enumeration {
   type FpKind = Value
   // Double, Single, Half precision
   val D, S, H = Value
 }
 
+/** 64-bit Double
+  */
 object FloatD extends FloatType {
   def exp() = 11
   def sig() = 53
   def kind() = FpKind.D
 }
 
+/** 32-bit Float
+  */
 object FloatS extends FloatType {
   def exp() = 8
   def sig() = 24
   def kind() = FpKind.S
 }
 
+/** 16-bit Half Float
+  */
 object FloatH extends FloatType {
   def exp() = 5
   def sig() = 11

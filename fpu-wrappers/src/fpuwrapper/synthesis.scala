@@ -8,7 +8,8 @@ import java.nio.charset.StandardCharsets
 import java.nio.file.StandardCopyOption
 import scala.sys.process._
 
-// synthesis code with Synopsys Design Compiler
+/** Synthesize code with Synopsys Design Compiler
+  */
 object Synthesis {
   def build(
       sources: Seq[String],

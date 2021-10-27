@@ -3,6 +3,13 @@ package fpuwrapper
 import spinal.lib._
 import spinal.core._
 
+/** An integer multiplier
+  *
+  * @param bitWidth
+  *   the bit width of integer
+  * @param stages
+  *   pipeline stages
+  */
 class Mul(bitWidth: Int, stages: Int) extends Component {
   val a = in(UInt(bitWidth bits))
   val b = in(UInt(bitWidth bits))
@@ -11,6 +18,8 @@ class Mul(bitWidth: Int, stages: Int) extends Component {
   c := Delay(a * b, stages)
 }
 
+/** Generate Mul module
+  */
 object Mul extends SpinalGen {
   for (width <- Seq(8, 16, 32)) {
     for (stages <- Seq(0, 1, 2)) {
@@ -19,6 +28,8 @@ object Mul extends SpinalGen {
   }
 }
 
+/** Synthesize Mul
+  */
 object MulSynth extends SpinalGen {
   for (width <- Seq(11, 24, 53)) {
     for (stages <- Seq(0, 1, 2)) {

@@ -122,7 +122,7 @@ class FMABlackBox(floatType: FloatType, stages: Int) extends BlackBox {
   addRTLPath(Resource.path(s"/flopoco/${fileName}"))
 }
 
-object FMA extends EmitFlopocoModule {
+object FMA extends EmitSpinalModule {
   emitFlopoco(
     3,
     (floatType, lanes, stages) => new FMA(floatType, lanes, stages),

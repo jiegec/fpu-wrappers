@@ -5,6 +5,8 @@ import chisel3.stage.ChiselStage
 import firrtl.stage.RunFirrtlTransformAnnotation
 import firrtl.options.Dependency
 
+/** Emit Verilog from Chisel module
+  */
 trait EmitVerilogApp extends App {
   def emit(genModule: () => RawModule, name: String) {
     val prefix = s"${name}_"
@@ -19,6 +21,8 @@ trait EmitVerilogApp extends App {
   }
 }
 
+/** Helper to generate Chisel modules
+  */
 trait EmitChiselModule extends EmitVerilogApp {
   def emitChisel(
       genModule: (FloatType, Int, Int) => RawModule,
@@ -41,6 +45,8 @@ trait EmitChiselModule extends EmitVerilogApp {
   }
 }
 
+/** Generate Verilog from SpinalHDL module
+  */
 trait SpinalGen extends App {
   def work[T <: spinal.core.Component](
       gen: => T,
@@ -57,7 +63,9 @@ trait SpinalGen extends App {
   }
 }
 
-trait EmitFlopocoModule extends SpinalGen {
+/** Helper to generate SpinalHDL modules
+  */
+trait EmitSpinalModule extends SpinalGen {
   def emitFlopoco[T <: spinal.core.Component](
       stages: Int,
       genModule: (FloatType, Int, Int) => T,
