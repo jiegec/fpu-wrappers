@@ -65,6 +65,9 @@ object `fpu-wrappers`
 
   override def moduleDeps = super.moduleDeps ++ Seq(hardfloat, fudian)
 
+  // for scalafix RemoveUnused
+  override def scalacOptions = Seq("-Ywarn-unused")
+
   object test extends Tests with TestModule.ScalaTest {
     override def ivyDeps = super.ivyDeps() ++ Agg(
       getVersion("scalatest")

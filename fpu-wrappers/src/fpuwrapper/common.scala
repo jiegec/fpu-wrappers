@@ -2,7 +2,6 @@ package fpuwrapper
 
 import java.nio.file.Files
 import java.nio.file.Paths
-import java.io.File
 import java.nio.file.StandardCopyOption
 
 /** Helper class to get resource

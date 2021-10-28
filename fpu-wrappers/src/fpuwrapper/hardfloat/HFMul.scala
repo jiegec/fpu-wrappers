@@ -2,7 +2,6 @@ package fpuwrapper.hardfloat
 
 import chisel3._
 import chisel3.util._
-import chisel3.experimental._
 import fpuwrapper._
 
 class HFMulRequest(val floatType: FloatType, val lanes: Int) extends Bundle {

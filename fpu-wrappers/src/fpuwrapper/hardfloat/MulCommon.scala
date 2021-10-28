@@ -2,7 +2,6 @@ package fpuwrapper.hardfloat
 
 import chisel3._
 import chisel3.util._
-import chisel3.experimental._
 
 class MulRecFNPipe(expWidth: Int, sigWidth: Int, latency: Int) extends Module {
   val io = IO(new Bundle {

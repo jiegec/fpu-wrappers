@@ -3,8 +3,6 @@ package fpuwrapper.flopoco
 import spinal.lib._
 import spinal.core._
 import fpuwrapper._
-import scala.io.Source
-import java.nio.file.Paths
 
 object FMAOp extends SpinalEnum {
   // 1 * op[1] + op[2]

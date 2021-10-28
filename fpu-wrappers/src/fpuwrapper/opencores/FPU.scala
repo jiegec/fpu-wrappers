@@ -3,7 +3,6 @@ package fpuwrapper.opencores
 import spinal.lib._
 import spinal.core._
 import fpuwrapper._
-import scala.io.Source
 import java.nio.file.Paths
 
 object FPUOp extends SpinalEnum {

@@ -1,14 +1,11 @@
 package fpuwrapper
 
-import chisel3._
-import chisel3.stage.ChiselStage
 
 import firrtl._
 import firrtl.options.Dependency
 import firrtl.transforms.DedupModules
 import firrtl.annotations.NoTargetAnnotation
 import firrtl.passes.PassException
-import firrtl.stage.RunFirrtlTransformAnnotation
 
 // adapted from https://github.com/chipsalliance/chisel3/issues/1059#issuecomment-814353578
 
