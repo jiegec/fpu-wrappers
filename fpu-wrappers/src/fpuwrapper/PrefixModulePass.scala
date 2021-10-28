@@ -2,10 +2,10 @@ package fpuwrapper
 
 
 import firrtl._
-import firrtl.options.Dependency
-import firrtl.transforms.DedupModules
 import firrtl.annotations.NoTargetAnnotation
+import firrtl.options.Dependency
 import firrtl.passes.PassException
+import firrtl.transforms.DedupModules
 
 // adapted from https://github.com/chipsalliance/chisel3/issues/1059#issuecomment-814353578
 

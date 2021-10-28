@@ -1,7 +1,8 @@
 package fpuwrapper
 
+import _root_.hardfloat.fNFromRecFN
+import _root_.hardfloat.recFNFromFN
 import chisel3._
-import _root_.hardfloat.{recFNFromFN, fNFromRecFN}
 
 /** Trait for floating point type
   */

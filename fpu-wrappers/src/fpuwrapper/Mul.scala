@@ -1,7 +1,7 @@
 package fpuwrapper
 
-import spinal.lib._
 import spinal.core._
+import spinal.lib._
 
 /** An integer multiplier
   *

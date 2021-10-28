@@ -65,8 +65,9 @@ object `fpu-wrappers`
 
   override def moduleDeps = super.moduleDeps ++ Seq(hardfloat, fudian)
 
-  // for scalafix RemoveUnused
-  override def scalacOptions = Seq("-Ywarn-unused")
+  // for scalafix rules
+  override def scalacOptions = Seq("-Ywarn-unused", "-Ywarn-adapted-args", "-deprecation")
+  override def scalafixIvyDeps = Agg(ivy"com.github.liancheng::organize-imports:0.5.0")
 
   object test extends Tests with TestModule.ScalaTest {
     override def ivyDeps = super.ivyDeps() ++ Agg(

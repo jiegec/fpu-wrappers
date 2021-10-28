@@ -1,11 +1,11 @@
 package fpuwrapper.fpnew
 
 import chisel3._
-import chisel3.util.Decoupled
 import chisel3.experimental.ChiselEnum
+import chisel3.util.Decoupled
+import fpuwrapper.EmitChiselModule
 import fpuwrapper.FloatType
 import fpuwrapper.FpKind
-import fpuwrapper.EmitChiselModule
 
 class FPConfig(
 )

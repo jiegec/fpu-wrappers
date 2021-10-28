@@ -1,8 +1,8 @@
 package fpuwrapper.hardfloat
 
 import chisel3._
-import chisel3.util._
 import chisel3.experimental._
+import chisel3.util._
 
 object FMAOp extends ChiselEnum {
   // 1 * op[1] + op[2]

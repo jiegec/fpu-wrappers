@@ -1,8 +1,11 @@
 package fpuwrapper.fudian
 
-import fpuwrapper.{FloatType, FloatD, Synthesis, EmitChiselModule}
 import chisel3._
 import chisel3.util._
+import fpuwrapper.EmitChiselModule
+import fpuwrapper.FloatD
+import fpuwrapper.FloatType
+import fpuwrapper.Synthesis
 
 class FMARequest(val floatType: FloatType, val lanes: Int) extends Bundle {
   val operands = Vec(3, Vec(lanes, UInt(floatType.width.W)))

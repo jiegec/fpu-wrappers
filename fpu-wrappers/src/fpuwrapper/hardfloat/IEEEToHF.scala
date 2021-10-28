@@ -1,9 +1,9 @@
 package fpuwrapper.hardfloat
 
 import chisel3._
-import fpuwrapper._
-import chisel3.util.Valid
 import chisel3.util.ShiftRegister
+import chisel3.util.Valid
+import fpuwrapper._
 
 class IEEEToHF(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   val io = IO(new Bundle {

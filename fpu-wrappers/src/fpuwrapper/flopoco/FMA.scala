@@ -1,8 +1,8 @@
 package fpuwrapper.flopoco
 
-import spinal.lib._
-import spinal.core._
 import fpuwrapper._
+import spinal.core._
+import spinal.lib._
 
 object FMAOp extends SpinalEnum {
   // 1 * op[1] + op[2]

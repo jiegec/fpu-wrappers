@@ -2,8 +2,8 @@ package fpuwrapper
 
 import chisel3._
 import chisel3.stage.ChiselStage
-import firrtl.stage.RunFirrtlTransformAnnotation
 import firrtl.options.Dependency
+import firrtl.stage.RunFirrtlTransformAnnotation
 
 /** Emit Verilog from Chisel module
   */

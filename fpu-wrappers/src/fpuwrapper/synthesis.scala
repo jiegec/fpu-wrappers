@@ -1,10 +1,10 @@
 package fpuwrapper
 
-import scala.io.Source
+import java.nio.charset.StandardCharsets
 import java.nio.file.Files
 import java.nio.file.Paths
-import java.nio.charset.StandardCharsets
 import java.nio.file.StandardCopyOption
+import scala.io.Source
 import scala.sys.process._
 
 /** Synthesize code with Synopsys Design Compiler
