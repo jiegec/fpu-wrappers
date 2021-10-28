@@ -9,11 +9,7 @@ import fpuwrapper.FloatS
 class FMATest extends AnyFreeSpec with ChiselScalatestTester {
   for (stages <- 1 to 5) {
     s"FMA of ${stages} stages should work" in {
-      test(new FMA(FloatS, 2, stages))
-        .withAnnotations(
-          Seq(
-          )
-        ) { dut =>
+      test(new FMA(FloatS, 2, stages)) { dut =>
           dut.clock.step(16)
 
           def enqueueReq() {

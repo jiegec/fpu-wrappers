@@ -8,18 +8,17 @@ import fpuwrapper.FloatS
 import chiseltest.simulator.VerilatorBackendAnnotation
 import chiseltest.simulator.VerilatorFlags
 import chiseltest.simulator.WriteVcdAnnotation
+import chiseltest.simulator.VcsBackendAnnotation
+import chiseltest.simulator.IcarusBackendAnnotation
+import chiseltest.simulator.VcsFlags
+import chiseltest.simulator.VcsCFlags
+import fpuwrapper.Simulator
 
 class FPUTest extends AnyFreeSpec with ChiselScalatestTester {
   for (stages <- 1 to 5) {
     s"FPU of ${stages} stages should work" in {
       test(new FPU(FloatS, 2, stages))
-        .withAnnotations(
-          Seq(
-            VerilatorBackendAnnotation,
-            VerilatorFlags(Seq("-Wno-BLKANDNBLK")),
-            WriteVcdAnnotation
-          )
-        ) { dut =>
+        .withAnnotations(Simulator.getAnnotations) { dut =>
           dut.clock.step(16)
 
           def enqueueReq() {

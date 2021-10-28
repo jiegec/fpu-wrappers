@@ -5,15 +5,13 @@ import chisel3.tester._
 import org.scalatest.freespec.AnyFreeSpec
 import chisel3.experimental.BundleLiterals._
 import fpuwrapper.FloatS
+import fpuwrapper.Simulator
 
 class HFFMATest extends AnyFreeSpec with ChiselScalatestTester {
   for (stages <- 1 to 5) {
     s"HFFMA of ${stages} stages should work" in {
       test(new HFFMA(FloatS, 2, stages))
-        .withAnnotations(
-          Seq(
-          )
-        ) { dut =>
+        .withAnnotations(Simulator.getAnnotations) { dut =>
           dut.clock.step(16)
 
           def enqueueReq() {
