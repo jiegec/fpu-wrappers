@@ -17,8 +17,7 @@ object Simulator {
     } else {
       println("Using Verilator")
       Seq(
-        VerilatorBackendAnnotation,
-        VerilatorFlags(Seq("-Wno-BLKANDNBLK"))
+        VerilatorBackendAnnotation
       )
     } ++ Seq(WriteVcdAnnotation)
   }
