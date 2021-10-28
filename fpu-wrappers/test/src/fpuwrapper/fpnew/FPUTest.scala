@@ -3,22 +3,15 @@ package fpuwrapper.fpnew
 import chisel3._
 import chisel3.tester._
 import org.scalatest.freespec.AnyFreeSpec
-import chisel3.experimental.BundleLiterals._
 import fpuwrapper.FloatS
-import chiseltest.simulator.VerilatorBackendAnnotation
-import chiseltest.simulator.VerilatorFlags
-import chiseltest.simulator.WriteVcdAnnotation
-import chiseltest.simulator.VcsBackendAnnotation
-import chiseltest.simulator.IcarusBackendAnnotation
-import chiseltest.simulator.VcsFlags
-import chiseltest.simulator.VcsCFlags
 import fpuwrapper.Simulator
 
 class FPUTest extends AnyFreeSpec with ChiselScalatestTester {
+  // fpnew does not support icarus verilog
   for (stages <- 1 to 5) {
     s"FPU of ${stages} stages should work" in {
       test(new FPU(FloatS, 2, stages))
-        .withAnnotations(Simulator.getAnnotations()) { dut =>
+        .withAnnotations(Simulator.getAnnotations(useIcarus = false)) { dut =>
           dut.clock.step(16)
 
           def enqueueReq() {

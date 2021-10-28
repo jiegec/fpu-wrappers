@@ -3,7 +3,6 @@ package fpuwrapper.opencores
 import org.scalatest.funsuite.AnyFunSuite
 import spinal.core._
 import spinal.core.sim._
-import fpuwrapper.FloatS
 
 // FPU's testbench
 class FPUTest extends AnyFunSuite {

@@ -3,7 +3,6 @@ package fpuwrapper.fudian
 import chisel3._
 import chisel3.tester._
 import org.scalatest.freespec.AnyFreeSpec
-import chisel3.experimental.BundleLiterals._
 import fpuwrapper.FloatS
 
 class FMATest extends AnyFreeSpec with ChiselScalatestTester {
