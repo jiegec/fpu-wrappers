@@ -80,9 +80,9 @@ class FPU(
       enableFP8 = false,
       enableFP16Alt = false,
       enableInt8 = false,
-      enableInt16 = false,
-      enableInt32 = false,
-      enableInt64 = false
+      enableInt16 = floatType.kind() == FpKind.H,
+      enableInt32 = floatType.kind() == FpKind.S,
+      enableInt64 = floatType.kind() == FpKind.D
     )
   )
 
