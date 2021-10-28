@@ -2,6 +2,8 @@ import mill._
 import scalalib._
 import scalafmt._
 import coursier.maven.MavenRepository
+import $ivy.`com.goyeau::mill-scalafix:0.2.5`
+import com.goyeau.mill.scalafix.ScalafixModule
 
 // learned from https://github.com/OpenXiangShan/fudian/blob/main/build.sc
 val defaultVersions = Map(
@@ -45,7 +47,10 @@ object fudian extends CommonModule {
   override def millSourcePath = os.pwd / "thirdparty" / "fudian"
 }
 
-object `fpu-wrappers` extends CommonModule with ScalafmtModule {
+object `fpu-wrappers`
+    extends CommonModule
+    with ScalafmtModule
+    with ScalafixModule {
   override def ivyDeps = super.ivyDeps() ++ Agg(
     getVersion("chisel3"),
     getVersion("chiseltest"),
