@@ -1,0 +1,22 @@
+name: Test
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        scala: [2.12.15, 2.13.5]
+        jvm: [adopt@1.8, adopt@1.11]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Mill
+        uses: jodersky/setup-mill@master
+        with:
+          mill-version: 0.8.0
+      - name: Compile
+        run: mill fpu-wrappers.compile
