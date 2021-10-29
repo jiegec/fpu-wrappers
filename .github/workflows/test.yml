@@ -22,6 +22,8 @@ jobs:
           mill-version: 0.9.9
       - name: Install simulators
         run: sudo apt-get install -y verilator iverilog
+      - name: Install other dependencies
+        run: sudo apt-get install -y gcc libboost-dev
       - name: Compile
         run: mill fpu-wrappers.compile
       - name: Test
