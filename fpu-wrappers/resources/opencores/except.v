@@ -78,76 +78,76 @@ assign fractb = opb[22:0];
 //
 
 always @(posedge clk)
-	expa_ff <= #1 &expa;
+	expa_ff <= &expa;
 
 always @(posedge clk)
-	expb_ff <= #1 &expb;
+	expb_ff <= &expb;
 	
 always @(posedge clk)
-	infa_f_r <= #1 !(|fracta);
+	infa_f_r <= !(|fracta);
 
 always @(posedge clk)
-	infb_f_r <= #1 !(|fractb);
+	infb_f_r <= !(|fractb);
 
 always @(posedge clk)
-	qnan_r_a <= #1  fracta[22];
+	qnan_r_a <=  fracta[22];
 
 always @(posedge clk)
-	snan_r_a <= #1 !fracta[22] & |fracta[21:0];
+	snan_r_a <= !fracta[22] & |fracta[21:0];
 	
 always @(posedge clk)
-	qnan_r_b <= #1  fractb[22];
+	qnan_r_b <=  fractb[22];
 
 always @(posedge clk)
-	snan_r_b <= #1 !fractb[22] & |fractb[21:0];
+	snan_r_b <= !fractb[22] & |fractb[21:0];
 
 always @(posedge clk)
-	ind  <= #1 (expa_ff & infa_f_r) & (expb_ff & infb_f_r);
+	ind  <= (expa_ff & infa_f_r) & (expb_ff & infb_f_r);
 
 always @(posedge clk)
-	inf  <= #1 (expa_ff & infa_f_r) | (expb_ff & infb_f_r);
+	inf  <= (expa_ff & infa_f_r) | (expb_ff & infb_f_r);
 
 always @(posedge clk)
-	qnan <= #1 (expa_ff & qnan_r_a) | (expb_ff & qnan_r_b);
+	qnan <= (expa_ff & qnan_r_a) | (expb_ff & qnan_r_b);
 
 always @(posedge clk)
-	snan <= #1 (expa_ff & snan_r_a) | (expb_ff & snan_r_b);
+	snan <= (expa_ff & snan_r_a) | (expb_ff & snan_r_b);
 
 always @(posedge clk)
-	opa_nan <= #1 &expa & (|fracta[22:0]);
+	opa_nan <= &expa & (|fracta[22:0]);
 
 always @(posedge clk)
-	opb_nan <= #1 &expb & (|fractb[22:0]);
+	opb_nan <= &expb & (|fractb[22:0]);
 
 always @(posedge clk)
-	opa_inf <= #1 (expa_ff & infa_f_r);
+	opa_inf <= (expa_ff & infa_f_r);
 
 always @(posedge clk)
-	opb_inf <= #1 (expb_ff & infb_f_r);
+	opb_inf <= (expb_ff & infb_f_r);
 
 always @(posedge clk)
-	expa_00 <= #1 !(|expa);
+	expa_00 <= !(|expa);
 
 always @(posedge clk)
-	expb_00 <= #1 !(|expb);
+	expb_00 <= !(|expb);
 
 always @(posedge clk)
-	fracta_00 <= #1 !(|fracta);
+	fracta_00 <= !(|fracta);
 
 always @(posedge clk)
-	fractb_00 <= #1 !(|fractb);
+	fractb_00 <= !(|fractb);
 
 always @(posedge clk)
-	opa_00 <= #1 expa_00 & fracta_00;
+	opa_00 <= expa_00 & fracta_00;
 
 always @(posedge clk)
-	opb_00 <= #1 expb_00 & fractb_00;
+	opb_00 <= expb_00 & fractb_00;
 
 always @(posedge clk)
-	opa_dn <= #1 expa_00;
+	opa_dn <= expa_00;
 
 always @(posedge clk)
-	opb_dn <= #1 expb_00;
+	opb_dn <= expb_00;
 
 endmodule
 

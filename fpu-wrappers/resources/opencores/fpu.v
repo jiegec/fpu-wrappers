@@ -89,7 +89,7 @@ wire	[26:0]	fracta, fractb;		// Fraction Outputs from EQU block
 wire	[7:0]	exp_fasu;		// Exponent output from EQU block
 reg	[7:0]	exp_r;			// Exponent output (registerd)
 wire	[26:0]	fract_out_d;		// fraction output
-wire		co;			// carry output
+wire		co_d;			// carry output
 reg	[27:0]	fract_out_q;		// fraction output (registerd)
 wire	[30:0]	out_d;			// Intermediate final result output
 wire		overflow_d, underflow_d;// Overflow/Underflow Indicators
@@ -109,28 +109,28 @@ wire		mul_00, div_00;
 //
 
 always @(posedge clk)
-	opa_r <= #1 opa;
+	opa_r <= opa;
 
 always @(posedge clk)
-	opb_r <= #1 opb;
+	opb_r <= opb;
 
 always @(posedge clk)
-	rmode_r1 <= #1 rmode;
+	rmode_r1 <= rmode;
 
 always @(posedge clk)
-	rmode_r2 <= #1 rmode_r1;
+	rmode_r2 <= rmode_r1;
 
 always @(posedge clk)
-	rmode_r3 <= #1 rmode_r2;
+	rmode_r3 <= rmode_r2;
 
 always @(posedge clk)
-	fpu_op_r1 <= #1 fpu_op;
+	fpu_op_r1 <= fpu_op;
 
 always @(posedge clk)
-	fpu_op_r2 <= #1 fpu_op_r1;
+	fpu_op_r2 <= fpu_op_r1;
 
 always @(posedge clk)
-	fpu_op_r3 <= #1 fpu_op_r2;
+	fpu_op_r3 <= fpu_op_r2;
 
 ////////////////////////////////////////////////////////////////////////
 //
@@ -190,7 +190,7 @@ pre_norm u1(.clk(clk),				// System Clock
 	);
 
 always @(posedge clk)
-	sign_fasu_r <= #1 sign_fasu;
+	sign_fasu_r <= sign_fasu;
 
 pre_norm_fmul u2(
 		.clk(clk),
@@ -208,16 +208,16 @@ pre_norm_fmul u2(
 
 
 always @(posedge clk)
-	sign_mul_r <= #1 sign_mul;
+	sign_mul_r <= sign_mul;
 
 always @(posedge clk)
-	sign_exe_r <= #1 sign_exe;
+	sign_exe_r <= sign_exe;
 
 always @(posedge clk)
-	inf_mul_r <= #1 inf_mul;
+	inf_mul_r <= inf_mul;
 
 always @(posedge clk)
-	exp_ovf_r <= #1 exp_ovf;
+	exp_ovf_r <= exp_ovf;
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -233,7 +233,7 @@ add_sub27 u3(
 	.co(co_d) );			// Carry Output
 
 always @(posedge clk)
-	fract_out_q <= #1 {co_d, fract_out_d};
+	fract_out_q <= {co_d, fract_out_d};
 
 ////////////////////////////////////////////////////////////////////////
 //
@@ -254,7 +254,7 @@ wire		remainder_00;
 reg	[4:0]	div_opa_ldz_d, div_opa_ldz_r1, div_opa_ldz_r2;
 
 always @(fracta_mul)
-	casex(fracta_mul[22:0])
+	casez(fracta_mul[22:0])
 	   23'b1??????????????????????: div_opa_ldz_d = 1;
 	   23'b01?????????????????????: div_opa_ldz_d = 2;
 	   23'b001????????????????????: div_opa_ldz_d = 3;
@@ -288,10 +288,10 @@ div_r2 u6(.clk(clk), .opa(fdiv_opa), .opb(fractb_mul), .quo(quo), .rem(remainder
 assign remainder_00 = !(|remainder);
 
 always @(posedge clk)
-	div_opa_ldz_r1 <= #1 div_opa_ldz_d;
+	div_opa_ldz_r1 <= div_opa_ldz_d;
 
 always @(posedge clk)
-	div_opa_ldz_r2 <= #1 div_opa_ldz_r1;
+	div_opa_ldz_r2 <= div_opa_ldz_r1;
 
 
 ////////////////////////////////////////////////////////////////////////
@@ -310,19 +310,19 @@ wire		f2i_out_sign;
 
 always @(posedge clk)			// Exponent must be once cycle delayed
 	case(fpu_op_r2)
-	  0,1:	exp_r <= #1 exp_fasu;
-	  2,3:	exp_r <= #1 exp_mul;
-	  4:	exp_r <= #1 0;
-	  5:	exp_r <= #1 opa_r1[30:23];
+	  0,1:	exp_r <= exp_fasu;
+	  2,3:	exp_r <= exp_mul;
+	  4:	exp_r <= 0;
+	  5:	exp_r <= opa_r1[30:23];
 	endcase
 
 assign fract_div = (opb_dn ? quo[49:2] : {quo[26:0], 21'h0});
 
 always @(posedge clk)
-	opa_r1 <= #1 opa_r[30:0];
+	opa_r1 <= opa_r[30:0];
 
 always @(posedge clk)
-	fract_i2f <= #1 (fpu_op_r2==5) ?
+	fract_i2f <= (fpu_op_r2==5) ?
 			(sign_d ?  1-{24'h00, (|opa_r1[30:23]), opa_r1[22:0]}-1 : {24'h0, (|opa_r1[30:23]), opa_r1[22:0]}) :
 			(sign_d ? 1 - {opa_r1, 17'h01} : {opa_r1, 17'h0});
 
@@ -336,15 +336,15 @@ always @(fpu_op_r3 or fract_out_q or prod or fract_div or fract_i2f)
 
 
 always @(posedge clk)
-	opas_r1 <= #1 opa_r[31];
+	opas_r1 <= opa_r[31];
 
 always @(posedge clk)
-	opas_r2 <= #1 opas_r1;
+	opas_r2 <= opas_r1;
 
 assign sign_d = fpu_op_r2[1] ? sign_mul : sign_fasu;
 
 always @(posedge clk)
-	sign <= #1 (rmode_r2==2'h3) ? !sign_d : sign_d;
+	sign <= (rmode_r2==2'h3) ? !sign_d : sign_d;
 
 post_norm u4(.clk(clk),			// System Clock
 	.fpu_op(fpu_op_r3),		// Floating Point Operation
@@ -370,6 +370,7 @@ post_norm u4(.clk(clk),			// System Clock
 //
 // FPU Outputs
 //
+wire		fasu_op;
 reg		fasu_op_r1, fasu_op_r2;
 wire	[30:0]	out_fixed;
 wire		output_zero_fasu;
@@ -391,13 +392,13 @@ reg		opa_nan_r;
 
 
 always @(posedge clk)
-	fasu_op_r1 <= #1 fasu_op;
+	fasu_op_r1 <= fasu_op;
 
 always @(posedge clk)
-	fasu_op_r2 <= #1 fasu_op_r1;
+	fasu_op_r2 <= fasu_op_r1;
 
 always @(posedge clk)
-	inf_mul2 <= #1 exp_mul == 8'hff;
+	inf_mul2 <= exp_mul == 8'hff;
 
 
 // Force pre-set values for non numerical output
@@ -414,7 +415,7 @@ assign out_fixed = (	(qnan_d | snan_d) |
 		   )  ? QNAN : INF;
 
 always @(posedge clk)
-	out[30:0] <= #1 (mul_inf | div_inf | (inf_d & (fpu_op_r3!=3'b011) & (fpu_op_r3!=3'b101)) | snan_d | qnan_d) & fpu_op_r3!=3'b100 ? out_fixed :
+	out[30:0] <= (mul_inf | div_inf | (inf_d & (fpu_op_r3!=3'b011) & (fpu_op_r3!=3'b101)) | snan_d | qnan_d) & fpu_op_r3!=3'b100 ? out_fixed :
 			out_d;
 
 assign out_d_00 = !(|out_d);
@@ -455,7 +456,7 @@ always @(posedge clk)
 			 fpu_op_r3[0] ? overflow_fdiv : overflow_fmul;
 
 always @(posedge clk)
-	underflow_fmul_r <= #1 underflow_fmul_d;
+	underflow_fmul_r <= underflow_fmul_d;
 
 
 assign underflow_fmul1 = underflow_fmul_r[0] |
@@ -468,12 +469,12 @@ assign underflow_fmul = underflow_fmul1 & !(snan_d | qnan_d | inf_mul_r);
 assign underflow_fdiv = underflow_fasu & !opb_00;
 
 always @(posedge clk)
-	underflow <= #1  fpu_op_r3[2] ? 0 :
+	underflow <=  fpu_op_r3[2] ? 0 :
 			!fpu_op_r3[1] ? underflow_fasu :
 			 fpu_op_r3[0] ? underflow_fdiv : underflow_fmul;
 
 always @(posedge clk)
-	snan <= #1 snan_d;
+	snan <= snan_d;
 
 
 
@@ -515,9 +516,9 @@ always @(posedge clk)
 						output_zero_fasu ;
 
 always @(posedge clk)
-	opa_nan_r <= #1 !opa_nan & fpu_op_r2==3'b011;
+	opa_nan_r <= !opa_nan & fpu_op_r2==3'b011;
 
 always @(posedge clk)
-	div_by_zero <= #1 opa_nan_r & !opa_00 & !opa_inf & opb_00;
+	div_by_zero <= opa_nan_r & !opa_00 & !opa_inf & opb_00;
 
 endmodule

@@ -121,7 +121,7 @@ assign exp_diff2  = (expa_dn | expb_dn) ? exp_diff1a : exp_diff1;
 assign  exp_diff  = (expa_dn & expb_dn) ? 8'h0 : exp_diff2;
 
 always @(posedge clk)	// If numbers are equal we should return zero
-	exp_dn_out <= #1 (!add_d & expa==expb & fracta==fractb) ? 8'h0 : exp_large;
+	exp_dn_out <= (!add_d & expa==expb & fracta==fractb) ? 8'h0 : exp_large;
 
 // ---------------------------------------------------------------------
 // Adjust the smaller fraction
@@ -186,10 +186,10 @@ assign fracta_s = fractb_lt_fracta ? fractb_n : fracta_n;
 assign fractb_s = fractb_lt_fracta ? fracta_n : fractb_n;
 
 always @(posedge clk)
-	fracta_out <= #1 fracta_s;
+	fracta_out <= fracta_s;
 
 always @(posedge clk)
-	fractb_out <= #1 fractb_s;
+	fractb_out <= fractb_s;
 
 // ---------------------------------------------------------------------
 // Determine sign for the output
@@ -212,17 +212,17 @@ always @(signa or signb or add or fractb_lt_fracta)
    endcase
 
 always @(posedge clk)
-	sign <= #1 sign_d;
+	sign <= sign_d;
 
 // Fix sign for ZERO result
 always @(posedge clk)
-	signa_r <= #1 signa;
+	signa_r <= signa;
 
 always @(posedge clk)
-	signb_r <= #1 signb;
+	signb_r <= signb;
 
 always @(posedge clk)
-	add_r <= #1 add;
+	add_r <= add;
 
 always @(posedge clk)
 	result_zero_sign <= #1	( add_r &  signa_r &  signb_r) |
@@ -232,15 +232,15 @@ always @(posedge clk)
 
 // Fix sign for NAN result
 always @(posedge clk)
-	fracta_lt_fractb <= #1 fracta < fractb;
+	fracta_lt_fractb <= fracta < fractb;
 
 always @(posedge clk)
-	fracta_eq_fractb <= #1 fracta == fractb;
+	fracta_eq_fractb <= fracta == fractb;
 
 assign nan_sign1 = fracta_eq_fractb ? (signa_r & signb_r) : fracta_lt_fractb ? signb_r : signa_r;
 
 always @(posedge clk)
-	nan_sign <= #1 (opa_nan & opb_nan) ? nan_sign1 : opb_nan ? signb_r : signa_r;
+	nan_sign <= (opa_nan & opb_nan) ? nan_sign1 : opb_nan ? signb_r : signa_r;
 
 ////////////////////////////////////////////////////////////////////////
 //
@@ -265,6 +265,6 @@ always @(signa or signb or add)
    endcase
 
 always @(posedge clk)
-	fasu_op <= #1 add_d;
+	fasu_op <= add_d;
 
 endmodule
