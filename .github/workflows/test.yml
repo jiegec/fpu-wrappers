@@ -20,5 +20,9 @@ jobs:
         uses: jodersky/setup-mill@master
         with:
           mill-version: 0.9.9
+      - name: Install simulators
+        run: sudo apt-get install -y verilator iverilog
       - name: Compile
         run: mill fpu-wrappers.compile
+      - name: Test
+        run: mill fpu-wrappers.test
