@@ -30,7 +30,7 @@ object Simulator {
       useIcarus: Boolean = true,
       useVerilator: Boolean = true
   ): AnnotationSeq = {
-    if (vcsFound && useVCS) {
+    val annotations = if (vcsFound && useVCS) {
       println("Using VCS")
       Seq(
         VcsBackendAnnotation
@@ -49,6 +49,7 @@ object Simulator {
     } else {
       throw new RuntimeException("No usable simulator")
       Seq()
-    } ++ Seq(WriteVcdAnnotation)
+    }
+    annotations ++ Seq(WriteVcdAnnotation)
   }
 }

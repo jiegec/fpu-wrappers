@@ -12,3 +12,4 @@ out/
 *.v
 *.anno.json
 *.fir
+ucli.key
