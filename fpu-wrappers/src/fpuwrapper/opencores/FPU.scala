@@ -11,6 +11,8 @@ object FPUOp extends SpinalEnum {
   val FSUB = newElement()
   val FMUL = newElement()
   val FDIV = newElement()
+  val INT2FP = newElement()
+  val FP2INT = newElement()
 
   val NOP = FADD
 }
