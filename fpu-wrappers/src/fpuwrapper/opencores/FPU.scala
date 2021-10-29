@@ -96,7 +96,7 @@ object FPUSynth extends App {
     "primitives.v"
   )
   val sources = for (file <- files) yield {
-    s"./fpu-wrappers/src/main/resources/opencores/${file}"
+    s"./fpu-wrappers/resources/opencores/${file}"
   }
 
   Synthesis.build(
