@@ -4,22 +4,22 @@ import chisel3._
 import chisel3.util._
 import fpuwrapper._
 
-class HFMulRequest(val floatType: FloatType, val lanes: Int) extends Bundle {
+class HFFMulRequest(val floatType: FloatType, val lanes: Int) extends Bundle {
   val a = Vec(lanes, UInt(floatType.widthHardfloat.W))
   val b = Vec(lanes, UInt(floatType.widthHardfloat.W))
 }
 
-class HFMulResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
+class HFFMulResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
   // result
   val res = Vec(lanes, UInt(floatType.widthHardfloat.W))
   // exception status
   val exc = Vec(lanes, Bits(5.W))
 }
 
-class HFMul(floatType: FloatType, lanes: Int, stages: Int) extends Module {
+class HFFMul(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   val io = IO(new Bundle {
-    val req = Flipped(Valid(new HFMulRequest(floatType, lanes)))
-    val resp = Valid(new HFMulResponse(floatType, lanes))
+    val req = Flipped(Valid(new HFFMulRequest(floatType, lanes)))
+    val resp = Valid(new HFFMulResponse(floatType, lanes))
   })
 
   // when stages > 1, add extra stages
@@ -71,26 +71,26 @@ class HFMul(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   io.resp.bits.exc := exc
 }
 
-object HFMul extends EmitChiselModule {
+object HFFMul extends EmitChiselModule {
   emitChisel(
-    (floatType, lanes, stages) => new HFMul(floatType, lanes, stages),
-    "Hardfloat_HFMul"
+    (floatType, lanes, stages) => new HFFMul(floatType, lanes, stages),
+    "Hardfloat_HFFMul"
   )
 }
 
-object HFMulSynth extends EmitChiselModule {
+object HFFMulSynth extends EmitChiselModule {
   for (floatType <- Seq(FloatS)) {
     val floatName = floatType.kind().toString()
     for (stages <- Seq(1, 2, 3)) {
       emitChisel(
-        (floatType, lanes, stages) => new HFMul(floatType, lanes, stages),
-        "Hardfloat_HFMul",
+        (floatType, lanes, stages) => new HFFMul(floatType, lanes, stages),
+        "Hardfloat_HFFMul",
         allStages = Seq(stages),
         floatTypes = Seq(floatType),
         lanes = Seq(1)
       )
-      val name = s"Hardfloat_HFMul_${floatName}1l${stages}s"
-      Synthesis.build(Seq(s"${name}.v"), s"${name}_HFMul", s"hardfloat_${name}")
+      val name = s"Hardfloat_HFFMul_${floatName}1l${stages}s"
+      Synthesis.build(Seq(s"${name}.v"), s"${name}_HFFMul", s"hardfloat_${name}")
     }
   }
 }

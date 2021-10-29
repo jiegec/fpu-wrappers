@@ -6,10 +6,10 @@ import org.scalatest.freespec.AnyFreeSpec
 import fpuwrapper.FloatS
 import fpuwrapper.Simulator
 
-class HFMulTest extends AnyFreeSpec with ChiselScalatestTester {
+class HFFMulTest extends AnyFreeSpec with ChiselScalatestTester {
   for (stages <- 1 to 5) {
-    s"HFMul of ${stages} stages should work" in {
-      test(new HFMul(FloatS, 2, stages))
+    s"HFFMul of ${stages} stages should work" in {
+      test(new HFFMul(FloatS, 2, stages))
         .withAnnotations(Simulator.getAnnotations()) { dut =>
           dut.clock.step(16)
 
@@ -19,7 +19,7 @@ class HFMulTest extends AnyFreeSpec with ChiselScalatestTester {
             dut.io.req.valid.poke(false.B)
           }
 
-          def expectResp()(x: HFMul => Unit) {
+          def expectResp()(x: HFFMul => Unit) {
             val expectedCycles = stages - 1
             var cycles = 0
             while (dut.io.resp.valid.peek().litToBoolean == false) {
