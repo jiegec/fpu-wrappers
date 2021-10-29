@@ -19,7 +19,7 @@ for file in glob.glob('../../../thirdparty/opencores-fpu/verilog/*.v'):
 				line = line.replace('casex(', 'casez(')
 
 				# remove redundant <= #1
-				line = line.replace('<= #1 ', '<= ')
+				line = line.replace('<= #1', '<=')
 
 				if 'synopsys translate_off' in line:
 					write = False

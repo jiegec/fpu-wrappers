@@ -424,7 +424,7 @@ assign sign_mul_final = (sign_exe_r & ((opa_00 & opb_inf) | (opb_00 & opa_inf)))
 assign sign_div_final = (sign_exe_r & (opa_inf & opb_inf)) ? !sign_mul_r : sign_mul_r | (opa_00 & opb_00);
 
 always @(posedge clk)
-	out[31] <= #1	((fpu_op_r3==3'b101) & out_d_00) ? (f2i_out_sign & !(qnan_d | snan_d) ) :
+	out[31] <=	((fpu_op_r3==3'b101) & out_d_00) ? (f2i_out_sign & !(qnan_d | snan_d) ) :
 			((fpu_op_r3==3'b010) & !(snan_d | qnan_d)) ?	sign_mul_final :
 			((fpu_op_r3==3'b011) & !(snan_d | qnan_d)) ?	sign_div_final :
 			(snan_d | qnan_d | ind_d) ?			nan_sign_d :
@@ -441,7 +441,7 @@ assign ine_div  = (ine_d | overflow_d | underflow_d) & !(opb_00 | snan_d | qnan_
 assign ine_fasu = (ine_d | overflow_d | underflow_d) & !(snan_d | qnan_d | inf_d);
 
 always @(posedge  clk)
-	ine <= #1	 fpu_op_r3[2] ? ine_d :
+	ine <=	 fpu_op_r3[2] ? ine_d :
 			!fpu_op_r3[1] ? ine_fasu :
 			 fpu_op_r3[0] ? ine_div  : ine_mul;
 
@@ -451,7 +451,7 @@ assign overflow_fmul = !inf_d & (inf_mul_r | inf_mul2 | overflow_d) & !(snan_d |
 assign overflow_fdiv = (overflow_d & !(opb_00 | inf_d | snan_d | qnan_d));
 
 always @(posedge clk)
-	overflow <= #1	 fpu_op_r3[2] ? 0 :
+	overflow <=	 fpu_op_r3[2] ? 0 :
 			!fpu_op_r3[1] ? overflow_fasu :
 			 fpu_op_r3[0] ? overflow_fdiv : overflow_fmul;
 
@@ -481,7 +481,7 @@ always @(posedge clk)
 
 // Status Outputs
 always @(posedge clk)
-	qnan <= #1	fpu_op_r3[2] ? 0 : (
+	qnan <=	fpu_op_r3[2] ? 0 : (
 						snan_d | qnan_d | (ind_d & !fasu_op_r2) |
 						(opa_00 & opb_00 & fpu_op_r3==3'b011) |
 						(((opa_inf & opb_00) | (opb_inf & opa_00 )) & fpu_op_r3==3'b010)
@@ -492,7 +492,7 @@ assign inf_fmul = 	(((inf_mul_r | inf_mul2) & (rmode_r3==2'h0)) | opa_inf | opb_
 			fpu_op_r3==3'b010;
 
 always @(posedge clk)
-	inf <= #1	fpu_op_r3[2] ? 0 :
+	inf <=	fpu_op_r3[2] ? 0 :
 			(!(qnan_d | snan_d) & (
 						((&out_d[30:23]) & !(|out_d[22:0]) & !(opb_00 & fpu_op_r3==3'b011)) |
 						(inf_d & !(ind_d & !fasu_op_r2) & !fpu_op_r3[1]) |
@@ -510,7 +510,7 @@ assign output_zero_fmul = (out_d_00 | opa_00 | opb_00) &
 			  !(opa_inf & opb_00) & !(opb_inf & opa_00);
 
 always @(posedge clk)
-	zero <= #1	fpu_op_r3==3'b101 ?	out_d_00 & !(snan_d | qnan_d):
+	zero <=	fpu_op_r3==3'b101 ?	out_d_00 & !(snan_d | qnan_d):
 			fpu_op_r3==3'b011 ?	output_zero_fdiv :
 			fpu_op_r3==3'b010 ?	output_zero_fmul :
 						output_zero_fasu ;

@@ -225,7 +225,7 @@ always @(posedge clk)
 	add_r <= add;
 
 always @(posedge clk)
-	result_zero_sign <= #1	( add_r &  signa_r &  signb_r) |
+	result_zero_sign <=	( add_r &  signa_r &  signb_r) |
 				(!add_r &  signa_r & !signb_r) |
 				( add_r & (signa_r |  signb_r) & (rmode==3)) |
 				(!add_r & (signa_r == signb_r) & (rmode==3));
