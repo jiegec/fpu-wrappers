@@ -97,7 +97,7 @@ object `fpu-wrappers`
   }
 
   // publish
-  def publishVersion = "1.0"
+  def publishVersion = "1.0-SNAPSHOT"
   def pomSettings = PomSettings(
     description = artifactName(),
     organization = "je.jia",
