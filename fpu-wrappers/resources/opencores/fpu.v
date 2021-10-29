@@ -159,6 +159,7 @@ except u0(	.clk(clk),
 // - determine actual operation to perform (add or sub)
 //
 
+wire		fasu_op;
 wire		nan_sign_d, result_zero_sign_d;
 reg		sign_fasu_r;
 wire	[7:0]	exp_mul;
@@ -370,7 +371,6 @@ post_norm u4(.clk(clk),			// System Clock
 //
 // FPU Outputs
 //
-wire		fasu_op;
 reg		fasu_op_r1, fasu_op_r2;
 wire	[30:0]	out_fixed;
 wire		output_zero_fasu;
