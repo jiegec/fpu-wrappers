@@ -1,9 +1,13 @@
 import mill._
+import mill.scalalib.publish._
 import scalalib._
 import scalafmt._
 import coursier.maven.MavenRepository
 import $ivy.`com.goyeau::mill-scalafix:0.2.5`
 import com.goyeau.mill.scalafix.ScalafixModule
+
+// third party build.sc
+import $file.thirdparty.`berkeley-hardfloat`.build
 
 // learned from https://github.com/OpenXiangShan/fudian/blob/main/build.sc
 val defaultVersions = Map(
@@ -16,6 +20,8 @@ val defaultVersions = Map(
   "spinalhdl-idsl-plugin" -> ("com.github.spinalhdl", "1.6.0", false)
 )
 
+val commonScalaVersion = "2.12.14"
+
 def getVersion(dep: String) = {
   val (org, ver, cross) = defaultVersions(dep)
   val version = sys.env.getOrElse(dep + "Version", ver)
@@ -26,29 +32,41 @@ def getVersion(dep: String) = {
 }
 
 trait CommonModule extends ScalaModule {
-  def scalaVersion = "2.12.14"
+  def scalaVersion = commonScalaVersion
 }
 
-object hardfloat extends CommonModule {
-  override def ivyDeps = super.ivyDeps() ++ Agg(
-    getVersion("chisel3"),
-    getVersion("scalatest")
+object hardfloat extends thirdparty.`berkeley-hardfloat`.build.hardfloat {
+  override def scalaVersion = commonScalaVersion
+
+  // override with our chisel3 version
+  override def chisel3IvyDeps = Agg(
+    getVersion("chisel3")
   )
-
-  override def millSourcePath = os.pwd / "thirdparty" / "berkeley-hardfloat"
 }
 
-object fudian extends CommonModule {
+object fudian extends CommonModule with PublishModule {
   override def ivyDeps = super.ivyDeps() ++ Agg(
     getVersion("chisel3"),
     getVersion("scalatest")
   )
 
   override def millSourcePath = os.pwd / "thirdparty" / "fudian"
+
+  // publish
+  def publishVersion = "1.0-SNAPSHOT"
+  def pomSettings = PomSettings(
+    description = artifactName(),
+    organization = "cn.cas.ict",
+    url = "https://github.com/openxiangshan/fudian",
+    licenses = Seq(License.MIT), // Mulan PSL v2 is not included in Mill
+    versionControl = VersionControl.github("openxiangshan", "fudian"),
+    developers = Seq()
+  )
 }
 
 object `fpu-wrappers`
     extends CommonModule
+    with PublishModule
     with ScalafmtModule
     with ScalafixModule {
   override def ivyDeps = super.ivyDeps() ++ Agg(
@@ -66,12 +84,26 @@ object `fpu-wrappers`
   override def moduleDeps = super.moduleDeps ++ Seq(hardfloat, fudian)
 
   // for scalafix rules
-  override def scalacOptions = Seq("-Ywarn-unused", "-Ywarn-adapted-args", "-deprecation")
-  override def scalafixIvyDeps = Agg(ivy"com.github.liancheng::organize-imports:0.5.0")
+  override def scalacOptions =
+    Seq("-Ywarn-unused", "-Ywarn-adapted-args", "-deprecation")
+  override def scalafixIvyDeps = Agg(
+    ivy"com.github.liancheng::organize-imports:0.5.0"
+  )
 
   object test extends Tests with TestModule.ScalaTest {
     override def ivyDeps = super.ivyDeps() ++ Agg(
       getVersion("scalatest")
     )
   }
+
+  // publish
+  def publishVersion = "1.0"
+  def pomSettings = PomSettings(
+    description = artifactName(),
+    organization = "je.jia",
+    url = "https://github.com/jiegec/fpu-wrapeprs",
+    licenses = Seq(License.MIT),
+    versionControl = VersionControl.github("jiegec", "fpu-wrappers"),
+    developers = Seq()
+  )
 }
