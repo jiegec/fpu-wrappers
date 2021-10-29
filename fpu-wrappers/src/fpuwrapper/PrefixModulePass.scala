@@ -1,6 +1,5 @@
 package fpuwrapper
 
-
 import firrtl._
 import firrtl.annotations.NoTargetAnnotation
 import firrtl.options.Dependency

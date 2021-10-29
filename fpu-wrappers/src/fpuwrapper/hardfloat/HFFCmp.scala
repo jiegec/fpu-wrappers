@@ -6,7 +6,7 @@ import chisel3.experimental._
 import chisel3.util._
 import fpuwrapper._
 
-object FCmpOp extends ChiselEnum {
+object HFFCmpOp extends ChiselEnum {
   val EQ = Value
   val NE = Value
   val LT = Value
@@ -16,27 +16,27 @@ object FCmpOp extends ChiselEnum {
 
   val NOP = EQ
 
-  implicit def bitpat(op: FCmpOp.Type): BitPat =
+  implicit def bitpat(op: HFFCmpOp.Type): BitPat =
     BitPat(op.litValue.U)
 }
 
-class FCmpRequest(val floatType: FloatType, val lanes: Int) extends Bundle {
-  val op = FCmpOp()
+class HFFCmpRequest(val floatType: FloatType, val lanes: Int) extends Bundle {
+  val op = HFFCmpOp()
   val r1 = Vec(lanes, UInt(floatType.widthHardfloat().W))
   val r2 = Vec(lanes, UInt(floatType.widthHardfloat().W))
 }
 
-class FCmpResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
+class HFFCmpResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
   // result
   val res = Vec(lanes, UInt(floatType.width().W))
   // exception status
   val exc = Vec(lanes, Bits(5.W))
 }
 
-class FCmp(floatType: FloatType, lanes: Int, stages: Int) extends Module {
+class HFFCmp(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   val io = IO(new Bundle {
-    val req = Flipped(Valid(new FCmpRequest(floatType, lanes)))
-    val resp = Valid(new FCmpResponse(floatType, lanes))
+    val req = Flipped(Valid(new HFFCmpRequest(floatType, lanes)))
+    val resp = Valid(new HFFCmpResponse(floatType, lanes))
   })
 
   // replicate small units for higher throughput
@@ -58,32 +58,32 @@ class FCmp(floatType: FloatType, lanes: Int, stages: Int) extends Module {
     exception := cmp.io.exceptionFlags
     result := 0.U
     switch(io.req.bits.op) {
-      is(FCmpOp.EQ) {
+      is(HFFCmpOp.EQ) {
         when(cmp.io.eq) {
           result := 1.U
         }
       }
-      is(FCmpOp.NE) {
+      is(HFFCmpOp.NE) {
         when(!cmp.io.eq) {
           result := 1.U
         }
       }
-      is(FCmpOp.GE) {
+      is(HFFCmpOp.GE) {
         when(cmp.io.gt || cmp.io.eq) {
           result := 1.U
         }
       }
-      is(FCmpOp.LE) {
+      is(HFFCmpOp.LE) {
         when(cmp.io.lt || cmp.io.eq) {
           result := 1.U
         }
       }
-      is(FCmpOp.GT) {
+      is(HFFCmpOp.GT) {
         when(cmp.io.gt) {
           result := 1.U
         }
       }
-      is(FCmpOp.LT) {
+      is(HFFCmpOp.LT) {
         when(cmp.io.lt) {
           result := 1.U
         }
@@ -116,9 +116,9 @@ class FCmp(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   io.resp.bits.exc := exc
 }
 
-object FCmp extends EmitChiselModule {
+object HFFCmp extends EmitChiselModule {
   emitChisel(
-    (floatType, lanes, stages) => new FCmp(floatType, lanes, stages),
-    "HardfloatFCmp"
+    (floatType, lanes, stages) => new HFFCmp(floatType, lanes, stages),
+    "HardfloatHFFCmp"
   )
 }
