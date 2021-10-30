@@ -19,6 +19,9 @@ trait FloatType {
   def width(): Int = exp() + sig()
   // HF width in bits
   def widthHardfloat(): Int = width() + 1
+  // FloPoCo width in bits
+  def widthFlopoco(): Int = width() + 2
+
   // conversion to hardfloat internal representation
   def toHardfloat(n: UInt) = recFNFromFN(exp(), sig(), n)
   def fromHardfloat(n: UInt) = fNFromRecFN(exp(), sig(), n)
