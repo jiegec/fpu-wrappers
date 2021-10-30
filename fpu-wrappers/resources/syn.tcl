@@ -41,7 +41,8 @@ set_output_delay 0.02 -clock clk [all_outputs]
 link
 uniquify
 ungroup -flatten -all
-compile_ultra -retime
+set_optimize_registers
+compile_ultra
 
 # export
 write -format ddc -hierarchy -output [format "%s%s" $toplevel_name ".ddc"]
