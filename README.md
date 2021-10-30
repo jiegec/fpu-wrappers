@@ -9,7 +9,7 @@ This repo intends to create wrappers for open source FPU hardware implementation
 5. [opencores-fpu](https://github.com/jiegec/opencores-fpu)
 6. [fudian](https://github.com/OpenXiangShan/fudian)
 
-|        | berkeley-hardfloat | fpnew | flopoco | CNRV-FPU | opencores-fpu | fudian |
+| op     | berkeley-hardfloat | fpnew | flopoco | CNRV-FPU | opencores-fpu | fudian |
 | ------ | ------------------ | ----- | ------- | -------- | ------------- | ------ |
 | add    | Y                  | Y     | Y       | Y        | Y             | Y      |
 | mul    | Y                  | Y     | Y       | Y        | Y             | Y      |
@@ -23,5 +23,8 @@ This repo intends to create wrappers for open source FPU hardware implementation
 | pow    |                    |       | Y       |          |               |        |
 | log    |                    |       | Y       |          |               |        |
 | exp    |                    |       | Y       |          |               |        |
+| custom | Y                  |       | Y       |          |               |        |
+
+`custom` means custom floating point format.
 
 And make performance comparison.
