@@ -43,15 +43,23 @@ def gen_fma(frequency, task):
     # synthesize to verilog
     os.system(f"sudo docker run -it --rm -t -v $PWD:/src -w /src hdlc/ghdl:yosys yosys -m ghdl -p 'ghdl --std=08 {name}_vhdl08.vhdl -e FMA_{task['type']}; write_verilog {name}.v'")
 
-def gen_exp(task):
+def gen_exp(frequency, task):
     # generate vhdl
     out = subprocess.check_output(
         [flopoco, "FPExp", f"wE={task['exp']}", f"wF={task['frac']}",
-            f"name=FPExp_{task['type']}", f"plainVHDL=1"],
+            f"name=FPExp_{task['type']}", f"plainVHDL=1", f"frequency={frequency}"],
         stderr=subprocess.STDOUT).decode('utf-8')
 
+    # parse stages from output
+    stages = 0
+    for line in out.splitlines():
+        if 'Pipeline depth' in line:
+            stage = int(line.split(' ')[-1])
+            if stage > 0:
+                stages += stage
+
     # save vhdl
-    name = f"FPExp_{task['type']}"
+    name = f"FPExp_{task['type']}{stages}s"
     file = f"{name}.vhdl"
     os.rename('flopoco.vhdl', file)
 
@@ -60,6 +68,5 @@ def gen_exp(task):
 
 for task in tasks:
     for frequency in [100, 150, 200, 250]:
-        # gen_fma(frequency, task)
-        pass
-    gen_exp(task)
+        gen_fma(frequency, task)
+        gen_exp(frequency, task)

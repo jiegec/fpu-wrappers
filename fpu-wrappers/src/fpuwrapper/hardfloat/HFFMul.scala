@@ -90,7 +90,11 @@ object HFFMulSynth extends EmitChiselModule {
         lanes = Seq(1)
       )
       val name = s"Hardfloat_HFFMul_${floatName}1l${stages}s"
-      Synthesis.build(Seq(s"${name}.v"), s"${name}_HFFMul", s"hardfloat_${name}")
+      Synthesis.build(
+        Seq(s"${name}.v"),
+        s"${name}_HFFMul",
+        s"hardfloat_${name}"
+      )
     }
   }
 }

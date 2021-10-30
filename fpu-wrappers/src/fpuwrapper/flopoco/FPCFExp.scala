@@ -22,16 +22,15 @@ class FPCFExp(floatType: FloatType, lanes: Int, stages: Int) extends Component {
   }
 
   for (i <- 0 until lanes) {
-    val fma = new FPCFExpBlackBox(floatType)
+    val fma = new FPCFExpBlackBox(floatType, stages)
     fma.X := io.req.a(i).asBits
     io.resp.res(i) := fma.R.asUInt
   }
 
-  assert(stages == 11)
   io.resp.valid := Delay(io.req.valid, stages)
 }
 
-class FPCFExpBlackBox(floatType: FloatType) extends BlackBox {
+class FPCFExpBlackBox(floatType: FloatType, stages: Int) extends BlackBox {
   val clk = in(Bool)
   val X = in(Bits(floatType.widthFlopoco bits))
   val R = out(Bits(floatType.widthFlopoco bits))
@@ -43,7 +42,7 @@ class FPCFExpBlackBox(floatType: FloatType) extends BlackBox {
     clock = clk
   )
 
-  val fileName = s"FPExp_${floatType.kind().toString()}.v"
+  val fileName = s"FPExp_${floatType.kind().toString()}${stages}s.v"
   assert(
     getClass().getResource(s"/flopoco/${fileName}") != null,
     s"file ${fileName} not found"
