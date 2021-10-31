@@ -73,6 +73,11 @@ IEEEFMA_D1l5s_flopoco:
   Area: 43868.294768
   Comb Area: 34944.101168
   Max Freq: 917 MHz (1.09 ns)
+IEEEFMA_D1l5s_fudian:
+  Cells: 29585
+  Area: 71202.02915
+  Comb Area: 59771.158065
+  Max Freq: 935 MHz (1.07 ns)
 IEEEFMA_D1l5s_hardfloat:
   Cells: 20734
   Area: 52617.247586
