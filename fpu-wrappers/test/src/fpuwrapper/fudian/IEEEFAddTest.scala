@@ -6,10 +6,10 @@ import org.scalatest.freespec.AnyFreeSpec
 import fpuwrapper.FloatS
 import fpuwrapper.Simulator
 
-class FAddTest extends AnyFreeSpec with ChiselScalatestTester {
+class IEEEFAddTest extends AnyFreeSpec with ChiselScalatestTester {
   for (stages <- 1 to 5) {
-    s"FAdd of ${stages} stages should work" in {
-      test(new FAdd(FloatS, 2, stages))
+    s"IEEEFAdd of ${stages} stages should work" in {
+      test(new IEEEFAdd(FloatS, 2, stages))
         .withAnnotations(Simulator.getAnnotations()) { dut =>
           dut.clock.step(16)
 
@@ -19,7 +19,7 @@ class FAddTest extends AnyFreeSpec with ChiselScalatestTester {
             dut.io.req.valid.poke(false.B)
           }
 
-          def expectResp()(x: FAdd => Unit) {
+          def expectResp()(x: IEEEFAdd => Unit) {
             val expectedCycles = stages - 1
             var cycles = 0
             while (dut.io.resp.valid.peek().litToBoolean == false) {

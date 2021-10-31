@@ -119,6 +119,7 @@ class HFFCmp(floatType: FloatType, lanes: Int, stages: Int) extends Module {
 object HFFCmp extends EmitChiselModule {
   emitChisel(
     (floatType, lanes, stages) => new HFFCmp(floatType, lanes, stages),
-    "HardfloatHFFCmp"
+    "HFFCmp",
+    "hardfloat"
   )
 }

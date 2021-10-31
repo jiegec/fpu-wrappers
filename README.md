@@ -29,3 +29,15 @@ This repo intends to create wrappers for open source FPU hardware implementation
 `custom` means custom floating point format.
 
 And make performance comparison.
+
+Module naming convection:
+
+1. Type 1: Floating point format + operator(FAdd/FMA/FExp)
+2. Type 2: Floating point format `To` Floating point format
+3. Type 3: Floating point format + FPU(many operations)
+
+Possible floating point formats:
+
+1. HF: berkeley-hardfloat +1 bits
+2. IEEE: IEEE 754
+3. FPC: flopoco +2 bits

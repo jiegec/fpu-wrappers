@@ -15,7 +15,8 @@ class FMAResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
   val exc = Vec(lanes, Bits(5.W))
 }
 
-class FMAFormal(floatType: FloatType, lanes: Int, stages: Int) extends Module {
+class IEEEFMAFormal(floatType: FloatType, lanes: Int, stages: Int)
+    extends Module {
   val io = IO(new Bundle {
     val req = Flipped(Valid(new FMARequest(floatType, lanes)))
   })
@@ -28,7 +29,7 @@ class FMAFormal(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   hardfloat.io.req.bits.operands := io.req.bits.operands
 
   val fudian = Module(
-    new fpuwrapper.fudian.FMA(floatType, lanes, stages)
+    new fpuwrapper.fudian.IEEEFMA(floatType, lanes, stages)
   )
   fudian.io.req.valid := io.req.valid
   fudian.io.req.bits.operands := io.req.bits.operands

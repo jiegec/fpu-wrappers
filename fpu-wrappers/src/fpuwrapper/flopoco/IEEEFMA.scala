@@ -4,7 +4,7 @@ import fpuwrapper._
 import spinal.core._
 import spinal.lib._
 
-object FMAOp extends SpinalEnum {
+object IEEEFMAOp extends SpinalEnum {
   // 1 * op[1] + op[2]
   val FADD = newElement()
   // 1 * op[1] - op[2]
@@ -12,7 +12,7 @@ object FMAOp extends SpinalEnum {
   // op[0] * op[1] + 0
   val FMUL = newElement()
   // op[0] * op[1] + op[2]
-  val FMADD = newElement()
+  val IEEEFMADD = newElement()
   // op[0] * op[1] - op[2]
   val FMSUB = newElement()
   // -(op[0] * op[1] - op[2])
@@ -23,20 +23,20 @@ object FMAOp extends SpinalEnum {
   val NOP = FADD
 }
 
-class FMARequest(val floatType: FloatType, val lanes: Int) extends Bundle {
-  val op = FMAOp()
+class IEEEFMARequest(val floatType: FloatType, val lanes: Int) extends Bundle {
+  val op = IEEEFMAOp()
   val operands = Vec(Vec(UInt(floatType.width() bits), lanes), 3)
 }
 
-class FMAResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
+class IEEEFMAResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
   // result
   val res = Vec(UInt(floatType.width() bits), lanes)
 }
 
-class FMA(floatType: FloatType, lanes: Int, stages: Int) extends Component {
+class IEEEFMA(floatType: FloatType, lanes: Int, stages: Int) extends Component {
   val io = new Bundle {
-    val req = slave(Flow(new FMARequest(floatType, lanes)))
-    val resp = master(Flow(new FMAResponse(floatType, lanes)))
+    val req = slave(Flow(new IEEEFMARequest(floatType, lanes)))
+    val resp = master(Flow(new IEEEFMAResponse(floatType, lanes)))
   }
 
   val negateAB = False
@@ -56,33 +56,33 @@ class FMA(floatType: FloatType, lanes: Int, stages: Int) extends Component {
   }
 
   switch(io.req.op) {
-    is(FMAOp.FADD) {
+    is(IEEEFMAOp.FADD) {
       op1 := one
     }
-    is(FMAOp.FSUB) {
+    is(IEEEFMAOp.FSUB) {
       op1 := one
       negateC := True
     }
-    is(FMAOp.FMUL) {
+    is(IEEEFMAOp.FMUL) {
       op3 := zero
     }
-    is(FMAOp.FMADD) {
+    is(IEEEFMAOp.IEEEFMADD) {
       // do nothing
     }
-    is(FMAOp.FMSUB) {
+    is(IEEEFMAOp.FMSUB) {
       negateC := True
     }
-    is(FMAOp.FNMSUB) {
+    is(IEEEFMAOp.FNMSUB) {
       negateAB := True
     }
-    is(FMAOp.FNMADD) {
+    is(IEEEFMAOp.FNMADD) {
       negateAB := True
       negateC := True
     }
   }
 
   for (i <- 0 until lanes) {
-    val fma = new FMABlackBox(floatType, stages)
+    val fma = new IEEEFMABlackBox(floatType, stages)
     fma.A := op1(i).asBits
     fma.B := op2(i).asBits
     fma.C := op3(i).asBits
@@ -95,7 +95,7 @@ class FMA(floatType: FloatType, lanes: Int, stages: Int) extends Component {
   io.resp.valid := Delay(io.req.valid, stages)
 }
 
-class FMABlackBox(floatType: FloatType, stages: Int) extends BlackBox {
+class IEEEFMABlackBox(floatType: FloatType, stages: Int) extends BlackBox {
   val clk = in(Bool)
   val A = in(Bits(floatType.width bits))
   val B = in(Bits(floatType.width bits))
@@ -105,14 +105,14 @@ class FMABlackBox(floatType: FloatType, stages: Int) extends BlackBox {
   val RndMode = in(Bits(2 bits))
   val R = out(Bits(floatType.width bits))
 
-  setDefinitionName(s"FMA_${floatType.kind().toString()}")
+  setDefinitionName(s"IEEEFMA_${floatType.kind().toString()}")
 
   // Map the clk
   mapCurrentClockDomain(
     clock = clk
   )
 
-  val fileName = s"FMA_${floatType.kind().toString()}${stages}s.v"
+  val fileName = s"IEEEFMA_${floatType.kind().toString()}${stages}s.v"
   assert(
     getClass().getResource(s"/flopoco/${fileName}") != null,
     s"file ${fileName} not found"
@@ -120,32 +120,32 @@ class FMABlackBox(floatType: FloatType, stages: Int) extends BlackBox {
   addRTLPath(Resource.path(s"/flopoco/${fileName}"))
 }
 
-object FMA extends EmitSpinalModule {
+object IEEEFMA extends EmitSpinalModule {
   emitFlopoco(
     3,
-    (floatType, lanes, stages) => new FMA(floatType, lanes, stages),
-    "FlopocoFMA"
+    (floatType, lanes, stages) => new IEEEFMA(floatType, lanes, stages),
+    "FlopocoIEEEFMA"
   )
 }
 
-object FMASynth extends SpinalGen {
+object IEEEFMASynth extends SpinalGen {
   for (floatType <- Seq(FloatS)) {
     val floatName = floatType.kind().toString()
     for (stages <- Seq(4)) {
       val lanes = 1
       work(
-        new FMA(floatType, lanes, stages),
-        s"FlopocoFMA_${floatName}${lanes}l${stages}s"
+        new IEEEFMA(floatType, lanes, stages),
+        s"FlopocoIEEEFMA_${floatName}${lanes}l${stages}s"
       )
 
-      val name = s"FMA_${floatName}1l${stages}s"
-      val fileName = s"FMA_${floatName}${stages}s.v"
+      val name = s"IEEEFMA_${floatName}1l${stages}s"
+      val fileName = s"IEEEFMA_${floatName}${stages}s.v"
       Synthesis.build(
         Seq(
           s"Flopoco${name}.v",
           s"./fpu-wrappers/resources/flopoco/${fileName}"
         ),
-        s"FMA",
+        s"IEEEFMA",
         s"flopoco_${name}"
       )
     }

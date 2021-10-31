@@ -23,6 +23,7 @@ class HFToIEEE(floatType: FloatType, lanes: Int, stages: Int) extends Module {
 object HFToIEEE extends EmitChiselModule {
   emitChisel(
     (floatType, lanes, stages) => new HFToIEEE(floatType, lanes, stages),
-    "HardfloatHFToIEEE"
+    "HFToIEEE",
+    "hardfloat"
   )
 }

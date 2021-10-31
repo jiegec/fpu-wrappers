@@ -6,10 +6,10 @@ import org.scalatest.freespec.AnyFreeSpec
 import fpuwrapper.FloatS
 import fpuwrapper.Simulator
 
-class FMATest extends AnyFreeSpec with ChiselScalatestTester {
+class IEEEFMATest extends AnyFreeSpec with ChiselScalatestTester {
   for (stages <- 1 to 5) {
-    s"FMA of ${stages} stages should work" in {
-      test(new FMA(FloatS, 2, stages))
+    s"IEEEFMA of ${stages} stages should work" in {
+      test(new IEEEFMA(FloatS, 2, stages))
         .withAnnotations(Simulator.getAnnotations()) { dut =>
           dut.clock.step(16)
 
@@ -19,7 +19,7 @@ class FMATest extends AnyFreeSpec with ChiselScalatestTester {
             dut.io.req.valid.poke(false.B)
           }
 
-          def expectResp()(x: FMA => Unit) {
+          def expectResp()(x: IEEEFMA => Unit) {
             val expectedCycles = stages - 1
             var cycles = 0
             while (dut.io.resp.valid.peek().litToBoolean == false) {

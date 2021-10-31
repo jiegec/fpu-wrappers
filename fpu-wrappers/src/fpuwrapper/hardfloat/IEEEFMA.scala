@@ -134,7 +134,8 @@ class IEEEFMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
 object IEEEFMA extends EmitChiselModule {
   emitChisel(
     (floatType, lanes, stages) => new IEEEFMA(floatType, lanes, stages),
-    "Hardfloat_IEEEFMA"
+    "IEEEFMA",
+    "hardfloat"
   )
 }
 
@@ -144,7 +145,8 @@ object IEEEFMASynth extends EmitChiselModule {
     for (stages <- Seq(4)) {
       emitChisel(
         (floatType, lanes, stages) => new IEEEFMA(floatType, lanes, stages),
-        "Hardfloat_IEEEFMA",
+        "IEEEFMA",
+        "Hardfloat",
         allStages = Seq(stages),
         floatTypes = Seq(floatType),
         lanes = Seq(1)

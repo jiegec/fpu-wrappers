@@ -7,22 +7,23 @@ import fpuwrapper.FloatD
 import fpuwrapper.FloatType
 import fpuwrapper.Synthesis
 
-class FAddRequest(val floatType: FloatType, val lanes: Int) extends Bundle {
+class IEEEFAddRequest(val floatType: FloatType, val lanes: Int) extends Bundle {
   val a = Vec(lanes, UInt(floatType.width.W))
   val b = Vec(lanes, UInt(floatType.width.W))
 }
 
-class FAddResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
+class IEEEFAddResponse(val floatType: FloatType, val lanes: Int)
+    extends Bundle {
   // result
   val res = Vec(lanes, UInt(floatType.width.W))
   // exception status
   val exc = Vec(lanes, Bits(5.W))
 }
 
-class FAdd(floatType: FloatType, lanes: Int, stages: Int) extends Module {
+class IEEEFAdd(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   val io = IO(new Bundle {
-    val req = Flipped(Valid(new FAddRequest(floatType, lanes)))
-    val resp = Valid(new FAddResponse(floatType, lanes))
+    val req = Flipped(Valid(new IEEEFAddRequest(floatType, lanes)))
+    val resp = Valid(new IEEEFAddResponse(floatType, lanes))
   })
 
   val inputStages = stages / 2
@@ -69,28 +70,30 @@ class FAdd(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   io.resp.bits.exc := exc
 }
 
-object FAdd extends EmitChiselModule {
+object IEEEFAdd extends EmitChiselModule {
   emitChisel(
-    (floatType, lanes, stages) => new FAdd(floatType, lanes, stages),
-    "Fudian_FAdd"
+    (floatType, lanes, stages) => new IEEEFAdd(floatType, lanes, stages),
+    "IEEEFAdd",
+    "fudian"
   )
 }
 
-object FAddSynth extends EmitChiselModule {
+object IEEEFAddSynth extends EmitChiselModule {
   for (floatType <- Seq(FloatD)) {
     val floatName = floatType.kind().toString()
     for (stages <- Seq(4)) {
       emitChisel(
-        (floatType, lanes, stages) => new FAdd(floatType, lanes, stages),
-        "Fudian_FAdd",
+        (floatType, lanes, stages) => new IEEEFAdd(floatType, lanes, stages),
+        "IEEEFAdd",
+        "fudian",
         allStages = Seq(stages),
         floatTypes = Seq(floatType),
         lanes = Seq(1)
       )
-      val name = s"Fudian_FAdd_${floatName}1l${stages}s"
+      val name = s"Fudian_IEEEFAdd_${floatName}1l${stages}s"
       Synthesis.build(
         Seq(s"${name}.v"),
-        s"${name}_FAdd",
+        s"${name}_IEEEFAdd",
         s"fudian_${name}"
       )
     }

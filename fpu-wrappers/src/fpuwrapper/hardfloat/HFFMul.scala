@@ -74,7 +74,8 @@ class HFFMul(floatType: FloatType, lanes: Int, stages: Int) extends Module {
 object HFFMul extends EmitChiselModule {
   emitChisel(
     (floatType, lanes, stages) => new HFFMul(floatType, lanes, stages),
-    "Hardfloat_HFFMul"
+    "HFFMul",
+    "hardfloat"
   )
 }
 
@@ -84,7 +85,8 @@ object HFFMulSynth extends EmitChiselModule {
     for (stages <- Seq(1, 2, 3)) {
       emitChisel(
         (floatType, lanes, stages) => new HFFMul(floatType, lanes, stages),
-        "Hardfloat_HFFMul",
+        "HFFMul",
+        "hardfloat",
         allStages = Seq(stages),
         floatTypes = Seq(floatType),
         lanes = Seq(1)

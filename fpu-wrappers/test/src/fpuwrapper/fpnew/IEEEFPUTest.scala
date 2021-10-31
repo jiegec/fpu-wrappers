@@ -6,11 +6,11 @@ import org.scalatest.freespec.AnyFreeSpec
 import fpuwrapper.FloatS
 import fpuwrapper.Simulator
 
-class FPUTest extends AnyFreeSpec with ChiselScalatestTester {
+class IEEEFPUTest extends AnyFreeSpec with ChiselScalatestTester {
   // fpnew does not support icarus verilog
   for (stages <- 1 to 5) {
-    s"FPU of ${stages} stages should work" in {
-      test(new FPU(FloatS, 2, stages))
+    s"IEEEFPU of ${stages} stages should work" in {
+      test(new IEEEFPU(FloatS, 2, stages))
         .withAnnotations(Simulator.getAnnotations(useIcarus = false)) { dut =>
           dut.clock.step(16)
 
@@ -23,7 +23,7 @@ class FPUTest extends AnyFreeSpec with ChiselScalatestTester {
             dut.io.req.valid.poke(false.B)
           }
 
-          def expectResp()(x: FPU => Unit) {
+          def expectResp()(x: IEEEFPU => Unit) {
             dut.io.resp.ready.poke(true.B)
             while (dut.io.resp.valid.peek().litToBoolean == false) {
               dut.clock.step(1)

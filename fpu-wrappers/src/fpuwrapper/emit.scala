@@ -27,6 +27,7 @@ trait EmitChiselModule extends EmitVerilogApp {
   def emitChisel(
       genModule: (FloatType, Int, Int) => RawModule,
       name: String,
+      library: String,
       allStages: Seq[Int] = Seq(1, 2, 3),
       floatTypes: Seq[FloatType] = Seq(FloatH, FloatS, FloatD),
       lanes: Seq[Int] = Seq(1, 2, 4)
@@ -37,7 +38,7 @@ trait EmitChiselModule extends EmitVerilogApp {
         for (stages <- allStages) {
           emit(
             () => genModule(floatType, lanes, stages),
-            s"${name}_${floatName}${lanes}l${stages}s"
+            s"${name}_${floatName}${lanes}l${stages}s_${library}"
           )
         }
       }

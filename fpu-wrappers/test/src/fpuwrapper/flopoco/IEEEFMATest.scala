@@ -5,12 +5,12 @@ import spinal.core._
 import spinal.core.sim._
 import fpuwrapper.FloatS
 
-// FMA's testbench
-class FMATest extends AnyFunSuite {
-  test("FMA") {
+// IEEEFMA's testbench
+class IEEEFMATest extends AnyFunSuite {
+  test("IEEEFMA") {
     SimConfig.withWave.withIVerilog
       .doSim(
-        new FMA(
+        new IEEEFMA(
           FloatS,
           2,
           3
@@ -30,7 +30,7 @@ class FMATest extends AnyFunSuite {
         dut.io.req.operands(0)(1) #= BigInt("40800000", 16) // 4.0
         dut.io.req.operands(1)(1) #= BigInt("40a00000", 16) // 5.0
         dut.io.req.operands(2)(1) #= BigInt("40c00000", 16) // 6.0
-        dut.io.req.op #= FMAOp.FMADD
+        dut.io.req.op #= IEEEFMAOp.IEEEFMADD
 
         dut.clockDomain.waitSamplingWhere {
           dut.io.resp.valid.toBoolean

@@ -6,7 +6,7 @@ import spinal.lib._
 
 import java.nio.file.Paths
 
-object FPUOp extends SpinalEnum {
+object IEEEFPUOp extends SpinalEnum {
   val FADD = newElement()
   val FSUB = newElement()
   val FMUL = newElement()
@@ -17,25 +17,25 @@ object FPUOp extends SpinalEnum {
   val NOP = FADD
 }
 
-class FPURequest(val floatType: FloatType) extends Bundle {
-  val op = FPUOp()
+class IEEEFPURequest(val floatType: FloatType) extends Bundle {
+  val op = IEEEFPUOp()
   val operands = Vec(UInt(floatType.width() bits), 2)
 }
 
-class FPUResponse(val floatType: FloatType) extends Bundle {
+class IEEEFPUResponse(val floatType: FloatType) extends Bundle {
   // result
   val res = UInt(floatType.width() bits)
 }
 
-class FPU extends Component {
+class IEEEFPU extends Component {
   val floatType = FloatS
   val stages = 4
   val io = new Bundle {
-    val req = slave(Flow(new FPURequest(floatType)))
-    val resp = master(Flow(new FPUResponse(floatType)))
+    val req = slave(Flow(new IEEEFPURequest(floatType)))
+    val resp = master(Flow(new IEEEFPUResponse(floatType)))
   }
 
-  val fpu = new FPUBlackBox(floatType)
+  val fpu = new IEEEFPUBlackBox(floatType)
   fpu.rmode := 0
   fpu.fpu_op := io.req.op.asBits.resized
   fpu.opa := io.req.operands(0).asBits
@@ -45,7 +45,7 @@ class FPU extends Component {
   io.resp.valid := Delay(io.req.valid, stages)
 }
 
-class FPUBlackBox(val floatType: FloatType) extends BlackBox {
+class IEEEFPUBlackBox(val floatType: FloatType) extends BlackBox {
   val clk = in(Bool)
   val rmode = in(Bits(2 bits))
   val fpu_op = in(Bits(3 bits))
@@ -83,12 +83,12 @@ class FPUBlackBox(val floatType: FloatType) extends BlackBox {
   }
 }
 
-object FPU extends App {
-  val verilog = spinal.core.SpinalConfig(netlistFileName = "OpencoresFPU.v")
-  verilog.generateVerilog(new FPU())
+object IEEEFPU extends App {
+  val verilog = spinal.core.SpinalConfig(netlistFileName = "OpencoresIEEEFPU.v")
+  verilog.generateVerilog(new IEEEFPU())
 }
 
-object FPUSynth extends App {
+object IEEEFPUSynth extends App {
   val files = Seq(
     "except.v",
     "fpu.v",
@@ -103,9 +103,9 @@ object FPUSynth extends App {
 
   Synthesis.build(
     Seq(
-      s"OpencoresFPU.v"
+      s"OpencoresIEEEFPU.v"
     ) ++ sources,
-    s"FPU_1",
-    s"opencores_FPU"
+    s"IEEEFPU_1",
+    s"opencores_IEEEFPU"
   )
 }

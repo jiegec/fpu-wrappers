@@ -4,12 +4,12 @@ import org.scalatest.funsuite.AnyFunSuite
 import spinal.core._
 import spinal.core.sim._
 
-// FPU's testbench
-class FPUTest extends AnyFunSuite {
-  test("FPU") {
+// IEEEFPU's testbench
+class IEEEFPUTest extends AnyFunSuite {
+  test("IEEEFPU") {
     SimConfig.withWave.withIVerilog
       .doSim(
-        new FPU()
+        new IEEEFPU()
       ) { dut =>
         dut.clockDomain.forkStimulus(period = 10)
         dut.clockDomain.waitRisingEdge()
@@ -21,7 +21,7 @@ class FPUTest extends AnyFunSuite {
         dut.io.req.valid #= true
         dut.io.req.operands(0) #= BigInt("3f800000", 16) // 1.0
         dut.io.req.operands(1) #= BigInt("40000000", 16) // 2.0
-        dut.io.req.op #= FPUOp.FADD
+        dut.io.req.op #= IEEEFPUOp.FADD
 
         dut.clockDomain.waitSampling()
         dut.io.req.valid #= false

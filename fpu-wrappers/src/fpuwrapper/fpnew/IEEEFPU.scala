@@ -60,7 +60,7 @@ class FPIO(val fLen: Int) extends Bundle {
   val busy = Output(Bool())
 }
 
-class FPU(
+class IEEEFPU(
     val floatType: FloatType,
     val lanes: Int,
     val stages: Int
@@ -114,9 +114,10 @@ class FPU(
   io.busy := blackbox.io.busy_o
 }
 
-object FPU extends EmitChiselModule {
+object IEEEFPU extends EmitChiselModule {
   emitChisel(
-    (floatType, lanes, stages) => new FPU(floatType, lanes, stages),
-    "FPNew_FPU"
+    (floatType, lanes, stages) => new IEEEFPU(floatType, lanes, stages),
+    "IEEEFPU",
+    "fpnew"
   )
 }
