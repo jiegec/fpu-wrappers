@@ -214,7 +214,7 @@ hardfloat_Hardfloat_IEEEFMA_S1l4s:
   Comb Area: 16623.616935
   Max Freq: 1031 MHz (0.97 ns)
 opencores_FPU:
-  Cells: 28373
-  Area: 61864.790878
-  Comb Area: 52955.918801
-  Max Freq: 183 MHz (5.45 ns)
+  Cells: 29091
+  Area: 61559.635666
+  Comb Area: 51584.635564
+  Max Freq: 280 MHz (3.57 ns)
