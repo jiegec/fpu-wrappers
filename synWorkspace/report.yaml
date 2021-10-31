@@ -1,3 +1,53 @@
+IEEEFMA_D1l3s_flopoco:
+  Cells: 18907
+  Area: 52153.450068
+  Comb Area: 47989.805282
+  Max Freq: 763 MHz (1.31 ns)
+IEEEFMA_D1l4s_fudian:
+  Cells: 28287
+  Area: 68281.668439
+  Comb Area: 61495.795706
+  Max Freq: 826 MHz (1.21 ns)
+IEEEFMA_D1l4s_hardfloat:
+  Cells: 25404
+  Area: 71022.319549
+  Comb Area: 62929.642116
+  Max Freq: 909 MHz (1.10 ns)
+IEEEFMA_D1l5s_hardfloat:
+  Cells: 20734
+  Area: 52617.247586
+  Comb Area: 42745.668372
+  Max Freq: 1010 MHz (0.99 ns)
+IEEEFMA_H1l2s_hardfloat:
+  Cells: 3825
+  Area: 10148.006426
+  Comb Area: 9071.344851
+  Max Freq: 901 MHz (1.11 ns)
+IEEEFMA_H1l3s_flopoco:
+  Cells: 2952
+  Area: 6969.093664
+  Comb Area: 5588.87284
+  Max Freq: 1031 MHz (0.97 ns)
+IEEEFMA_S1l3s_flopoco:
+  Cells: 6487
+  Area: 15946.91289
+  Comb Area: 12939.091316
+  Max Freq: 909 MHz (1.10 ns)
+IEEEFMA_S1l3s_fudian:
+  Cells: 11092
+  Area: 28002.777713
+  Comb Area: 23462.796161
+  Max Freq: 781 MHz (1.28 ns)
+IEEEFMA_S1l4s_flopoco:
+  Cells: 6738
+  Area: 17020.063359
+  Comb Area: 13509.820902
+  Max Freq: 1031 MHz (0.97 ns)
+IEEEFMA_S1l4s_fudian:
+  Cells: 11237
+  Area: 27662.191357
+  Comb Area: 24018.842584
+  Max Freq: 971 MHz (1.03 ns)
 Mul_11w0s:
   Cells: 284
   Area: 628.18561
@@ -88,41 +138,6 @@ Mul_8w2s:
   Area: 586.370412
   Comb Area: 342.182406
   Max Freq: 1042 MHz (0.96 ns)
-flopoco_FMA_D1l3s:
-  Cells: 18907
-  Area: 52153.450068
-  Comb Area: 47989.805282
-  Max Freq: 763 MHz (1.31 ns)
-flopoco_FMA_H1l3s:
-  Cells: 2952
-  Area: 6969.093664
-  Comb Area: 5588.87284
-  Max Freq: 1031 MHz (0.97 ns)
-flopoco_FMA_S1l3s:
-  Cells: 6487
-  Area: 15946.91289
-  Comb Area: 12939.091316
-  Max Freq: 909 MHz (1.10 ns)
-flopoco_FMA_S1l4s:
-  Cells: 6738
-  Area: 17020.063359
-  Comb Area: 13509.820902
-  Max Freq: 1031 MHz (0.97 ns)
-fudian_Fudian_FMA_D1l4s:
-  Cells: 28287
-  Area: 68281.668439
-  Comb Area: 61495.795706
-  Max Freq: 826 MHz (1.21 ns)
-fudian_Fudian_FMA_S1l3s:
-  Cells: 11092
-  Area: 28002.777713
-  Comb Area: 23462.796161
-  Max Freq: 781 MHz (1.28 ns)
-fudian_Fudian_FMA_S1l4s:
-  Cells: 11237
-  Area: 27662.191357
-  Comb Area: 24018.842584
-  Max Freq: 971 MHz (1.03 ns)
 hardfloat_Hardfloat_HFFMA_D1l3s:
   Cells: 20183
   Area: 53245.113941
@@ -178,21 +193,6 @@ hardfloat_Hardfloat_HFFMul_S1l3s:
   Area: 6564.348085
   Comb Area: 4972.497658
   Max Freq: 1031 MHz (0.97 ns)
-hardfloat_Hardfloat_IEEEFMA_D1l4s:
-  Cells: 25404
-  Area: 71022.319549
-  Comb Area: 62929.642116
-  Max Freq: 909 MHz (1.10 ns)
-hardfloat_Hardfloat_IEEEFMA_D1l5s:
-  Cells: 20734
-  Area: 52617.247586
-  Comb Area: 42745.668372
-  Max Freq: 1010 MHz (0.99 ns)
-hardfloat_Hardfloat_IEEEFMA_H1l2s:
-  Cells: 3825
-  Area: 10148.006426
-  Comb Area: 9071.344851
-  Max Freq: 901 MHz (1.11 ns)
 hardfloat_Hardfloat_IEEEFMA_H1l3s:
   Cells: 3405
   Area: 7798.375257

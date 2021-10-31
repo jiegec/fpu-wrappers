@@ -133,20 +133,20 @@ object IEEEFMASynth extends SpinalGen {
     val floatName = floatType.kind().toString()
     for (stages <- Seq(4)) {
       val lanes = 1
+      val name = s"IEEEFMA_${floatName}${lanes}l${stages}s"
       work(
         new IEEEFMA(floatType, lanes, stages),
-        s"FlopocoIEEEFMA_${floatName}${lanes}l${stages}s"
+        name
       )
 
-      val name = s"IEEEFMA_${floatName}1l${stages}s"
       val fileName = s"IEEEFMA_${floatName}${stages}s.v"
       Synthesis.build(
         Seq(
-          s"Flopoco${name}.v",
+          s"${name}.v",
           s"./fpu-wrappers/resources/flopoco/${fileName}"
         ),
         s"IEEEFMA",
-        s"flopoco_${name}"
+        s"${name}_flopoco"
       )
     }
   }

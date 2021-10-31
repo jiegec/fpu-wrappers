@@ -146,16 +146,16 @@ object IEEEFMASynth extends EmitChiselModule {
       emitChisel(
         (floatType, lanes, stages) => new IEEEFMA(floatType, lanes, stages),
         "IEEEFMA",
-        "Hardfloat",
+        "hardfloat",
         allStages = Seq(stages),
         floatTypes = Seq(floatType),
         lanes = Seq(1)
       )
-      val name = s"Hardfloat_IEEEFMA_${floatName}1l${stages}s"
+      val name = s"IEEEFMA_${floatName}1l${stages}s_hardfloat"
       Synthesis.build(
         Seq(s"${name}.v"),
         s"${name}_IEEEFMA",
-        s"hardfloat_${name}"
+        name
       )
     }
   }
