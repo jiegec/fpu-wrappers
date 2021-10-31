@@ -22,7 +22,7 @@ def gen_fma(frequency, task):
     # generate vhdl
     out = subprocess.check_output(
         [flopoco, "IEEEFMA", f"wE={task['exp']}", f"wF={task['frac']}",
-            f"name=FMA_{task['type']}", f"frequency={frequency}"],
+            f"name=IEEEFMA_{task['type']}", f"frequency={frequency}"],
         stderr=subprocess.STDOUT).decode('utf-8')
 
     # parse stages from output
@@ -41,13 +41,13 @@ def gen_fma(frequency, task):
     os.system(f"sed -e 's/std_logic_arith/numeric_std/g' -e 's/std_logic_unsigned/numeric_std_unsigned/g' {file} > {file_vhdl08}")
 
     # synthesize to verilog
-    os.system(f"sudo docker run -it --rm -t -v $PWD:/src -w /src hdlc/ghdl:yosys yosys -m ghdl -p 'ghdl --std=08 {name}_vhdl08.vhdl -e FMA_{task['type']}; write_verilog {name}.v'")
+    os.system(f"sudo docker run -it --rm -t -v $PWD:/src -w /src hdlc/ghdl:yosys yosys -m ghdl -p 'ghdl --std=08 {name}_vhdl08.vhdl -e IEEEFMA_{task['type']}; write_verilog {name}.v'")
 
 def gen_exp(frequency, task):
     # generate vhdl
     out = subprocess.check_output(
         [flopoco, "FPExp", f"wE={task['exp']}", f"wF={task['frac']}",
-            f"name=FPExp_{task['type']}", f"plainVHDL=1", f"frequency={frequency}"],
+            f"name=FPCFExp_{task['type']}", f"plainVHDL=1", f"frequency={frequency}"],
         stderr=subprocess.STDOUT).decode('utf-8')
 
     # parse stages from output
@@ -64,7 +64,7 @@ def gen_exp(frequency, task):
     os.rename('flopoco.vhdl', file)
 
     # synthesize to verilog
-    os.system(f"sudo docker run -it --rm -t -v $PWD:/src -w /src hdlc/ghdl:yosys yosys -m ghdl -p 'ghdl -fsynopsys -fexplicit {name}.vhdl -e FPExp_{task['type']}; write_verilog {name}.v'")
+    os.system(f"sudo docker run -it --rm -t -v $PWD:/src -w /src hdlc/ghdl:yosys yosys -m ghdl -p 'ghdl -fsynopsys -fexplicit {name}.vhdl -e FPCFExp_{task['type']}; write_verilog {name}.v'")
 
 for task in tasks:
     for frequency in [100, 150, 200, 250]:
