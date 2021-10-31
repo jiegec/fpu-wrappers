@@ -32,7 +32,7 @@ def gen_fma(frequency, task):
             stages = int(line.split(' ')[-1])
 
     # save vhdl
-    name = f"FMA_{task['type']}{stages}s"
+    name = f"IEEEFMA_{task['type']}{stages}s"
     file = f"{name}.vhdl"
     file_vhdl08 = f"{name}_vhdl08.vhdl"
     os.rename('flopoco.vhdl', file)
@@ -59,7 +59,7 @@ def gen_exp(frequency, task):
                 stages += stage
 
     # save vhdl
-    name = f"FPExp_{task['type']}{stages}s"
+    name = f"FPCFExp_{task['type']}{stages}s"
     file = f"{name}.vhdl"
     os.rename('flopoco.vhdl', file)
 
