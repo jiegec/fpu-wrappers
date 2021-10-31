@@ -139,11 +139,11 @@ object FMASynth extends SpinalGen {
       )
 
       val name = s"FMA_${floatName}1l${stages}s"
-      val fileName = s"FMA_${floatName}${stages}s.vhdl"
+      val fileName = s"FMA_${floatName}${stages}s.v"
       Synthesis.build(
         Seq(
           s"Flopoco${name}.v",
-          s"./src/main/resources/flopoco/${fileName}"
+          s"./fpu-wrappers/resources/flopoco/${fileName}"
         ),
         s"FMA",
         s"flopoco_${name}"

@@ -5,7 +5,6 @@ target/
 project/project/
 test_run_dir/
 simWorkspace/
-synWorkspace/
 tmp/
 out/
 
