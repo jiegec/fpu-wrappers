@@ -13,7 +13,7 @@ class FPCFExpTest extends AnyFunSuite {
         new FPCFExp(
           FloatS,
           2,
-          7
+          4
         )
       ) { dut =>
         dut.clockDomain.forkStimulus(period = 10)

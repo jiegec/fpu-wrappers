@@ -54,9 +54,7 @@ def gen_exp(frequency, task):
     stages = 0
     for line in out.splitlines():
         if 'Pipeline depth' in line:
-            stage = int(line.split(' ')[-1])
-            if stage > 0:
-                stages += stage
+            stages = int(line.split(' ')[-1])
 
     # save vhdl
     name = f"FPCFExp_{task['type']}{stages}s"

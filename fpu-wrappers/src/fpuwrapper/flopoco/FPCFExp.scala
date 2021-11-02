@@ -35,14 +35,14 @@ class FPCFExpBlackBox(floatType: FloatType, stages: Int) extends BlackBox {
   val X = in(Bits(floatType.widthFlopoco bits))
   val R = out(Bits(floatType.widthFlopoco bits))
 
-  setDefinitionName(s"FPExp_${floatType.kind().toString()}")
+  setDefinitionName(s"FPCFExp_${floatType.kind().toString()}")
 
   // Map the clk
   mapCurrentClockDomain(
     clock = clk
   )
 
-  val fileName = s"FPExp_${floatType.kind().toString()}${stages}s.v"
+  val fileName = s"FPCFExp_${floatType.kind().toString()}${stages}s.v"
   assert(
     getClass().getResource(s"/flopoco/${fileName}") != null,
     s"file ${fileName} not found"
