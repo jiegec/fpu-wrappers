@@ -1,10 +1,10 @@
 package fpuwrapper.flopoco
 
+import fpuwrapper.EmitSpinalModule
 import fpuwrapper.FloatType
+import fpuwrapper.Resource
 import spinal.core._
 import spinal.lib._
-import fpuwrapper.EmitSpinalModule
-import fpuwrapper.Resource
 
 class FPCFExpRequest(val floatType: FloatType, val lanes: Int) extends Bundle {
   val a = Vec(UInt(floatType.widthFlopoco bits), lanes)

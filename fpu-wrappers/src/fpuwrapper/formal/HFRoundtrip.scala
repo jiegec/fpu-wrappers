@@ -1,12 +1,12 @@
 package fpuwrapper.formal
 
-import fpuwrapper.FloatType
 import chisel3._
+import chisel3.stage.ChiselStage
+import fpuwrapper.FloatS
+import fpuwrapper.FloatType
 import fpuwrapper.hardfloat.HFToIEEE
 import fpuwrapper.hardfloat.IEEEToHF
-import fpuwrapper.FloatS
-import fpuwrapper.ChiselEmitVerilog
-import chisel3.stage.ChiselStage
+
 import scala.sys.process._
 
 class HFRoundtrip(floatType: FloatType) extends Module {
