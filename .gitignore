@@ -9,6 +9,8 @@ tmp/
 out/
 
 *.v
+*.sv
+*.smt2
 *.anno.json
 *.fir
 ucli.key

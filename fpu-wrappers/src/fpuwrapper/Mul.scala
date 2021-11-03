@@ -20,7 +20,7 @@ class Mul(bitWidth: Int, stages: Int) extends Component {
 
 /** Generate Mul module
   */
-object Mul extends SpinalGen {
+object Mul extends SpinalEmitVerilog {
   for (width <- Seq(8, 16, 32)) {
     for (stages <- Seq(0, 1, 2)) {
       work(new Mul(width, stages), s"Mul_${width}w${stages}s")
@@ -30,7 +30,7 @@ object Mul extends SpinalGen {
 
 /** Synthesize Mul
   */
-object MulSynth extends SpinalGen {
+object MulSynth extends SpinalEmitVerilog {
   for (width <- Seq(11, 24, 53)) {
     for (stages <- Seq(0, 1, 2)) {
       work(new Mul(width, stages), s"Mul_${width}w${stages}s")

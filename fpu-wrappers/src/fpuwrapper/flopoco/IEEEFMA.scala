@@ -128,7 +128,7 @@ object IEEEFMA extends EmitSpinalModule {
   )
 }
 
-object IEEEFMASynth extends SpinalGen {
+object IEEEFMASynth extends SpinalEmitVerilog {
   for (floatType <- Seq(FloatS)) {
     val floatName = floatType.kind().toString()
     for (stages <- Seq(4)) {

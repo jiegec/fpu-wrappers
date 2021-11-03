@@ -4,7 +4,7 @@ import fpuwrapper.FloatType
 import chisel3._
 import chisel3.util._
 import chisel3.stage.ChiselStage
-import fpuwrapper.EmitVerilogApp
+import fpuwrapper.ChiselEmitVerilog
 import fpuwrapper.FloatS
 import fpuwrapper.FloatH
 
@@ -48,7 +48,7 @@ class IEEEFMAFormal(floatType: FloatType, lanes: Int, stages: Int)
   }
 }
 
-object IEEEFMAFormal extends EmitVerilogApp {
+object IEEEFMAFormal extends ChiselEmitVerilog {
   (new ChiselStage()).emitSystemVerilog(
     new IEEEFMAFormal(FloatH, 1, 1),
     Array("-o", "IEEEFMAFormal"),

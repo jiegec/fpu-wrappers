@@ -7,7 +7,7 @@ import firrtl.stage.RunFirrtlTransformAnnotation
 
 /** Emit Verilog from Chisel module
   */
-trait EmitVerilogApp extends App {
+trait ChiselEmitVerilog extends App {
   def emit(genModule: () => RawModule, name: String) {
     val prefix = s"${name}_"
     (new ChiselStage()).emitVerilog(
@@ -23,7 +23,7 @@ trait EmitVerilogApp extends App {
 
 /** Helper to generate Chisel modules
   */
-trait EmitChiselModule extends EmitVerilogApp {
+trait EmitChiselModule extends ChiselEmitVerilog {
   def emitChisel(
       genModule: (FloatType, Int, Int) => RawModule,
       name: String,
@@ -48,7 +48,7 @@ trait EmitChiselModule extends EmitVerilogApp {
 
 /** Generate Verilog from SpinalHDL module
   */
-trait SpinalGen extends App {
+trait SpinalEmitVerilog extends App {
   def work[T <: spinal.core.Component](
       gen: => T,
       netlistName: String = null
@@ -66,7 +66,7 @@ trait SpinalGen extends App {
 
 /** Helper to generate SpinalHDL modules
   */
-trait EmitSpinalModule extends SpinalGen {
+trait EmitSpinalModule extends SpinalEmitVerilog {
   def emitFlopoco[T <: spinal.core.Component](
       stages: Int,
       genModule: (FloatType, Int, Int) => T,
