@@ -4,6 +4,9 @@ import fpuwrapper.EmitSpinalModule
 import fpuwrapper.FloatType
 import spinal.core._
 import spinal.lib._
+import fpuwrapper.SpinalEmitVerilog
+import fpuwrapper.FloatS
+import fpuwrapper.Synthesis
 
 class IEEEFExpRequest(val floatType: FloatType, val lanes: Int) extends Bundle {
   val a = Vec(UInt(floatType.width bits), lanes)
@@ -43,4 +46,28 @@ object IEEEFExp extends EmitSpinalModule {
     (floatType, lanes, stages) => new IEEEFExp(floatType, lanes, stages),
     "FlopocoIEEEFExp"
   )
+}
+
+object IEEEFExpSynth extends SpinalEmitVerilog {
+  for (floatType <- Seq(FloatS)) {
+    val floatName = floatType.kind().toString()
+    for (stages <- Seq(3)) {
+      val lanes = 1
+      val name = s"IEEEFExp_${floatName}${lanes}l${stages}s"
+      work(
+        new IEEEFExp(floatType, lanes, stages),
+        name
+      )
+
+      val fileName = s"FPCFExp_${floatName}${stages}s.v"
+      Synthesis.build(
+        Seq(
+          s"${name}.v",
+          s"./fpu-wrappers/resources/flopoco/${fileName}"
+        ),
+        s"IEEEFExp",
+        s"${name}_flopoco"
+      )
+    }
+  }
 }

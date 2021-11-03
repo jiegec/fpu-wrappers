@@ -53,6 +53,16 @@ HFFMul_S1l3s_hardfloat:
   Area: 6564.348085
   Comb Area: 4972.497658
   Max Freq: 1031 MHz (0.97 ns)
+IEEEFExp_S1l3s_flopoco:
+  Cells: 10010
+  Area: 26380.922509
+  Comb Area: 22376.877774
+  Max Freq: 813 MHz (1.23 ns)
+IEEEFExp_S1l4s_flopoco:
+  Cells: 10176
+  Area: 24401.563315
+  Comb Area: 23015.277725
+  Max Freq: 971 MHz (1.03 ns)
 IEEEFMA_D1l3s_flopoco:
   Cells: 18907
   Area: 52153.450068
