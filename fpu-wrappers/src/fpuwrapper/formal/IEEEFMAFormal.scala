@@ -3,6 +3,10 @@ package fpuwrapper.formal
 import fpuwrapper.FloatType
 import chisel3._
 import chisel3.util._
+import chisel3.stage.ChiselStage
+import fpuwrapper.EmitVerilogApp
+import fpuwrapper.FloatS
+import fpuwrapper.FloatH
 
 class FMARequest(val floatType: FloatType, val lanes: Int) extends Bundle {
   val operands = Vec(3, Vec(lanes, UInt(floatType.width.W)))
@@ -34,5 +38,20 @@ class IEEEFMAFormal(floatType: FloatType, lanes: Int, stages: Int)
   fudian.io.req.valid := io.req.valid
   fudian.io.req.bits.operands := io.req.bits.operands
 
-  assert(hardfloat.io.resp.valid === fudian.io.resp.valid)
+  chisel3.experimental.verification.assert(
+    hardfloat.io.resp.valid === fudian.io.resp.valid
+  )
+  for (i <- 0 until lanes) {
+    chisel3.experimental.verification.assert(
+      hardfloat.io.resp.bits.res(i) === fudian.io.resp.bits.res(i)
+    )
+  }
+}
+
+object IEEEFMAFormal extends EmitVerilogApp {
+  (new ChiselStage()).emitSystemVerilog(
+    new IEEEFMAFormal(FloatH, 1, 1),
+    Array("-o", "IEEEFMAFormal"),
+    Seq()
+  )
 }

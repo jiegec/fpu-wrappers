@@ -4,6 +4,9 @@ import fpuwrapper.FloatType
 import chisel3._
 import fpuwrapper.hardfloat.HFToIEEE
 import fpuwrapper.hardfloat.IEEEToHF
+import fpuwrapper.FloatS
+import fpuwrapper.EmitVerilogApp
+import chisel3.stage.ChiselStage
 
 class HFRoundtrip(floatType: FloatType) extends Module {
   val io = IO(new Bundle {
@@ -22,5 +25,13 @@ class HFRoundtrip(floatType: FloatType) extends Module {
   hf2ieee.io.hardfloat.valid := true.B
   hf2ieee.io.hardfloat.bits(0) := ieee2hf.io.hardfloat.bits(0)
 
-  assert(hf2ieee.io.float.bits(0) === io.req)
+  chisel3.experimental.verification.assert(hf2ieee.io.float.bits(0) === io.req)
+}
+
+object HFRoundtrip extends EmitVerilogApp {
+  (new ChiselStage()).emitSystemVerilog(
+    new HFRoundtrip(FloatS),
+    Array("-o", "HFRoundtrip"),
+    Seq()
+  )
 }
