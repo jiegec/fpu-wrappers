@@ -1,12 +1,12 @@
 package fpuwrapper.flopoco
 
 import fpuwrapper.EmitSpinalModule
+import fpuwrapper.FloatS
 import fpuwrapper.FloatType
+import fpuwrapper.SpinalEmitVerilog
+import fpuwrapper.Synthesis
 import spinal.core._
 import spinal.lib._
-import fpuwrapper.SpinalEmitVerilog
-import fpuwrapper.FloatS
-import fpuwrapper.Synthesis
 
 class IEEEFExpRequest(val floatType: FloatType, val lanes: Int) extends Bundle {
   val a = Vec(UInt(floatType.width bits), lanes)

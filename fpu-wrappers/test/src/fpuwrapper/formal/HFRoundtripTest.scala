@@ -3,9 +3,6 @@ package fpuwrapper.formal
 import org.scalatest.freespec.AnyFreeSpec
 import chiseltest.ChiselScalatestTester
 import chiseltest.formal.Formal
-import chiseltest.formal.BoundedCheck
-import treadle.WriteVcdAnnotation
-import fpuwrapper.FloatH
 
 class HFRoundtripTest
     extends AnyFreeSpec
