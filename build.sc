@@ -63,6 +63,10 @@ object fudian extends CommonModule with PublishModule {
 
   override def millSourcePath = os.pwd / "thirdparty" / "fudian"
 
+  override def scalacPluginIvyDeps = super.scalacPluginIvyDeps() ++ Agg(
+    getVersion("chisel3-plugin")
+  )
+
   // publish
   def publishVersion = "1.0-SNAPSHOT"
   def pomSettings = PomSettings(

@@ -30,9 +30,7 @@ class IEEEFDivSqrtResponse(val floatType: FloatType, val lanes: Int)
   val exc = Vec(lanes, Bits(5.W))
 }
 
-class IEEEFDivSqrt(val floatType: FloatType, val lanes: Int)
-    extends Module
-    with RequireAsyncReset {
+class IEEEFDivSqrt(val floatType: FloatType, val lanes: Int) extends Module {
   val io = IO(new Bundle {
     val req = Flipped(Decoupled(new IEEEFDivSqrtRequest(floatType, lanes)))
     val resp = Valid(new IEEEFDivSqrtResponse(floatType, lanes))
