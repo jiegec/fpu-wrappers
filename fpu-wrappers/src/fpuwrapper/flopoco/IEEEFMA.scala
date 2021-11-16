@@ -12,7 +12,7 @@ object IEEEFMAOp extends SpinalEnum {
   // op[0] * op[1] + 0
   val FMUL = newElement()
   // op[0] * op[1] + op[2]
-  val IEEEFMADD = newElement()
+  val FMADD = newElement()
   // op[0] * op[1] - op[2]
   val FMSUB = newElement()
   // -(op[0] * op[1] - op[2])
@@ -66,7 +66,7 @@ class IEEEFMA(floatType: FloatType, lanes: Int, stages: Int) extends Component {
     is(IEEEFMAOp.FMUL) {
       op3 := zero
     }
-    is(IEEEFMAOp.IEEEFMADD) {
+    is(IEEEFMAOp.FMADD) {
       // do nothing
     }
     is(IEEEFMAOp.FMSUB) {
