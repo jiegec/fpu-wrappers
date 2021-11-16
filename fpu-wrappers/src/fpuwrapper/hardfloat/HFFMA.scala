@@ -164,9 +164,9 @@ object HFFMABench extends EmitChiselModule with VivadoBench {
         "hardfloat",
         allStages = Seq(stages),
         floatTypes = Seq(floatType),
-        lanes = Seq(1)
+        lanes = Seq(2)
       )
-      val name = s"HFFMA_${floatName}1l${stages}s"
+      val name = s"HFFMA_${floatName}2l${stages}s"
       bench(s"${name}_hardfloat", Seq(s"${name}_hardfloat.v"), s"${name}_hardfloat_HFFMA")
     }
   }

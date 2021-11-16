@@ -151,3 +151,24 @@ object IEEEFMASynth extends SpinalEmitVerilog {
     }
   }
 }
+
+object IEEEFMABench extends SpinalEmitVerilog with VivadoBench {
+  for (floatType <- Seq(FloatS)) {
+    val floatName = floatType.kind().toString()
+    for (stages <- Seq(3)) {
+      val lanes = 1
+      val name = s"IEEEFMA_${floatName}${lanes}l${stages}s"
+      work(
+        new IEEEFMA(floatType, lanes, stages),
+        name
+      )
+
+      val fileName = s"IEEEFMA_${floatName}${stages}s.v"
+      bench(
+        s"${name}_flopoco",
+        Seq(s"${name}.v", s"./fpu-wrappers/resources/flopoco/${fileName}"),
+        s"IEEEFMA"
+      )
+    }
+  }
+}
