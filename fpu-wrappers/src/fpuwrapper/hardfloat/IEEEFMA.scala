@@ -71,17 +71,17 @@ class IEEEFMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   }
 
   // when stages > 3, add extra stages
-  val extraStages = (stages - 3) max 0
+  val extraStages = (stages - 2) max 0
   val inputStages = extraStages / 2
   val outputStages = extraStages - inputStages
 
   // replicate small units for higher throughput
   val reqValid = io.req.valid
   val results = for (i <- 0 until lanes) yield {
-    // MulAddRecFNPipe only support stages <= 3
+    // MulAddRecFNPipe only support stages <= 2
     val fma = Module(
       new MulAddRecFNPipe(
-        stages min 3,
+        stages min 2,
         floatType.exp(),
         floatType.sig()
       )
