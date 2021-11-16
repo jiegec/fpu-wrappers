@@ -17,6 +17,9 @@ class HFFMAResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
 }
 
 class HFFMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
+  // for bench
+  util.experimental.forceName(clock, "clk")
+
   val io = IO(new Bundle {
     val req = Flipped(Valid(new HFFMARequest(floatType, lanes)))
     val resp = Valid(new HFFMAResponse(floatType, lanes))
@@ -163,8 +166,8 @@ object HFFMABench extends EmitChiselModule with VivadoBench {
         floatTypes = Seq(floatType),
         lanes = Seq(1)
       )
-      val name = s"Hardfloat_HFFMA_${floatName}1l${stages}s"
-      bench(s"${name}_HFFMA", Seq(s"${name}.v"), s"${name}_HFFMA")
+      val name = s"HFFMA_${floatName}1l${stages}s"
+      bench(s"${name}_hardfloat", Seq(s"${name}_hardfloat.v"), s"${name}_hardfloat_HFFMA")
     }
   }
 }
