@@ -150,3 +150,21 @@ object HFFMASynth extends EmitChiselModule {
     }
   }
 }
+
+object HFFMABench extends EmitChiselModule with VivadoBench {
+  for (floatType <- Seq(FloatS)) {
+    val floatName = floatType.kind().toString()
+    for (stages <- Seq(3)) {
+      emitChisel(
+        (floatType, lanes, stages) => new HFFMA(floatType, lanes, stages),
+        "HFFMA",
+        "hardfloat",
+        allStages = Seq(stages),
+        floatTypes = Seq(floatType),
+        lanes = Seq(1)
+      )
+      val name = s"Hardfloat_HFFMA_${floatName}1l${stages}s"
+      bench(s"${name}_HFFMA", Seq(s"${name}.v"), s"${name}_HFFMA")
+    }
+  }
+}
