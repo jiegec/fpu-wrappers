@@ -70,7 +70,7 @@ class HFFMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
 
   // when stages > 3, add extra stages
   val extraStages = (stages - 2) max 0
-  val inputStages = extraStages / 2
+  val inputStages = (extraStages + 1) / 2
   val outputStages = extraStages - inputStages
 
   // replicate small units for higher throughput
