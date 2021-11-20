@@ -15,9 +15,9 @@ val defaultVersions = Map(
   "chisel3-plugin" -> ("edu.berkeley.cs", "3.5.0-RC1", true),
   "chiseltest" -> ("edu.berkeley.cs", "0.5.0-RC1", false),
   "scalatest" -> ("org.scalatest", "3.2.10", false),
-  "spinalhdl-core" -> ("com.github.spinalhdl", "1.6.0", false),
-  "spinalhdl-lib" -> ("com.github.spinalhdl", "1.6.0", false),
-  "spinalhdl-idsl-plugin" -> ("com.github.spinalhdl", "1.6.0", false)
+  "spinalhdl-core" -> ("com.github.spinalhdl", "1.6.1", false),
+  "spinalhdl-lib" -> ("com.github.spinalhdl", "1.6.1", false),
+  "spinalhdl-idsl-plugin" -> ("com.github.spinalhdl", "1.6.1", false)
 )
 
 val commonScalaVersion = "2.12.14"
