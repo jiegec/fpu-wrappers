@@ -20,6 +20,16 @@ for file_name in glob.glob('*/*_report_area.txt'):
 				cells = line.split(' ')[-1]
 				data[key]['cells'] = int(cells)
 
+for file_name in glob.glob('*/*_report_power.txt'):
+	parts = file_name.split('/')
+	key = parts[0]
+	with open(file_name) as f:
+		for line in f:
+			line = line.strip()
+			if '100.0' in line:
+				power = line.split(' ')[-2]
+				data[key]['power'] = float(power)
+
 for file_name in glob.glob('*/*_report_timing_setup.txt'):
 	parts = file_name.split('/')
 	key = parts[0]
@@ -38,4 +48,6 @@ for key in sorted(keys):
 	print('  Cells: {}'.format(value['cells']))
 	print('  Area: {}'.format(value['area']))
 	print('  Comb Area: {}'.format(value['comb_area']))
+	if 'power' in value:
+		print('  Power: {} mW'.format(value['power']))
 	print('  Max Freq: {:.0f} MHz ({:.2f} ns)'.format(1000.0 / value['max_comb_delay'], value['max_comb_delay']))

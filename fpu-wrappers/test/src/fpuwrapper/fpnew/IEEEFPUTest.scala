@@ -11,7 +11,7 @@ class IEEEFPUTest extends AnyFreeSpec with ChiselScalatestTester {
   for (stages <- 1 to 5) {
     s"IEEEFPU of ${stages} stages should work" in {
       test(new IEEEFPU(FloatS, 2, stages))
-        .withAnnotations(Simulator.getAnnotations(useIcarus = false)) { dut =>
+        .withAnnotations(Simulator.getAnnotations(useIcarus = false, useVCS = false)) { dut =>
           dut.clock.step(16)
 
           def enqueueReq() {
