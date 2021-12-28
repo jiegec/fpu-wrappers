@@ -11,9 +11,9 @@ import $file.thirdparty.`berkeley-hardfloat`.build
 
 // learned from https://github.com/OpenXiangShan/fudian/blob/main/build.sc
 val defaultVersions = Map(
-  "chisel3" -> ("edu.berkeley.cs", "3.5.0-RC1", false),
-  "chisel3-plugin" -> ("edu.berkeley.cs", "3.5.0-RC1", true),
-  "chiseltest" -> ("edu.berkeley.cs", "0.5.0-RC1", false),
+  "chisel3" -> ("edu.berkeley.cs", "3.5.0-RC2", false),
+  "chisel3-plugin" -> ("edu.berkeley.cs", "3.5.0-RC2", true),
+  "chiseltest" -> ("edu.berkeley.cs", "0.5.0-RC2", false),
   "scalatest" -> ("org.scalatest", "3.2.10", false),
   "spinalhdl-core" -> ("com.github.spinalhdl", "1.6.1", false),
   "spinalhdl-lib" -> ("com.github.spinalhdl", "1.6.1", false),
@@ -52,6 +52,10 @@ object hardfloat extends thirdparty.`berkeley-hardfloat`.build.hardfloat {
   // override with our chisel3 version
   override def chisel3IvyDeps = Agg(
     getVersion("chisel3")
+  )
+
+  override def scalacPluginIvyDeps = super.scalacPluginIvyDeps() ++ Agg(
+    getVersion("chisel3-plugin")
   )
 }
 
