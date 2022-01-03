@@ -4,18 +4,24 @@ import chisel3._
 import chisel3.stage.ChiselStage
 import firrtl.options.Dependency
 import firrtl.stage.RunFirrtlTransformAnnotation
+import chisel3.stage.ChiselGeneratorAnnotation
+import firrtl.CustomDefaultRegisterEmission
 
 /** Emit Verilog from Chisel module
   */
 trait ChiselEmitVerilog extends App {
   def emit(genModule: () => RawModule, name: String) {
     val prefix = s"${name}_"
-    (new ChiselStage()).emitVerilog(
-      genModule(),
-      Array("-o", s"${name}.v"),
+    new ChiselStage().execute(
+      Array("-X", "mverilog", "-o", s"${name}.v"),
       Seq(
+        ChiselGeneratorAnnotation(genModule),
         RunFirrtlTransformAnnotation(Dependency(PrefixModulesPass)),
-        ModulePrefix(prefix)
+        ModulePrefix(prefix),
+        CustomDefaultRegisterEmission(
+          useInitAsPreset = false,
+          disableRandomization = true
+        )
       )
     )
   }
