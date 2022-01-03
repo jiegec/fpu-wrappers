@@ -10,9 +10,6 @@ object IEEEFDivSqrtOp extends ChiselEnum {
   val SQRT = Value
 
   val NOP = DIV
-
-  implicit def bitpat(op: IEEEFDivSqrtOp.Type): BitPat =
-    BitPat(op.litValue.U)
 }
 
 class IEEEFDivSqrtRequest(val floatType: FloatType, val lanes: Int)

@@ -21,9 +21,6 @@ object FMAOp extends ChiselEnum {
   val FNMADD = Value
 
   val NOP = FADD
-
-  implicit def bitpat(op: FMAOp.Type): BitPat =
-    BitPat(op.litValue.U)
 }
 
 // https://github.com/chipsalliance/rocket-chip/blob/master/src/main/scala/tile/FPU.scala

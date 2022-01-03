@@ -15,9 +15,6 @@ object HFFCmpOp extends ChiselEnum {
   val GE = Value
 
   val NOP = EQ
-
-  implicit def bitpat(op: HFFCmpOp.Type): BitPat =
-    BitPat(op.litValue.U)
 }
 
 class HFFCmpRequest(val floatType: FloatType, val lanes: Int) extends Bundle {
