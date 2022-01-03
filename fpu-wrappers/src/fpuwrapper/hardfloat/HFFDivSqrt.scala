@@ -5,6 +5,7 @@ import chisel3.experimental.ChiselEnum
 import chisel3.util._
 import fpuwrapper.FloatType
 import hardfloat.DivSqrtRecFN_small
+import fpuwrapper.EmitChiselModule
 
 object HFFDivSqrtOp extends ChiselEnum {
   val DIV = Value
@@ -102,4 +103,12 @@ class HFFDivSqrt(val floatType: FloatType, val lanes: Int)
   io.resp.valid := resValid
   io.resp.bits.res := res
   io.resp.bits.exc := exc
+}
+
+object HFFDivSqrt extends EmitChiselModule {
+  emitChisel(
+    (floatType, lanes, _) => new HFFDivSqrt(floatType, lanes),
+    "HFFDivSqrt",
+    "hardfloat"
+  )
 }
