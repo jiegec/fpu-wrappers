@@ -14,7 +14,7 @@ object HFFDivSqrtOp extends ChiselEnum {
   val NOP = DIV
 
   implicit def bitpat(op: HFFDivSqrtOp.Type): BitPat =
-    BitPat(op.litValue().U)
+    BitPat(op.litValue.U)
 }
 
 class HFFDivSqrtRequest(val floatType: FloatType, val lanes: Int)

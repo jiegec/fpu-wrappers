@@ -26,7 +26,7 @@ class HFRoundtrip(floatType: FloatType) extends Module {
   hf2ieee.io.hardfloat.valid := true.B
   hf2ieee.io.hardfloat.bits(0) := ieee2hf.io.hardfloat.bits(0)
 
-  chisel3.experimental.verification.assert(hf2ieee.io.float.bits(0) === io.req)
+  chisel3.assert(hf2ieee.io.float.bits(0) === io.req)
 }
 
 object HFRoundtrip extends App {

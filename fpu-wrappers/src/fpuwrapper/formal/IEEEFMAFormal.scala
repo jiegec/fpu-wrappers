@@ -37,11 +37,11 @@ class IEEEFMAFormal(floatType: FloatType, lanes: Int, stages: Int)
   fudian.io.req.valid := io.req.valid
   fudian.io.req.bits.operands := io.req.bits.operands
 
-  chisel3.experimental.verification.assert(
+  chisel3.assert(
     hardfloat.io.resp.valid === fudian.io.resp.valid
   )
   for (i <- 0 until lanes) {
-    chisel3.experimental.verification.assert(
+    chisel3.assert(
       hardfloat.io.resp.bits.res(i) === fudian.io.resp.bits.res(i)
     )
   }
