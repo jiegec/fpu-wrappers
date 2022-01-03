@@ -65,7 +65,7 @@ class HFFDivSqrt(val floatType: FloatType, val lanes: Int)
     div_sqrt.io.sqrtOp := io.req.bits.op === HFFDivSqrtOp.SQRT
 
     // lanes might not complete in the same cycle
-    val resultReg = Reg(UInt(floatType.width().W))
+    val resultReg = Reg(UInt(floatType.widthHardfloat().W))
     val exceptionReg = Reg(UInt(5.W))
     val resultValidReg = RegInit(false.B)
     val done = Wire(Bool())

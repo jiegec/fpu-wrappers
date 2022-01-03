@@ -38,6 +38,17 @@ class HFFDivSqrtTest extends AnyFreeSpec with ChiselScalatestTester {
           dut.io.resp.bits.res(1).expect("h07fc00000".U) // 0.75
         }
 
+        dut.io.req.bits.a(0).poke("h080000000".U) // 1.0
+        dut.io.req.bits.b(0).poke("h180800000".U) // -2.0
+        dut.io.req.bits.a(1).poke("h080c00000".U) // 3.0
+        dut.io.req.bits.b(1).poke("h181000000".U) // -4.0
+        dut.io.req.bits.op.poke(HFFDivSqrtOp.DIV)
+        enqueueReq()
+        expectResp() { dut =>
+          dut.io.resp.bits.res(0).expect("h17f800000".U) // -0.5
+          dut.io.resp.bits.res(1).expect("h17fc00000".U) // -0.75
+        }
+
         dut.io.req.bits.a(0).poke("h081000000".U) // 4.0
         dut.io.req.bits.b(0).poke("h000000000".U) // 0.0
         dut.io.req.bits.a(1).poke("h081900000".U) // 9.0
