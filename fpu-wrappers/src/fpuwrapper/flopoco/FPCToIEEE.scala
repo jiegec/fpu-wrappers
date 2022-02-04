@@ -66,7 +66,7 @@ class FPCToIEEEInner(floatType: FloatType) extends Component {
 /** Implementation of OutputIEEE operator of Flopoco
   *
   * @param floatType
-  *   @param lanes
+  * @param lanes
   */
 class FPCToIEEE(floatType: FloatType, lanes: Int, stages: Int)
     extends Component {

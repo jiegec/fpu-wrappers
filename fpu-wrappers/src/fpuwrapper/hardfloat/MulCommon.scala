@@ -16,15 +16,15 @@ class MulRecFNPipe(expWidth: Int, sigWidth: Int, latency: Int) extends Module {
     val validout = Output(Bool())
   })
 
-  //------------------------------------------------------------------------
-  //------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
   val mulRawFN = Module(new _root_.hardfloat.MulRawFN(expWidth, sigWidth))
 
   mulRawFN.io.a := _root_.hardfloat.rawFloatFromRecFN(expWidth, sigWidth, io.a)
   mulRawFN.io.b := _root_.hardfloat.rawFloatFromRecFN(expWidth, sigWidth, io.b)
 
-  //------------------------------------------------------------------------
-  //------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
   val roundRawFNToRecFN =
     Module(new _root_.hardfloat.RoundRawFNToRecFN(expWidth, sigWidth, 0))
   roundRawFNToRecFN.io.invalidExc := Pipe(

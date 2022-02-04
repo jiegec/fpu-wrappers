@@ -1,11 +1,11 @@
 package fpuwrapper
 
 import chisel3._
+import chisel3.stage.ChiselGeneratorAnnotation
 import chisel3.stage.ChiselStage
+import firrtl.CustomDefaultRegisterEmission
 import firrtl.options.Dependency
 import firrtl.stage.RunFirrtlTransformAnnotation
-import chisel3.stage.ChiselGeneratorAnnotation
-import firrtl.CustomDefaultRegisterEmission
 
 /** Emit Verilog from Chisel module
   */

@@ -3,6 +3,7 @@ package fpuwrapper
 import spinal.core._
 import spinal.lib.eda.bench._
 import spinal.lib.eda.xilinx.VivadoFlow
+
 import scala.collection.mutable.ArrayBuffer
 
 /** Benchmark with Vivado

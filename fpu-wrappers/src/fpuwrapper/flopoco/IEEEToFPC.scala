@@ -61,7 +61,7 @@ class IEEEToFPCInner(floatType: FloatType) extends Component {
 /** Conversion from IEEE for flopoco format
   *
   * @param floatType
-  *   @param lanes
+  * @param lanes
   */
 class IEEEToFPC(floatType: FloatType, lanes: Int, stages: Int)
     extends Component {

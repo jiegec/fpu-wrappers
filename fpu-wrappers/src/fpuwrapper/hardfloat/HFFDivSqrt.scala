@@ -3,9 +3,9 @@ package fpuwrapper.hardfloat
 import chisel3._
 import chisel3.experimental.ChiselEnum
 import chisel3.util._
+import fpuwrapper.EmitChiselModule
 import fpuwrapper.FloatType
 import hardfloat.DivSqrtRecFN_small
-import fpuwrapper.EmitChiselModule
 
 object HFFDivSqrtOp extends ChiselEnum {
   val DIV = Value

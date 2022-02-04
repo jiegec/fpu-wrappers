@@ -42,8 +42,8 @@ class MulAddRecFNPipe(latency: Int, expWidth: Int, sigWidth: Int)
     val validout = Output(Bool())
   })
 
-  //------------------------------------------------------------------------
-  //------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
 
   val mulAddRecFNToRaw_preMul = Module(
     new _root_.hardfloat.MulAddRecFNToRaw_preMul(expWidth, sigWidth)
@@ -90,8 +90,8 @@ class MulAddRecFNPipe(latency: Int, expWidth: Int, sigWidth: Int)
   ).bits
   valid_stage0 := Pipe(io.validin, false.B, postmul_regs).valid
 
-  //------------------------------------------------------------------------
-  //------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
+  // ------------------------------------------------------------------------
 
   val roundRawFNToRecFN = Module(
     new _root_.hardfloat.RoundRawFNToRecFN(expWidth, sigWidth, 0)
