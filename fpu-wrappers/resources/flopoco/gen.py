@@ -65,6 +65,6 @@ def gen_exp(frequency, task):
     os.system(f"sudo docker run -it --rm -t -v $PWD:/src -w /src hdlc/ghdl:yosys yosys -m ghdl -p 'ghdl -fsynopsys -fexplicit {name}.vhdl -e FPCFExp_{task['type']}; write_verilog {name}.v'")
 
 for task in tasks:
-    for frequency in [100, 150, 200, 250]:
+    for frequency in [100, 150, 200, 250, 300]:
         gen_fma(frequency, task)
         gen_exp(frequency, task)
