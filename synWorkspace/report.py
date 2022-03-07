@@ -27,8 +27,11 @@ for file_name in glob.glob('*/*_report_power.txt'):
 		for line in f:
 			line = line.strip()
 			if '100.0' in line:
-				power = line.split(' ')[-2]
-				data[key]['power'] = float(power)
+				parts = list(filter(lambda s: len(s) > 0, line.split(' ')))
+				total_power = parts[-2]
+				data[key]['total_power'] = float(total_power)
+				switch_power = parts[-5]
+				data[key]['switch_power'] = float(switch_power)
 
 for file_name in glob.glob('*/*_report_timing_setup.txt'):
 	parts = file_name.split('/')
@@ -48,6 +51,8 @@ for key in sorted(keys):
 	print('  Cells: {}'.format(value['cells']))
 	print('  Area: {}'.format(value['area']))
 	print('  Comb Area: {}'.format(value['comb_area']))
-	if 'power' in value:
-		print('  Power: {} mW'.format(value['power']))
+	if 'switch_power' in value:
+		print('  Switch Power: {} mW'.format(value['switch_power']))
+	if 'total_power' in value:
+		print('  Total Power: {} mW'.format(value['total_power']))
 	print('  Max Freq: {:.0f} MHz ({:.2f} ns)'.format(1000.0 / value['max_comb_delay'], value['max_comb_delay']))
