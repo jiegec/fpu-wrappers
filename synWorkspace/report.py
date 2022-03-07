@@ -30,6 +30,8 @@ for file_name in glob.glob('*/*_report_power.txt'):
 				parts = list(filter(lambda s: len(s) > 0, line.split(' ')))
 				total_power = parts[-2]
 				data[key]['total_power'] = float(total_power)
+				internal_power = parts[-4]
+				data[key]['internal_power'] = float(internal_power)
 				switch_power = parts[-5]
 				data[key]['switch_power'] = float(switch_power)
 
@@ -53,6 +55,8 @@ for key in sorted(keys):
 	print('  Comb Area: {}'.format(value['comb_area']))
 	if 'switch_power' in value:
 		print('  Switch Power: {} mW'.format(value['switch_power']))
+	if 'internal_power' in value:
+		print('  Internal Power: {} mW'.format(value['internal_power']))
 	if 'total_power' in value:
 		print('  Total Power: {} mW'.format(value['total_power']))
 	print('  Max Freq: {:.0f} MHz ({:.2f} ns)'.format(1000.0 / value['max_comb_delay'], value['max_comb_delay']))

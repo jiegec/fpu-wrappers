@@ -3,6 +3,7 @@ HFFMA_D1l3s_hardfloat:
   Area: 53245.113941
   Comb Area: 46827.27884
   Switch Power: 10.041 mW
+  Internal Power: 17.847 mW
   Total Power: 28.376 mW
   Max Freq: 926 MHz (1.08 ns)
 HFFMA_D1l4s_hardfloat:
@@ -10,6 +11,7 @@ HFFMA_D1l4s_hardfloat:
   Area: 46768.226731
   Comb Area: 38778.969959
   Switch Power: 7.918 mW
+  Internal Power: 17.058 mW
   Total Power: 25.346 mW
   Max Freq: 1000 MHz (1.00 ns)
 HFFMA_D1l5s_hardfloat:
@@ -17,6 +19,7 @@ HFFMA_D1l5s_hardfloat:
   Area: 45656.453328
   Comb Area: 32971.445127
   Switch Power: 4.89 mW
+  Internal Power: 18.225 mW
   Total Power: 23.39 mW
   Max Freq: 1020 MHz (0.98 ns)
 HFFMA_H1l2s_hardfloat:
@@ -24,6 +27,7 @@ HFFMA_H1l2s_hardfloat:
   Area: 7336.492839
   Comb Area: 6248.978445
   Switch Power: 1.363 mW
+  Internal Power: 2.339 mW
   Total Power: 3.771 mW
   Max Freq: 990 MHz (1.01 ns)
 HFFMA_H1l3s_hardfloat:
@@ -31,6 +35,7 @@ HFFMA_H1l3s_hardfloat:
   Area: 6098.316069
   Comb Area: 4760.229644
   Switch Power: 0.79 mW
+  Internal Power: 2.104 mW
   Total Power: 2.937 mW
   Max Freq: 1020 MHz (0.98 ns)
 HFFMA_S1l1s_hardfloat:
@@ -38,6 +43,7 @@ HFFMA_S1l1s_hardfloat:
   Area: 19398.741751
   Comb Area: 18801.837765
   Switch Power: 6.36 mW
+  Internal Power: 6.381 mW
   Total Power: 12.946 mW
   Max Freq: 629 MHz (1.59 ns)
 HFFMA_S1l2s_hardfloat:
@@ -45,6 +51,7 @@ HFFMA_S1l2s_hardfloat:
   Area: 19001.976085
   Comb Area: 17038.576917
   Switch Power: 3.974 mW
+  Internal Power: 5.886 mW
   Total Power: 10.046 mW
   Max Freq: 870 MHz (1.15 ns)
 HFFMA_S1l3s_hardfloat:
@@ -52,6 +59,7 @@ HFFMA_S1l3s_hardfloat:
   Area: 17485.456946
   Comb Area: 14948.136106
   Switch Power: 2.783 mW
+  Internal Power: 5.403 mW
   Total Power: 8.336 mW
   Max Freq: 1042 MHz (0.96 ns)
 HFFMul_S1l1s_hardfloat:
@@ -59,6 +67,7 @@ HFFMul_S1l1s_hardfloat:
   Area: 12966.861646
   Comb Area: 12470.505652
   Switch Power: 4.517 mW
+  Internal Power: 5.278 mW
   Total Power: 9.957 mW
   Max Freq: 952 MHz (1.05 ns)
 HFFMul_S1l2s_hardfloat:
@@ -66,6 +75,7 @@ HFFMul_S1l2s_hardfloat:
   Area: 6534.981683
   Comb Area: 5566.528864
   Switch Power: 1.48 mW
+  Internal Power: 2.901 mW
   Total Power: 4.43 mW
   Max Freq: 1031 MHz (0.97 ns)
 HFFMul_S1l3s_hardfloat:
@@ -73,6 +83,7 @@ HFFMul_S1l3s_hardfloat:
   Area: 6564.348085
   Comb Area: 4972.497658
   Switch Power: 0.811 mW
+  Internal Power: 2.521 mW
   Total Power: 3.376 mW
   Max Freq: 1031 MHz (0.97 ns)
 IEEEFExp_S1l3s_flopoco:
@@ -80,6 +91,7 @@ IEEEFExp_S1l3s_flopoco:
   Area: 27285.21609
   Comb Area: 23264.25374
   Switch Power: 2.808 mW
+  Internal Power: 6.438 mW
   Total Power: 9.541 mW
   Max Freq: 820 MHz (1.22 ns)
 IEEEFExp_S1l4s_flopoco:
@@ -87,6 +99,7 @@ IEEEFExp_S1l4s_flopoco:
   Area: 24401.563315
   Comb Area: 23015.277725
   Switch Power: 2.733 mW
+  Internal Power: 3.738 mW
   Total Power: 6.727 mW
   Max Freq: 971 MHz (1.03 ns)
 IEEEFMA_D1l3s_flopoco:
@@ -99,6 +112,7 @@ IEEEFMA_D1l3s_fudian:
   Area: 65870.112405
   Comb Area: 58232.294868
   Switch Power: 14.496 mW
+  Internal Power: 22.728 mW
   Total Power: 37.796 mW
   Max Freq: 637 MHz (1.57 ns)
 IEEEFMA_D1l3s_hardfloat:
@@ -106,6 +120,7 @@ IEEEFMA_D1l3s_hardfloat:
   Area: 58890.804337
   Comb Area: 52448.071639
   Switch Power: 11.541 mW
+  Internal Power: 19.213 mW
   Total Power: 31.304 mW
   Max Freq: 671 MHz (1.49 ns)
 IEEEFMA_D1l4s_fudian:
@@ -113,6 +128,7 @@ IEEEFMA_D1l4s_fudian:
   Area: 70487.659574
   Comb Area: 63287.146095
   Switch Power: 13.244 mW
+  Internal Power: 21.587 mW
   Total Power: 35.457 mW
   Max Freq: 826 MHz (1.21 ns)
 IEEEFMA_D1l4s_hardfloat:
@@ -120,6 +136,7 @@ IEEEFMA_D1l4s_hardfloat:
   Area: 71022.319549
   Comb Area: 62929.642116
   Switch Power: 8.415 mW
+  Internal Power: 14.513 mW
   Total Power: 23.605 mW
   Max Freq: 909 MHz (1.10 ns)
 IEEEFMA_D1l5s_flopoco:
@@ -132,6 +149,7 @@ IEEEFMA_D1l5s_fudian:
   Area: 69397.591636
   Comb Area: 58713.010109
   Switch Power: 9.338 mW
+  Internal Power: 21.24 mW
   Total Power: 31.155 mW
   Max Freq: 935 MHz (1.07 ns)
 IEEEFMA_D1l5s_hardfloat:
@@ -139,6 +157,7 @@ IEEEFMA_D1l5s_hardfloat:
   Area: 52617.247586
   Comb Area: 42745.668372
   Switch Power: 6.342 mW
+  Internal Power: 16.564 mW
   Total Power: 23.429 mW
   Max Freq: 1010 MHz (0.99 ns)
 IEEEFMA_H1l2s_flopoco:
@@ -146,6 +165,7 @@ IEEEFMA_H1l2s_flopoco:
   Area: 7553.229641
   Comb Area: 6412.408845
   Switch Power: 2.116 mW
+  Internal Power: 3.123 mW
   Total Power: 5.31 mW
   Max Freq: 870 MHz (1.15 ns)
 IEEEFMA_H1l2s_hardfloat:
@@ -153,6 +173,7 @@ IEEEFMA_H1l2s_hardfloat:
   Area: 10148.006426
   Comb Area: 9071.344851
   Switch Power: 1.758 mW
+  Internal Power: 2.621 mW
   Total Power: 4.481 mW
   Max Freq: 901 MHz (1.11 ns)
 IEEEFMA_H1l3s_flopoco:
@@ -160,6 +181,7 @@ IEEEFMA_H1l3s_flopoco:
   Area: 6969.093664
   Comb Area: 5588.87284
   Switch Power: 1.808 mW
+  Internal Power: 3.131 mW
   Total Power: 4.997 mW
   Max Freq: 1031 MHz (0.97 ns)
 IEEEFMA_H1l3s_hardfloat:
@@ -167,6 +189,7 @@ IEEEFMA_H1l3s_hardfloat:
   Area: 7798.375257
   Comb Area: 6569.455244
   Switch Power: 1.059 mW
+  Internal Power: 2.22 mW
   Total Power: 3.344 mW
   Max Freq: 1020 MHz (0.98 ns)
 IEEEFMA_S1l2s_flopoco:
@@ -174,6 +197,7 @@ IEEEFMA_S1l2s_flopoco:
   Area: 20186.527327
   Comb Area: 17655.590528
   Switch Power: 6.456 mW
+  Internal Power: 8.953 mW
   Total Power: 15.611 mW
   Max Freq: 746 MHz (1.34 ns)
 IEEEFMA_S1l2s_fudian:
@@ -181,6 +205,7 @@ IEEEFMA_S1l2s_fudian:
   Area: 29104.656143
   Comb Area: 28252.711364
   Switch Power: 10.538 mW
+  Internal Power: 9.73 mW
   Total Power: 20.568 mW
   Max Freq: 592 MHz (1.69 ns)
 IEEEFMA_S1l2s_hardfloat:
@@ -188,6 +213,7 @@ IEEEFMA_S1l2s_hardfloat:
   Area: 24991.125724
   Comb Area: 23110.080165
   Switch Power: 4.722 mW
+  Internal Power: 6.423 mW
   Total Power: 11.402 mW
   Max Freq: 746 MHz (1.34 ns)
 IEEEFMA_S1l3s_flopoco:
@@ -195,6 +221,7 @@ IEEEFMA_S1l3s_flopoco:
   Area: 15946.91289
   Comb Area: 12939.091316
   Switch Power: 4.065 mW
+  Internal Power: 7.332 mW
   Total Power: 11.535 mW
   Max Freq: 909 MHz (1.10 ns)
 IEEEFMA_S1l3s_fudian:
@@ -202,6 +229,7 @@ IEEEFMA_S1l3s_fudian:
   Area: 28002.777713
   Comb Area: 23462.796161
   Switch Power: 5.606 mW
+  Internal Power: 9.966 mW
   Total Power: 15.831 mW
   Max Freq: 781 MHz (1.28 ns)
 IEEEFMA_S1l3s_hardfloat:
@@ -209,6 +237,7 @@ IEEEFMA_S1l3s_hardfloat:
   Area: 24922.81687
   Comb Area: 21737.200941
   Switch Power: 3.44 mW
+  Internal Power: 6.552 mW
   Total Power: 10.236 mW
   Max Freq: 917 MHz (1.09 ns)
 IEEEFMA_S1l4s_flopoco:
@@ -216,6 +245,7 @@ IEEEFMA_S1l4s_flopoco:
   Area: 17020.063359
   Comb Area: 13509.820902
   Switch Power: 4.375 mW
+  Internal Power: 8.106 mW
   Total Power: 12.623 mW
   Max Freq: 1031 MHz (0.97 ns)
 IEEEFMA_S1l4s_fudian:
@@ -223,6 +253,7 @@ IEEEFMA_S1l4s_fudian:
   Area: 27662.191357
   Comb Area: 24018.842584
   Switch Power: 4.465 mW
+  Internal Power: 7.92 mW
   Total Power: 12.632 mW
   Max Freq: 971 MHz (1.03 ns)
 IEEEFMA_S1l4s_hardfloat:
@@ -230,6 +261,7 @@ IEEEFMA_S1l4s_hardfloat:
   Area: 19985.431354
   Comb Area: 16623.616935
   Switch Power: 2.168 mW
+  Internal Power: 5.41 mW
   Total Power: 7.743 mW
   Max Freq: 1031 MHz (0.97 ns)
 IEEEFPU_S1l_opencores:
@@ -237,6 +269,7 @@ IEEEFPU_S1l_opencores:
   Area: 61559.635666
   Comb Area: 51584.635564
   Switch Power: 18.319 mW
+  Internal Power: 25.63 mW
   Total Power: 44.426 mW
   Max Freq: 280 MHz (3.57 ns)
 Mul_11w0s:
@@ -244,6 +277,7 @@ Mul_11w0s:
   Area: 628.18561
   Comb Area: 628.18561
   Switch Power: 0.167 mW
+  Internal Power: 0.152 mW
   Total Power: 0.321 mW
   Max Freq: 258 MHz (3.87 ns)
 Mul_11w1s:
@@ -251,6 +285,7 @@ Mul_11w1s:
   Area: 990.158414
   Comb Area: 784.27441
   Switch Power: 0.226 mW
+  Internal Power: 0.468 mW
   Total Power: 0.701 mW
   Max Freq: 1042 MHz (0.96 ns)
 Mul_11w2s:
@@ -258,6 +293,7 @@ Mul_11w2s:
   Area: 1018.248011
   Comb Area: 687.237604
   Switch Power: 0.201 mW
+  Internal Power: 0.629 mW
   Total Power: 0.835 mW
   Max Freq: 1042 MHz (0.96 ns)
 Mul_16w0s:
@@ -265,6 +301,7 @@ Mul_16w0s:
   Area: 1341.916822
   Comb Area: 1341.916822
   Switch Power: 0.395 mW
+  Internal Power: 0.373 mW
   Total Power: 0.773 mW
   Max Freq: 182 MHz (5.50 ns)
 Mul_16w1s:
@@ -272,6 +309,7 @@ Mul_16w1s:
   Area: 1976.167232
   Comb Area: 1621.855224
   Switch Power: 0.49 mW
+  Internal Power: 0.929 mW
   Total Power: 1.431 mW
   Max Freq: 1042 MHz (0.96 ns)
 Mul_16w2s:
@@ -279,6 +317,7 @@ Mul_16w2s:
   Area: 2141.832037
   Comb Area: 1561.526424
   Switch Power: 0.464 mW
+  Internal Power: 1.199 mW
   Total Power: 1.674 mW
   Max Freq: 1053 MHz (0.95 ns)
 Mul_24w0s:
@@ -286,6 +325,7 @@ Mul_24w0s:
   Area: 2616.801619
   Comb Area: 2616.801619
   Switch Power: 0.902 mW
+  Internal Power: 0.739 mW
   Total Power: 1.65 mW
   Max Freq: 118 MHz (8.48 ns)
 Mul_24w1s:
@@ -293,6 +333,7 @@ Mul_24w1s:
   Area: 4551.472878
   Comb Area: 3690.590457
   Switch Power: 1.143 mW
+  Internal Power: 2.233 mW
   Total Power: 3.407 mW
   Max Freq: 1042 MHz (0.96 ns)
 Mul_24w2s:
@@ -300,6 +341,7 @@ Mul_24w2s:
   Area: 4691.601696
   Comb Area: 3149.227261
   Switch Power: 0.982 mW
+  Internal Power: 2.721 mW
   Total Power: 3.725 mW
   Max Freq: 1042 MHz (0.96 ns)
 Mul_32w0s:
@@ -307,6 +349,7 @@ Mul_32w0s:
   Area: 4339.843231
   Comb Area: 4339.843231
   Switch Power: 1.685 mW
+  Internal Power: 1.428 mW
   Total Power: 3.13 mW
   Max Freq: 94 MHz (10.61 ns)
 Mul_32w1s:
@@ -314,6 +357,7 @@ Mul_32w1s:
   Area: 7971.381714
   Comb Area: 6777.892892
   Switch Power: 2.12 mW
+  Internal Power: 3.881 mW
   Total Power: 6.062 mW
   Max Freq: 1031 MHz (0.97 ns)
 Mul_32w2s:
@@ -321,6 +365,7 @@ Mul_32w2s:
   Area: 7388.203334
   Comb Area: 5382.03129
   Switch Power: 1.682 mW
+  Internal Power: 4.156 mW
   Total Power: 5.877 mW
   Max Freq: 1042 MHz (0.96 ns)
 Mul_53w0s:
@@ -328,6 +373,7 @@ Mul_53w0s:
   Area: 11580.895282
   Comb Area: 11580.895282
   Switch Power: 4.842 mW
+  Internal Power: 4.166 mW
   Total Power: 9.05 mW
   Max Freq: 55 MHz (18.07 ns)
 Mul_53w1s:
@@ -335,6 +381,7 @@ Mul_53w1s:
   Area: 21252.336273
   Comb Area: 18789.389039
   Switch Power: 6.843 mW
+  Internal Power: 11.177 mW
   Total Power: 18.201 mW
   Max Freq: 1031 MHz (0.97 ns)
 Mul_53w2s:
@@ -342,6 +389,7 @@ Mul_53w2s:
   Area: 18488.702777
   Comb Area: 13720.173871
   Switch Power: 4.497 mW
+  Internal Power: 10.403 mW
   Total Power: 15.0 mW
   Max Freq: 1042 MHz (0.96 ns)
 Mul_8w0s:
@@ -349,6 +397,7 @@ Mul_8w0s:
   Area: 338.990407
   Comb Area: 338.990407
   Switch Power: 0.0659 mW
+  Internal Power: 0.0685 mW
   Total Power: 0.136 mW
   Max Freq: 437 MHz (2.29 ns)
 Mul_8w1s:
@@ -356,6 +405,7 @@ Mul_8w1s:
   Area: 497.313608
   Comb Area: 382.401605
   Switch Power: 0.0745 mW
+  Internal Power: 0.227 mW
   Total Power: 0.304 mW
   Max Freq: 1031 MHz (0.97 ns)
 Mul_8w2s:
@@ -363,5 +413,6 @@ Mul_8w2s:
   Area: 586.370412
   Comb Area: 342.182406
   Switch Power: 0.0724 mW
+  Internal Power: 0.364 mW
   Total Power: 0.439 mW
   Max Freq: 1042 MHz (0.96 ns)
