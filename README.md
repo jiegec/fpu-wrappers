@@ -15,7 +15,7 @@ This repo intends to create wrappers for open source FPU hardware implementation
 | add    | Y                  | Y     | Y       | Y        | Y             | Y      | Y      |
 | mul    | Y                  | Y     | Y       | Y        | Y             | Y      | Y      |
 | fma    | Y                  | Y     | Y       | Y        |               | Y      | Y      |
-| cmp    | Y                  | Y     |         |          |               | Y      |        |
+| cmp    | Y                  | Y     | Y       |          |               | Y      |        |
 | div    | Y                  | Y     | Y       | Y        | Y             | Y      | Y      |
 | sqrt   | Y                  | Y     | Y       | Y        |               | Y      | Y      |
 | fp2int | Y                  | Y     | Y       | Y        | Y             | Y      | Y      |
