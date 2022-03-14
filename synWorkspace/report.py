@@ -13,9 +13,18 @@ for file_name in glob.glob('*/*_report_area.txt'):
 			if line.startswith('Combinational area:'):
 				area = line.split(' ')[-1]
 				data[key]['comb_area'] = float(area)
+			if line.startswith('Buf/Inv area:'):
+				area = line.split(' ')[-1]
+				data[key]['buf_area'] = float(area)
+			if line.startswith('Noncombinational area:'):
+				area = line.split(' ')[-1]
+				data[key]['non_comb_area'] = float(area)
+			if line.startswith('Macro/Black Box area:'):
+				area = line.split(' ')[-1]
+				data[key]['macro_area'] = float(area)
 			if line.startswith('Total area:'):
 				area = line.split(' ')[-1]
-				data[key]['area'] = float(area)
+				data[key]['total_area'] = float(area)
 			if line.startswith('Number of cells:'):
 				cells = line.split(' ')[-1]
 				data[key]['cells'] = int(cells)
@@ -53,8 +62,7 @@ for key in sorted(keys):
 	value = data[key]
 	print('{}:'.format(key))
 	print('  Cells: {}'.format(value['cells']))
-	print('  Area: {}'.format(value['area']))
-	print('  Comb Area: {}'.format(value['comb_area']))
+	print('  Area: Comb={:.0f} Buf={:.0f} NonComb={:.0f} Macro={:.0f} Total={:.0f}'.format(value['comb_area'], value['buf_area'], value['non_comb_area'], value['macro_area'], value['total_area']))
 	print('  Power:', end='')
 	if 'switch_power' in value:
 		print(' Switch({:.3f} mW)'.format(value['switch_power']), end='')
