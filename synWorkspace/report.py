@@ -30,6 +30,8 @@ for file_name in glob.glob('*/*_report_power.txt'):
 				parts = list(filter(lambda s: len(s) > 0, line.split(' ')))
 				total_power = parts[-2]
 				data[key]['total_power'] = float(total_power)
+				leakage_power = parts[-3]
+				data[key]['leakage_power'] = float(leakage_power)
 				internal_power = parts[-4]
 				data[key]['internal_power'] = float(internal_power)
 				switch_power = parts[-5]
@@ -53,10 +55,14 @@ for key in sorted(keys):
 	print('  Cells: {}'.format(value['cells']))
 	print('  Area: {}'.format(value['area']))
 	print('  Comb Area: {}'.format(value['comb_area']))
+	print('  Power:', end='')
 	if 'switch_power' in value:
-		print('  Switch Power: {} mW'.format(value['switch_power']))
+		print(' Switch({:.3f} mW)'.format(value['switch_power']), end='')
 	if 'internal_power' in value:
-		print('  Internal Power: {} mW'.format(value['internal_power']))
+		print(' Internal({:.3f} mW)'.format(value['internal_power']), end='')
+	if 'leakage_power' in value:
+		print(' Leakage({:.3f} mW)'.format(value['leakage_power'] / 1000), end='')
 	if 'total_power' in value:
-		print('  Total Power: {} mW'.format(value['total_power']))
+		print(' Total({:.3f} mW)'.format(value['total_power']), end='')
+	print()
 	print('  Max Freq: {:.0f} MHz ({:.2f} ns)'.format(1000.0 / value['max_comb_delay'], value['max_comb_delay']))
