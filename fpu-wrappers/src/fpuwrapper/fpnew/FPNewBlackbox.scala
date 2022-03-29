@@ -21,6 +21,7 @@ class FPNewBlackbox(
     pipelineStages: Int = 0
 ) extends BlackBox(
       Map(
+        /*
         "FLEN" -> IntParam(fLen),
         "ENABLE_VECTORS" -> IntParam(enableVectors.compare(false)),
         "ENABLE_NAN_BOX" -> IntParam(enableNanBox.compare(false)),
@@ -35,6 +36,7 @@ class FPNewBlackbox(
         "ENABLE_INT64" -> IntParam(enableInt64.compare(false)),
         "TAG_WIDTH" -> IntParam(tagWidth),
         "PIPELINE_STAGES" -> IntParam(pipelineStages)
+        */
       )
     )
     with HasBlackBoxResource {
@@ -61,5 +63,5 @@ class FPNewBlackbox(
     val busy_o = Output(Bool())
   }).suggestName("io")
 
-  addResource("/fpnew/FPNewBlackbox.preprocessed.sv")
+  addResource("/fpnew/FPNewBlackbox.synth.v")
 }

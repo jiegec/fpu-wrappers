@@ -12287,9 +12287,9 @@ endmodule
 module FPNewBlackbox #(
      
     parameter FLEN = 64,
-    parameter ENABLE_VECTORS = 0,
-    parameter ENABLE_NAN_BOX = 0,
-    parameter ENABLE_FP32 = 0,
+    parameter ENABLE_VECTORS = 1,
+    parameter ENABLE_NAN_BOX = 1,
+    parameter ENABLE_FP32 = 1,
     parameter ENABLE_FP64 = 0,
     parameter ENABLE_FP16 = 0,
     parameter ENABLE_FP8 = 0,
@@ -12299,9 +12299,9 @@ module FPNewBlackbox #(
     parameter ENABLE_INT32 = 0,
     parameter ENABLE_INT64 = 0,
      
-    parameter PIPELINE_STAGES = 0,
+    parameter PIPELINE_STAGES = 1,
      
-    parameter TAG_WIDTH = 0,
+    parameter TAG_WIDTH = 2,
      
     localparam int unsigned WIDTH        = FLEN,
     localparam int unsigned NUM_OPERANDS = 3,
