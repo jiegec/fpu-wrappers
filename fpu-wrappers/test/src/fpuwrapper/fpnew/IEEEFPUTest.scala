@@ -1,7 +1,7 @@
 package fpuwrapper.fpnew
 
 import chisel3._
-import chisel3.tester._
+import chiseltest._
 import org.scalatest.freespec.AnyFreeSpec
 import fpuwrapper.FloatS
 import fpuwrapper.Simulator
@@ -24,14 +24,21 @@ class IEEEFPUTest extends AnyFreeSpec with ChiselScalatestTester {
           }
 
           def expectResp()(x: IEEEFPU => Unit) {
+            val expectedCycles = stages - 1
+            var cycles = 0
             dut.io.resp.ready.poke(true.B)
             while (dut.io.resp.valid.peek().litToBoolean == false) {
               dut.clock.step(1)
+              cycles += 1
             }
             dut.io.resp.valid.expect(true.B)
             x(dut)
             dut.io.resp.ready.poke(true.B)
             dut.clock.step(1)
+            assert(
+              cycles == expectedCycles,
+              s"Response does not appear after expected cycles: ${cycles} != ${expectedCycles}"
+            )
           }
 
           dut.io.req.bits.operands(0).poke("h3f8000003f800000".U) // 1

@@ -63,5 +63,5 @@ class FPNewBlackbox(
     val busy_o = Output(Bool())
   }).suggestName("io")
 
-  addResource("/fpnew/FPNewBlackbox.synth.v")
+  addResource(s"/fpnew/FPNewBlackbox_${pipelineStages}s.synth.v")
 }

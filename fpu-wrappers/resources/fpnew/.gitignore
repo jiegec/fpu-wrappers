@@ -1,1 +1,2 @@
-!*.v
+!*.sv
+*.preprocessed.sv

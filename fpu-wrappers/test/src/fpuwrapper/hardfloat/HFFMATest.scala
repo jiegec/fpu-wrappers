@@ -1,7 +1,7 @@
 package fpuwrapper.hardfloat
 
 import chisel3._
-import chisel3.tester._
+import chiseltest._
 import org.scalatest.freespec.AnyFreeSpec
 import fpuwrapper.FloatS
 import fpuwrapper.Simulator

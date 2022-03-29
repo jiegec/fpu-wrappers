@@ -21,23 +21,23 @@ VSRCS += $(ROOT)/fpnew/src/fpnew_pkg.sv \
 		$(ROOT)/fpnew/src/fpnew_opgroup_multifmt_slice.sv \
 		$(ROOT)/fpnew/src/fpnew_rounding.sv \
 		$(ROOT)/fpnew/src/fpnew_top.sv
-VSRCS += FPNewBlackbox.sv
+VSRCS += FPNewBlackbox$(SUFFIX).sv
 
 VERILATOR_OPTS = -E +incdir+$(ROOT)/fpnew/src/common_cells/include
 
 # Must use defer here, otherwise it can fail with TAG_WIDTH=0
-FPNewBlackbox.synth.v: FPNewBlackbox.preprocessed.v
+FPNewBlackbox$(SUFFIX).synth.v: FPNewBlackbox$(SUFFIX).preprocessed.v
 	~/yosys/yosys -p 'read_verilog -defer $^' -p 'hierarchy -top FPNewBlackbox' -p 'proc' -p 'opt' -o $@
 
-FPNewBlackbox.preprocessed.v: FPNewBlackbox.preprocessed.sv
+FPNewBlackbox$(SUFFIX).preprocessed.v: FPNewBlackbox$(SUFFIX).preprocessed.sv
 	~/sv2v/bin/sv2v $^ > $@
 	sed -i '/\$$fatal/d' $@
 
-FPNewBlackbox.preprocessed.sv: Makefile $(VSRCS)
+FPNewBlackbox$(SUFFIX).preprocessed.sv: Makefile $(VSRCS)
 	cat $(VSRCS) > cat.sv
 	verilator --cc --exe $(VERILATOR_OPTS) cat.sv --top-module FPNewBlackbox > $@
 	sed -i '/^`line/d' $@
 	rm cat.sv
 
 clean:
-	rm -f FPNewBlackbox.synth.v FPNewBlackbox.preprocessed.v FPNewBlackbox.preprocessed.sv
+	rm -f FPNewBlackbox*.synth.v FPNewBlackbox*.preprocessed.v FPNewBlackbox*.preprocessed.sv

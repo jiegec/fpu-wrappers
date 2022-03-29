@@ -13,7 +13,7 @@ module FPNewBlackbox #(
     parameter ENABLE_INT32 = 0,
     parameter ENABLE_INT64 = 0,
     // fpu implementation
-    parameter PIPELINE_STAGES = __STAGES__,
+    parameter PIPELINE_STAGES = 4,
     // tag type: logic array
     parameter TAG_WIDTH = 2,
     // Do not change, follow fp-new definition
