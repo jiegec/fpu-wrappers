@@ -3,43 +3,18 @@ package fpuwrapper.fpnew
 import chisel3._
 import chisel3.experimental._
 import chisel3.util.HasBlackBoxResource
+import fpuwrapper.FloatType
 
 class FPNewBlackbox(
-    fLen: Int = 64,
-    enableVectors: Boolean = true,
-    enableNanBox: Boolean = true,
-    enableFP32: Boolean = true,
-    enableFP64: Boolean = true,
-    enableFP16: Boolean = true,
-    enableFP8: Boolean = false,
-    enableFP16Alt: Boolean = false,
-    enableInt8: Boolean = false,
-    enableInt16: Boolean = true,
-    enableInt32: Boolean = true,
-    enableInt64: Boolean = true,
-    tagWidth: Int = 0,
-    pipelineStages: Int = 0
+    floatType: FloatType,
+    lanes: Int,
+    stages: Int,
+    tagWidth: Int,
 ) extends BlackBox(
-      Map(
-        /*
-        "FLEN" -> IntParam(fLen),
-        "ENABLE_VECTORS" -> IntParam(enableVectors.compare(false)),
-        "ENABLE_NAN_BOX" -> IntParam(enableNanBox.compare(false)),
-        "ENABLE_FP32" -> IntParam(enableFP32.compare(false)),
-        "ENABLE_FP64" -> IntParam(enableFP64.compare(false)),
-        "ENABLE_FP16" -> IntParam(enableFP16.compare(false)),
-        "ENABLE_FP8" -> IntParam(enableFP8.compare(false)),
-        "ENABLE_FP16ALT" -> IntParam(enableFP16Alt.compare(false)),
-        "ENABLE_INT8" -> IntParam(enableInt8.compare(false)),
-        "ENABLE_INT16" -> IntParam(enableInt16.compare(false)),
-        "ENABLE_INT32" -> IntParam(enableInt32.compare(false)),
-        "ENABLE_INT64" -> IntParam(enableInt64.compare(false)),
-        "TAG_WIDTH" -> IntParam(tagWidth),
-        "PIPELINE_STAGES" -> IntParam(pipelineStages)
-        */
-      )
+      Map()
     )
     with HasBlackBoxResource {
+  val fLen = floatType.width() * lanes
   val io = IO(new Bundle {
     val clk_i = Input(Clock())
     val rst_ni = Input(Bool())
@@ -63,5 +38,5 @@ class FPNewBlackbox(
     val busy_o = Output(Bool())
   }).suggestName("io")
 
-  addResource(s"/fpnew/FPNewBlackbox_${pipelineStages}s.synth.v")
+  addResource(s"/fpnew/FPNewBlackbox_${floatType.kind().toString()}${lanes}l${stages}s.synth.v")
 }

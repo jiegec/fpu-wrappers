@@ -6,6 +6,8 @@ import chisel3.util.Decoupled
 import fpuwrapper.EmitChiselModule
 import fpuwrapper.FloatType
 import fpuwrapper.FpKind
+import fpuwrapper.FloatS
+import fpuwrapper.Synthesis
 
 class FPConfig(
 )
@@ -71,18 +73,10 @@ class IEEEFPU(
 
   val blackbox = Module(
     new FPNewBlackbox(
-      fLen = fLen,
+      floatType,
+      lanes,
+      stages,
       tagWidth = 0,
-      pipelineStages = stages,
-      enableFP32 = floatType.kind() == FpKind.S,
-      enableFP64 = floatType.kind() == FpKind.D,
-      enableFP16 = floatType.kind() == FpKind.H,
-      enableFP8 = false,
-      enableFP16Alt = false,
-      enableInt8 = false,
-      enableInt16 = floatType.kind() == FpKind.H,
-      enableInt32 = floatType.kind() == FpKind.S,
-      enableInt64 = floatType.kind() == FpKind.D
     )
   )
 
@@ -120,4 +114,30 @@ object IEEEFPU extends EmitChiselModule {
     "IEEEFPU",
     "fpnew"
   )
+}
+
+object IEEEFPUSynth extends EmitChiselModule {
+  for (floatType <- Seq(FloatS)) {
+    val floatName = floatType.kind().toString()
+    for (stages <- Seq(2)) {
+      for (lanes <- Seq(1)) {
+        emitChisel(
+          (floatType, lanes, stages) => new IEEEFPU(floatType, lanes, stages),
+          "IEEEFPU",
+          "fpnew",
+          allStages = Seq(stages),
+          floatTypes = Seq(floatType),
+          lanes = Seq(lanes)
+        )
+        val name = s"IEEEFPU_${floatName}${lanes}l${stages}s_fpnew"
+
+        val fileName = s"FPNewBlackbox_${floatType.kind().toString()}${lanes}l${stages}s.synth.v"
+        Synthesis.build(
+          Seq(s"${name}.v", s"./fpu-wrappers/resources/fpnew/${fileName}"),
+          s"${name}_IEEEFPU",
+          s"${name}"
+        )
+      }
+    }
+  }
 }

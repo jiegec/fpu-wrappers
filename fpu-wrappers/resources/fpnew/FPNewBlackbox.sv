@@ -1,10 +1,10 @@
 module FPNewBlackbox #(
     // fpu features
-    parameter FLEN = 64,
+    parameter FLEN = __FLEN__,
     parameter ENABLE_VECTORS = 1,
     parameter ENABLE_NAN_BOX = 1,
-    parameter ENABLE_FP32 = 1,
-    parameter ENABLE_FP64 = 0,
+    parameter ENABLE_FP32 = __FP32__,
+    parameter ENABLE_FP64 = __FP64__,
     parameter ENABLE_FP16 = 0,
     parameter ENABLE_FP8 = 0,
     parameter ENABLE_FP16ALT = 0,
@@ -68,7 +68,7 @@ module FPNewBlackbox #(
                     '{default: fpnew_pkg::MERGED},   // DIVSQRT
                     '{default: fpnew_pkg::PARALLEL}, // NONCOMP
                     '{default: fpnew_pkg::MERGED}},  // CONV
-        PipeConfig: fpnew_pkg::BEFORE
+        PipeConfig: fpnew_pkg::DISTRIBUTED
     };
 
     fpnew_top #(
