@@ -65,9 +65,9 @@ module FPNewBlackbox #(
                       '{default: PIPELINE_STAGES},
                       '{default: PIPELINE_STAGES}},
         UnitTypes:  '{'{default: fpnew_pkg::PARALLEL}, // ADDMUL
-                    '{default: fpnew_pkg::MERGED},   // DIVSQRT
-                    '{default: fpnew_pkg::PARALLEL}, // NONCOMP
-                    '{default: fpnew_pkg::MERGED}},  // CONV
+                    '{default: fpnew_pkg::DISABLED},   // DIVSQRT
+                    '{default: fpnew_pkg::DISABLED}, // NONCOMP
+                    '{default: fpnew_pkg::DISABLED}},  // CONV
         PipeConfig: fpnew_pkg::DISTRIBUTED
     };
 
