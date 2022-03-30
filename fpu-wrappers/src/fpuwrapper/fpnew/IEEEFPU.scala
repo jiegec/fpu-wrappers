@@ -5,8 +5,8 @@ import chisel3.experimental.ChiselEnum
 import chisel3.util.Decoupled
 import fpuwrapper.EmitChiselModule
 import fpuwrapper.FloatType
-import fpuwrapper.FpKind
 import fpuwrapper.FloatS
+import fpuwrapper.FloatD
 import fpuwrapper.Synthesis
 
 class FPConfig(
@@ -117,9 +117,9 @@ object IEEEFPU extends EmitChiselModule {
 }
 
 object IEEEFPUSynth extends EmitChiselModule {
-  for (floatType <- Seq(FloatS)) {
+  for (floatType <- Seq(FloatS, FloatD)) {
     val floatName = floatType.kind().toString()
-    for (stages <- Seq(2)) {
+    for (stages <- Seq(2, 3)) {
       for (lanes <- Seq(1)) {
         emitChisel(
           (floatType, lanes, stages) => new IEEEFPU(floatType, lanes, stages),

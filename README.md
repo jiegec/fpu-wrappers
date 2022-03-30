@@ -41,3 +41,9 @@ Possible floating point formats:
 1. HF: berkeley-hardfloat +1 bits
 2. IEEE: IEEE 754
 3. FPC: flopoco +2 bits
+
+IEEE754 FMA:
+
+1. Area: fpnew = flopoco < hardfloat < fudian
+2. Frequency: hardfloat = flopoco > fpnew > fudian
+3. Power: fpnew < hardfloat < flopoco < fudian
