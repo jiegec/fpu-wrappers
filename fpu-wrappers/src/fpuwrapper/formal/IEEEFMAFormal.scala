@@ -8,7 +8,9 @@ import fpuwrapper.FloatH
 import fpuwrapper.FloatType
 
 class FMARequest(val floatType: FloatType, val lanes: Int) extends Bundle {
-  val operands = Vec(3, Vec(lanes, UInt(floatType.width.W)))
+  val a = Vec(lanes, UInt(floatType.width.W))
+  val b = Vec(lanes, UInt(floatType.width.W))
+  val c = Vec(lanes, UInt(floatType.width.W))
 }
 
 class FMAResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
@@ -24,26 +26,34 @@ class IEEEFMAFormal(floatType: FloatType, lanes: Int, stages: Int)
     val req = Flipped(Valid(new FMARequest(floatType, lanes)))
   })
 
+  val zeros = WireInit(VecInit.fill(lanes)(0.U(floatType.width.W)))
+
   val hardfloat = Module(
     new fpuwrapper.hardfloat.IEEEFMA(floatType, lanes, stages)
   )
   hardfloat.io.req.valid := io.req.valid
   hardfloat.io.req.bits.op := fpuwrapper.hardfloat.FMAOp.FMADD
-  hardfloat.io.req.bits.operands := io.req.bits.operands
+  hardfloat.io.req.bits.operands(0) := zeros
+  hardfloat.io.req.bits.operands(1) := io.req.bits.b
+  hardfloat.io.req.bits.operands(2) := io.req.bits.c
 
   val fudian = Module(
     new fpuwrapper.fudian.IEEEFMA(floatType, lanes, stages)
   )
   fudian.io.req.valid := io.req.valid
-  fudian.io.req.bits.operands := io.req.bits.operands
+  fudian.io.req.bits.operands(0) := zeros
+  fudian.io.req.bits.operands(1) := io.req.bits.b
+  fudian.io.req.bits.operands(2) := io.req.bits.c
 
   chisel3.assert(
     hardfloat.io.resp.valid === fudian.io.resp.valid
   )
-  for (i <- 0 until lanes) {
-    chisel3.assert(
-      hardfloat.io.resp.bits.res(i) === fudian.io.resp.bits.res(i)
-    )
+  when(hardfloat.io.resp.valid) {
+    for (i <- 0 until lanes) {
+      chisel3.assert(
+        hardfloat.io.resp.bits.res(i) === fudian.io.resp.bits.res(i)
+      )
+    }
   }
 }
 
