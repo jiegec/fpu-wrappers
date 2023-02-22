@@ -23,7 +23,7 @@ jobs:
       - name: Install simulators
         run: sudo apt-get install -y verilator iverilog
       - name: Install other dependencies
-        run: sudo apt-get install -y gcc libboost-dev
+        run: sudo apt-get install -y gcc libboost-dev z3
       - name: Compile
         run: mill fpu-wrappers.compile
       - name: Test
