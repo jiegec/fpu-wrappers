@@ -31,7 +31,7 @@ class FPCFExp(floatType: FloatType, lanes: Int, stages: Int) extends Component {
 }
 
 class FPCFExpBlackBox(floatType: FloatType, stages: Int) extends BlackBox {
-  val clk = in(Bool)
+  val clk = in(Bool())
   val X = in(Bits(floatType.widthFlopoco bits))
   val R = out(Bits(floatType.widthFlopoco bits))
 

@@ -13,11 +13,11 @@ import $file.thirdparty.`berkeley-hardfloat`.build
 val defaultVersions = Map(
   "chisel3" -> ("edu.berkeley.cs", "3.5.6", false),
   "chisel3-plugin" -> ("edu.berkeley.cs", "3.5.6", true),
-  "chiseltest" -> ("edu.berkeley.cs", "0.5.1", false),
+  "chiseltest" -> ("edu.berkeley.cs", "0.5.6", false),
   "scalatest" -> ("org.scalatest", "3.2.10", false),
-  "spinalhdl-core" -> ("com.github.spinalhdl", "1.6.1", false),
-  "spinalhdl-lib" -> ("com.github.spinalhdl", "1.6.1", false),
-  "spinalhdl-idsl-plugin" -> ("com.github.spinalhdl", "1.6.1", false)
+  "spinalhdl-core" -> ("com.github.spinalhdl", "1.8.0", false),
+  "spinalhdl-lib" -> ("com.github.spinalhdl", "1.8.0", false),
+  "spinalhdl-idsl-plugin" -> ("com.github.spinalhdl", "1.8.0", false)
 )
 
 val commonScalaVersion = "2.12.14"

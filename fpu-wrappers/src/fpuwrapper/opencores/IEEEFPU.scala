@@ -46,21 +46,21 @@ class IEEEFPU extends Component {
 }
 
 class IEEEFPUBlackBox(val floatType: FloatType) extends BlackBox {
-  val clk = in(Bool)
+  val clk = in(Bool())
   val rmode = in(Bits(2 bits))
   val fpu_op = in(Bits(3 bits))
   val opa = in(Bits(floatType.width bits))
   val opb = in(Bits(floatType.width bits))
 
   val out = spinal.core.out(Bits(floatType.width bits))
-  val inf = spinal.core.out(Bool)
-  val snan = spinal.core.out(Bool)
-  val qnan = spinal.core.out(Bool)
-  val ine = spinal.core.out(Bool)
-  val overflow = spinal.core.out(Bool)
-  val underflow = spinal.core.out(Bool)
-  val zero = spinal.core.out(Bool)
-  val div_by_zero = spinal.core.out(Bool)
+  val inf = spinal.core.out(Bool())
+  val snan = spinal.core.out(Bool())
+  val qnan = spinal.core.out(Bool())
+  val ine = spinal.core.out(Bool())
+  val overflow = spinal.core.out(Bool())
+  val underflow = spinal.core.out(Bool())
+  val zero = spinal.core.out(Bool())
+  val div_by_zero = spinal.core.out(Bool())
 
   setDefinitionName("fpu")
 

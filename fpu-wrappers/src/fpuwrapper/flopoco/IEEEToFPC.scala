@@ -33,7 +33,7 @@ class IEEEToFPCInner(floatType: FloatType) extends Component {
 
   val fracR = UInt(floatType.sig() - 1 bits)
   val expR = UInt(floatType.exp() bits)
-  val sR = Bool
+  val sR = Bool()
   val exnR = UInt(2 bits)
   fpc := Cat(exnR, sR, expR, fracR).asUInt
 

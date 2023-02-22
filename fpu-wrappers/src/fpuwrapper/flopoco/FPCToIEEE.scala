@@ -13,7 +13,7 @@ class FPCToIEEEInner(floatType: FloatType) extends Component {
   val fpc = io.req
   val fracX = fpc(floatType.sig() - 2 downto 0)
   val expX = fpc(floatType.width() - 2 downto floatType.sig() - 1)
-  val sX = Bool
+  val sX = Bool()
   val exnX = fpc(floatType.width() + 1 downto floatType.width())
   when(exnX === 1 || exnX === 2 || exnX === 0) {
     sX := fpc(floatType.width() - 1)
@@ -28,7 +28,7 @@ class FPCToIEEEInner(floatType: FloatType) extends Component {
 
   val fracR = UInt(floatType.sig() - 1 bits)
   val expR = UInt(floatType.exp() bits)
-  val sR = Bool
+  val sR = Bool()
   ieee := Cat(sR, expR, fracR).asUInt
 
   switch(exnX) {
