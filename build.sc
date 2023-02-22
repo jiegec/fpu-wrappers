@@ -11,8 +11,8 @@ import $file.thirdparty.`berkeley-hardfloat`.build
 
 // learned from https://github.com/OpenXiangShan/fudian/blob/main/build.sc
 val defaultVersions = Map(
-  "chisel3" -> ("edu.berkeley.cs", "3.5.2", false),
-  "chisel3-plugin" -> ("edu.berkeley.cs", "3.5.2", true),
+  "chisel3" -> ("edu.berkeley.cs", "3.5.6", false),
+  "chisel3-plugin" -> ("edu.berkeley.cs", "3.5.6", true),
   "chiseltest" -> ("edu.berkeley.cs", "0.5.1", false),
   "scalatest" -> ("org.scalatest", "3.2.10", false),
   "spinalhdl-core" -> ("com.github.spinalhdl", "1.6.1", false),

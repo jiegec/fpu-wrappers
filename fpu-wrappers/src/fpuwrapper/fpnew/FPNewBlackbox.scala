@@ -1,7 +1,6 @@
 package fpuwrapper.fpnew
 
 import chisel3._
-import chisel3.experimental._
 import chisel3.util.HasBlackBoxResource
 import fpuwrapper.FloatType
 
