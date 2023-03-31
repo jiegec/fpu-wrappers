@@ -27,7 +27,7 @@ VERILATOR_OPTS = -E +incdir+$(ROOT)/fpnew/src/common_cells/include
 
 # Must use defer here, otherwise it can fail with TAG_WIDTH=0
 FPNewBlackbox$(SUFFIX).synth.v: FPNewBlackbox$(SUFFIX).preprocessed.v
-	~/yosys/yosys -p 'read_verilog -defer $^' -p 'hierarchy -top FPNewBlackbox' -p 'proc' -p 'opt' -p 'write_verilog -noattr $@'
+	yosys -p 'read_verilog -defer $^' -p 'hierarchy -top FPNewBlackbox' -p 'proc' -p 'opt' -p 'write_verilog -noattr $@'
 
 FPNewBlackbox$(SUFFIX).preprocessed.v: FPNewBlackbox$(SUFFIX).preprocessed.sv
 	~/sv2v/bin/sv2v $^ > $@
