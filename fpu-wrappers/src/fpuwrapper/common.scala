@@ -8,7 +8,7 @@ import java.nio.file.StandardCopyOption
   */
 object Resource {
   def path(name: String) = {
-    val tmp = Paths.get(System.getProperty("java.io.tmpdir"), "resource");
+    val tmp = Paths.get(System.getProperty("java.io.tmpdir"), System.getProperty("user.name"), "resource");
     tmp.toFile().mkdirs()
     val path = tmp.resolve(Paths.get(name).getFileName())
 
