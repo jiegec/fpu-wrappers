@@ -3,7 +3,7 @@ import mill.scalalib.publish._
 import scalalib._
 import scalafmt._
 import coursier.maven.MavenRepository
-import $ivy.`com.goyeau::mill-scalafix_mill0.10:0.2.8`
+import $ivy.`com.goyeau::mill-scalafix_mill0.10:0.2.11`
 import com.goyeau.mill.scalafix.ScalafixModule
 
 // third party build.sc
@@ -20,7 +20,7 @@ val defaultVersions = Map(
   "spinalhdl-idsl-plugin" -> ("com.github.spinalhdl", "1.8.1", false)
 )
 
-val commonScalaVersion = "2.12.14"
+val commonScalaVersion = "2.13.10"
 
 def getVersion(dep: String) = {
   val (org, ver, cross) = defaultVersions(dep)
@@ -40,10 +40,6 @@ trait CommonModule extends ScalaModule {
       MavenRepository("https://oss.sonatype.org/content/repositories/snapshots")
     )
   }
-
-  // for scalafix rules
-  override def scalacOptions =
-    Seq("-Ywarn-unused", "-Ywarn-adapted-args", "-deprecation")
 }
 
 object hardfloat extends thirdparty.`berkeley-hardfloat`.build.hardfloat {

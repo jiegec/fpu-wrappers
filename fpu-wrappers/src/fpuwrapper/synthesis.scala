@@ -6,6 +6,7 @@ import java.nio.file.Paths
 import java.nio.file.StandardCopyOption
 import scala.io.Source
 import scala.sys.process._
+import scala.language.postfixOps
 
 /** Synthesize code with Synopsys Design Compiler
   */
