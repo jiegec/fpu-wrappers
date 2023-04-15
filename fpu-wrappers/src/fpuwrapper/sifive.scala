@@ -2,8 +2,6 @@ package sifive {
   package enterprise {
     package firrtl {
       import _root_.firrtl.annotations._
-      import _root_.firrtl.RenameMap
-      import chisel3.RawModule
 
       case class NestedPrefixModulesAnnotation(
           val target: Target,
