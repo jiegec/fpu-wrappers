@@ -11,7 +11,7 @@ import scala.sys.process._
 
 class HFRoundtrip(floatType: FloatType) extends Module {
   val io = IO(new Bundle {
-    val req = Input(UInt(floatType.width.W))
+    val req = Input(UInt(floatType.width().W))
   })
 
   val ieee2hf = Module(

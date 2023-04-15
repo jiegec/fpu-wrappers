@@ -81,16 +81,16 @@ class IEEEFPU(
 
   // clock & reset
   blackbox.io.clk_i := clock
-  blackbox.io.rst_ni := ~reset.asBool()
+  blackbox.io.rst_ni := ~reset.asBool
 
   // request
-  blackbox.io.operands_i := io.req.bits.operands.asUInt()
-  blackbox.io.rnd_mode_i := io.req.bits.roundingMode.asUInt()
-  blackbox.io.op_i := io.req.bits.op.asUInt()
+  blackbox.io.operands_i := io.req.bits.operands.asUInt
+  blackbox.io.rnd_mode_i := io.req.bits.roundingMode.asUInt
+  blackbox.io.op_i := io.req.bits.op.asUInt
   blackbox.io.op_mod_i := io.req.bits.opModifier
-  blackbox.io.src_fmt_i := io.req.bits.srcFormat.asUInt()
-  blackbox.io.dst_fmt_i := io.req.bits.dstFormat.asUInt()
-  blackbox.io.int_fmt_i := io.req.bits.intFormat.asUInt()
+  blackbox.io.src_fmt_i := io.req.bits.srcFormat.asUInt
+  blackbox.io.dst_fmt_i := io.req.bits.dstFormat.asUInt
+  blackbox.io.int_fmt_i := io.req.bits.intFormat.asUInt
   blackbox.io.vectorial_op_i := 1.B
   blackbox.io.tag_i := 0.B
   blackbox.io.in_valid_i := io.req.valid

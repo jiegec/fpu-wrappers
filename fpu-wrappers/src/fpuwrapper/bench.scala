@@ -9,7 +9,7 @@ import scala.collection.mutable.ArrayBuffer
 /** Benchmark with Vivado
   */
 trait VivadoBench extends App {
-  def bench(name: String, paths: Seq[String], topModuleName: String) {
+  def bench(name: String, paths: Seq[String], topModuleName: String) = {
     val targets = ArrayBuffer[Target]()
     val vivadoPath = "/opt/Xilinx/Vivado/2020.2/bin"
 

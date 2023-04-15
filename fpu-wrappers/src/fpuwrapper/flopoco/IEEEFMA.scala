@@ -97,13 +97,13 @@ class IEEEFMA(floatType: FloatType, lanes: Int, stages: Int) extends Component {
 
 class IEEEFMABlackBox(floatType: FloatType, stages: Int) extends BlackBox {
   val clk = in(Bool())
-  val A = in(Bits(floatType.width bits))
-  val B = in(Bits(floatType.width bits))
-  val C = in(Bits(floatType.width bits))
+  val A = in(Bits(floatType.width() bits))
+  val B = in(Bits(floatType.width() bits))
+  val C = in(Bits(floatType.width() bits))
   val negateAB = in(Bool())
   val negateC = in(Bool())
   val RndMode = in(Bits(2 bits))
-  val R = out(Bits(floatType.width bits))
+  val R = out(Bits(floatType.width() bits))
 
   setDefinitionName(s"IEEEFMA_${floatType.kind().toString()}")
 

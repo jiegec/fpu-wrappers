@@ -15,7 +15,7 @@ object Synthesis {
       sources: Seq[String],
       toplevelName: String,
       folderName: String = null
-  ) {
+  ) = {
     val actualFolderName = if (folderName == null) {
       toplevelName
     } else {

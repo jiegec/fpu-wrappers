@@ -6,12 +6,12 @@ import fpuwrapper._
 
 class HFFMARequest(val floatType: FloatType, val lanes: Int) extends Bundle {
   val op = FMAOp()
-  val operands = Vec(3, Vec(lanes, UInt(floatType.widthHardfloat.W)))
+  val operands = Vec(3, Vec(lanes, UInt(floatType.widthHardfloat().W)))
 }
 
 class HFFMAResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
   // result
-  val res = Vec(lanes, UInt(floatType.widthHardfloat.W))
+  val res = Vec(lanes, UInt(floatType.widthHardfloat().W))
   // exception status
   val exc = Vec(lanes, Bits(5.W))
 }

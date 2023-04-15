@@ -5,13 +5,13 @@ import chisel3.util._
 import fpuwrapper._
 
 class HFFMulRequest(val floatType: FloatType, val lanes: Int) extends Bundle {
-  val a = Vec(lanes, UInt(floatType.widthHardfloat.W))
-  val b = Vec(lanes, UInt(floatType.widthHardfloat.W))
+  val a = Vec(lanes, UInt(floatType.widthHardfloat().W))
+  val b = Vec(lanes, UInt(floatType.widthHardfloat().W))
 }
 
 class HFFMulResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
   // result
-  val res = Vec(lanes, UInt(floatType.widthHardfloat.W))
+  val res = Vec(lanes, UInt(floatType.widthHardfloat().W))
   // exception status
   val exc = Vec(lanes, Bits(5.W))
 }

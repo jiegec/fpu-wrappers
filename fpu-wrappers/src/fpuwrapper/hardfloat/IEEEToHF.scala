@@ -8,7 +8,7 @@ import fpuwrapper._
 class IEEEToHF(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   val io = IO(new Bundle {
     val float = Input(Valid(Vec(lanes, Bits(floatType.width().W))))
-    val hardfloat = Output(Valid(Vec(lanes, Bits(floatType.widthHardfloat.W))))
+    val hardfloat = Output(Valid(Vec(lanes, Bits(floatType.widthHardfloat().W))))
   })
 
   io.hardfloat.valid := ShiftRegister(io.float.valid, stages)

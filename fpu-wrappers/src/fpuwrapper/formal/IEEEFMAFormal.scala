@@ -8,14 +8,14 @@ import fpuwrapper.FloatH
 import fpuwrapper.FloatType
 
 class FMARequest(val floatType: FloatType, val lanes: Int) extends Bundle {
-  val a = Vec(lanes, UInt(floatType.width.W))
-  val b = Vec(lanes, UInt(floatType.width.W))
-  val c = Vec(lanes, UInt(floatType.width.W))
+  val a = Vec(lanes, UInt(floatType.width().W))
+  val b = Vec(lanes, UInt(floatType.width().W))
+  val c = Vec(lanes, UInt(floatType.width().W))
 }
 
 class FMAResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
   // result
-  val res = Vec(lanes, UInt(floatType.width.W))
+  val res = Vec(lanes, UInt(floatType.width().W))
   // exception status
   val exc = Vec(lanes, Bits(5.W))
 }
@@ -26,7 +26,7 @@ class IEEEFMAFormal(floatType: FloatType, lanes: Int, stages: Int)
     val req = Flipped(Valid(new FMARequest(floatType, lanes)))
   })
 
-  val zeros = WireInit(VecInit.fill(lanes)(0.U(floatType.width.W)))
+  val zeros = WireInit(VecInit.fill(lanes)(0.U(floatType.width().W)))
 
   val hardfloat = Module(
     new fpuwrapper.hardfloat.IEEEFMA(floatType, lanes, stages)

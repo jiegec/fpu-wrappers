@@ -11,9 +11,9 @@ import $file.thirdparty.`berkeley-hardfloat`.build
 
 // learned from https://github.com/OpenXiangShan/fudian/blob/main/build.sc
 val defaultVersions = Map(
-  "chisel3" -> ("edu.berkeley.cs", "3.5.6", false),
-  "chisel3-plugin" -> ("edu.berkeley.cs", "3.5.6", true),
-  "chiseltest" -> ("edu.berkeley.cs", "0.5.6", false),
+  "chisel3" -> ("edu.berkeley.cs", "3.6.0", false),
+  "chisel3-plugin" -> ("edu.berkeley.cs", "3.6.0", true),
+  "chiseltest" -> ("edu.berkeley.cs", "0.6.0-RC2", false),
   "scalatest" -> ("org.scalatest", "3.2.10", false),
   "spinalhdl-core" -> ("com.github.spinalhdl", "1.8.1", false),
   "spinalhdl-lib" -> ("com.github.spinalhdl", "1.8.1", false),
@@ -40,6 +40,8 @@ trait CommonModule extends ScalaModule {
       MavenRepository("https://oss.sonatype.org/content/repositories/snapshots")
     )
   }
+
+  override def scalacOptions = Seq("-deprecation")
 }
 
 object hardfloat extends thirdparty.`berkeley-hardfloat`.build.hardfloat {

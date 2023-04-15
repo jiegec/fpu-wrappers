@@ -7,7 +7,7 @@ import fpuwrapper._
 
 class HFToIEEE(floatType: FloatType, lanes: Int, stages: Int) extends Module {
   val io = IO(new Bundle {
-    val hardfloat = Input(Valid(Vec(lanes, Bits(floatType.widthHardfloat.W))))
+    val hardfloat = Input(Valid(Vec(lanes, Bits(floatType.widthHardfloat().W))))
     val float = Output(Valid(Vec(lanes, Bits(floatType.width().W))))
   })
 

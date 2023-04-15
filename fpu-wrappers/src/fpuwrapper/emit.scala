@@ -10,7 +10,7 @@ import firrtl.stage.RunFirrtlTransformAnnotation
 /** Emit Verilog from Chisel module
   */
 trait ChiselEmitVerilog extends App {
-  def emit(genModule: () => RawModule, name: String) {
+  def emit(genModule: () => RawModule, name: String) = {
     val prefix = s"${name}_"
     new ChiselStage().execute(
       Array("-X", "mverilog", "-o", s"${name}.v"),
@@ -37,7 +37,7 @@ trait EmitChiselModule extends ChiselEmitVerilog {
       allStages: Seq[Int] = Seq(1, 2, 3),
       floatTypes: Seq[FloatType] = Seq(FloatH, FloatS, FloatD),
       lanes: Seq[Int] = Seq(1, 2, 4)
-  ) {
+  ) = {
     for (floatType <- floatTypes) {
       val floatName = floatType.kind().toString()
       for (lanes <- lanes) {
@@ -77,7 +77,7 @@ trait EmitSpinalModule extends SpinalEmitVerilog {
       stages: Int,
       genModule: (FloatType, Int, Int) => T,
       name: String
-  ) {
+  ) = {
     for (kind <- Seq(FloatH, FloatS, FloatD)) {
       val floatName = kind.kind().toString()
       for (lanes <- Seq(1, 2, 4, 8)) {

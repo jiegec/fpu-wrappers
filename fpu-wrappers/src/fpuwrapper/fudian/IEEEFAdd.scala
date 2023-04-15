@@ -8,14 +8,14 @@ import fpuwrapper.FloatType
 import fpuwrapper.Synthesis
 
 class IEEEFAddRequest(val floatType: FloatType, val lanes: Int) extends Bundle {
-  val a = Vec(lanes, UInt(floatType.width.W))
-  val b = Vec(lanes, UInt(floatType.width.W))
+  val a = Vec(lanes, UInt(floatType.width().W))
+  val b = Vec(lanes, UInt(floatType.width().W))
 }
 
 class IEEEFAddResponse(val floatType: FloatType, val lanes: Int)
     extends Bundle {
   // result
-  val res = Vec(lanes, UInt(floatType.width.W))
+  val res = Vec(lanes, UInt(floatType.width().W))
   // exception status
   val exc = Vec(lanes, Bits(5.W))
 }

@@ -9,13 +9,13 @@ import spinal.core._
 import spinal.lib._
 
 class IEEEFExpRequest(val floatType: FloatType, val lanes: Int) extends Bundle {
-  val a = Vec(UInt(floatType.width bits), lanes)
+  val a = Vec(UInt(floatType.width() bits), lanes)
 }
 
 class IEEEFExpResponse(val floatType: FloatType, val lanes: Int)
     extends Bundle {
   // result
-  val res = Vec(UInt(floatType.width bits), lanes)
+  val res = Vec(UInt(floatType.width() bits), lanes)
 }
 
 class IEEEFExp(floatType: FloatType, lanes: Int, stages: Int)

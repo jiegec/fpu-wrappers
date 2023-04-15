@@ -8,12 +8,12 @@ import fpuwrapper.FloatType
 import fpuwrapper.Synthesis
 
 class IEEEFMARequest(val floatType: FloatType, val lanes: Int) extends Bundle {
-  val operands = Vec(3, Vec(lanes, UInt(floatType.width.W)))
+  val operands = Vec(3, Vec(lanes, UInt(floatType.width().W)))
 }
 
 class IEEEFMAResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
   // result
-  val res = Vec(lanes, UInt(floatType.width.W))
+  val res = Vec(lanes, UInt(floatType.width().W))
   // exception status
   val exc = Vec(lanes, Bits(5.W))
 }
@@ -38,7 +38,7 @@ class FCMAPipe(val expWidth: Int, val precision: Int, val stages: Int)
 
   val mul_to_fadd = ShiftRegister(fmul.io.to_fadd, stages)
   fadd.io.a := ShiftRegister(Cat(io.c, 0.U(precision.W)), stages)
-  fadd.io.b := mul_to_fadd.fp_prod.asUInt()
+  fadd.io.b := mul_to_fadd.fp_prod.asUInt
   fadd.io.b_inter_valid := true.B
   fadd.io.b_inter_flags := mul_to_fadd.inter_flags
   fadd.io.rm := ShiftRegister(io.rm, stages)

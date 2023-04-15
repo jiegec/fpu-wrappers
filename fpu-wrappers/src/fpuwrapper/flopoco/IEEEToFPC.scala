@@ -21,14 +21,14 @@ class IEEEToFPCInner(floatType: FloatType) extends Component {
   val reprSubNormal = fracX(floatType.sig() - 2)
 
   // representable subnormal numbers
-  val sfracX = UInt(floatType.sig - 1 bits)
+  val sfracX = UInt(floatType.sig() - 1 bits)
   when(expZero && reprSubNormal) {
     sfracX := fracX(floatType.sig() - 3 downto 0) << 1
   } otherwise {
     sfracX := fracX
   }
 
-  val fpc = UInt(floatType.widthFlopoco bits)
+  val fpc = UInt(floatType.widthFlopoco() bits)
   io.resp := fpc
 
   val fracR = UInt(floatType.sig() - 1 bits)

@@ -14,14 +14,14 @@ object IEEEFDivSqrtOp extends ChiselEnum {
 class IEEEFDivSqrtRequest(val floatType: FloatType, val lanes: Int)
     extends Bundle {
   val op = IEEEFDivSqrtOp()
-  val a = Vec(lanes, UInt(floatType.width.W))
-  val b = Vec(lanes, UInt(floatType.width.W))
+  val a = Vec(lanes, UInt(floatType.width().W))
+  val b = Vec(lanes, UInt(floatType.width().W))
 }
 
 class IEEEFDivSqrtResponse(val floatType: FloatType, val lanes: Int)
     extends Bundle {
   // result
-  val res = Vec(lanes, UInt(floatType.width.W))
+  val res = Vec(lanes, UInt(floatType.width().W))
   // exception status
   val exc = Vec(lanes, Bits(5.W))
 }

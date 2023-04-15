@@ -7,12 +7,12 @@ import spinal.core._
 import spinal.lib._
 
 class FPCFExpRequest(val floatType: FloatType, val lanes: Int) extends Bundle {
-  val a = Vec(UInt(floatType.widthFlopoco bits), lanes)
+  val a = Vec(UInt(floatType.widthFlopoco() bits), lanes)
 }
 
 class FPCFExpResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
   // result
-  val res = Vec(UInt(floatType.widthFlopoco bits), lanes)
+  val res = Vec(UInt(floatType.widthFlopoco() bits), lanes)
 }
 
 class FPCFExp(floatType: FloatType, lanes: Int, stages: Int) extends Component {
@@ -32,8 +32,8 @@ class FPCFExp(floatType: FloatType, lanes: Int, stages: Int) extends Component {
 
 class FPCFExpBlackBox(floatType: FloatType, stages: Int) extends BlackBox {
   val clk = in(Bool())
-  val X = in(Bits(floatType.widthFlopoco bits))
-  val R = out(Bits(floatType.widthFlopoco bits))
+  val X = in(Bits(floatType.widthFlopoco() bits))
+  val R = out(Bits(floatType.widthFlopoco() bits))
 
   setDefinitionName(s"FPCFExp_${floatType.kind().toString()}")
 
