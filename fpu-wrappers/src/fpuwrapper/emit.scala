@@ -2,12 +2,24 @@ package fpuwrapper
 
 import chisel3._
 import chisel3.stage.ChiselGeneratorAnnotation
-import firrtl.CustomDefaultRegisterEmission
-import firrtl.options.Dependency
-import firrtl.stage.RunFirrtlTransformAnnotation
 import chisel3.experimental.ChiselAnnotation
 import circt.stage.FirtoolOption
 import circt.stage.ChiselStage
+import _root_.sifive.enterprise.firrtl.NestedPrefixModulesAnnotation
+import chisel3.experimental.annotate
+
+/** Helper to add prefix
+  */
+object AddPrefix {
+  def apply(module: Module, prefix: String, inclusive: Boolean = true) = {
+    if (prefix == null) {
+      annotate(new ChiselAnnotation {
+        def toFirrtl =
+          new NestedPrefixModulesAnnotation(module.toTarget, prefix, true)
+      })
+    }
+  }
+}
 
 /** Emit Verilog from Chisel module
   */

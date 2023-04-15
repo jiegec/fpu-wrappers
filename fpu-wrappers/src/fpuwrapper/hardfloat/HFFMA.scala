@@ -25,13 +25,7 @@ class HFFMA(
     stages: Int,
     prefix: String = null
 ) extends Module {
-  if (prefix != null) {
-    val module = this
-    annotate(new ChiselAnnotation {
-      def toFirrtl =
-        new NestedPrefixModulesAnnotation(module.toTarget, prefix, true)
-    })
-  }
+  AddPrefix(this, prefix)
 
   val io = IO(new Bundle {
     val req = Flipped(Valid(new HFFMARequest(floatType, lanes)))
