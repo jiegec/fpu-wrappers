@@ -12,7 +12,7 @@ import chisel3.experimental.annotate
   */
 object AddPrefix {
   def apply(module: Module, prefix: String, inclusive: Boolean = true) = {
-    if (prefix == null) {
+    if (prefix != null) {
       annotate(new ChiselAnnotation {
         def toFirrtl =
           new NestedPrefixModulesAnnotation(module.toTarget, prefix, true)
@@ -28,7 +28,7 @@ trait ChiselEmitVerilog extends App {
     ChiselStage.emitSystemVerilogFile(
       genModule(),
       Array(),
-      Array("-o", s"${name}.v")
+      Array("-o", s"${name}.sv")
     )
   }
 }
