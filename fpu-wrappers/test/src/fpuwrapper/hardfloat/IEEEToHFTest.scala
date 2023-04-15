@@ -13,13 +13,13 @@ class IEEEToHFTest extends AnyFreeSpec with ChiselScalatestTester {
         .withAnnotations(Simulator.getAnnotations()) { dut =>
           dut.clock.step(16)
 
-          def enqueueReq() {
+          def enqueueReq() = {
             dut.io.float.valid.poke(true.B)
             dut.clock.step(1)
             dut.io.float.valid.poke(false.B)
           }
 
-          def expectResp()(x: IEEEToHF => Unit) {
+          def expectResp()(x: IEEEToHF => Unit) = {
             val expectedCycles = stages - 1
             var cycles = 0
             while (dut.io.hardfloat.valid.peek().litToBoolean == false) {

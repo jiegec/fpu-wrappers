@@ -14,7 +14,7 @@ class IEEEFPUTest extends AnyFreeSpec with ChiselScalatestTester {
         .withAnnotations(Simulator.getAnnotations(useIcarus = false, useVCS = false)) { dut =>
           dut.clock.step(16)
 
-          def enqueueReq() {
+          def enqueueReq() = {
             dut.io.req.valid.poke(true.B)
             while (dut.io.req.ready.peek().litToBoolean == false) {
               dut.clock.step(1)
@@ -23,7 +23,7 @@ class IEEEFPUTest extends AnyFreeSpec with ChiselScalatestTester {
             dut.io.req.valid.poke(false.B)
           }
 
-          def expectResp()(x: IEEEFPU => Unit) {
+          def expectResp()(x: IEEEFPU => Unit) = {
             val expectedCycles = stages - 1
             var cycles = 0
             dut.io.resp.ready.poke(true.B)

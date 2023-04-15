@@ -13,13 +13,13 @@ class IEEEFAddTest extends AnyFreeSpec with ChiselScalatestTester {
         .withAnnotations(Simulator.getAnnotations()) { dut =>
           dut.clock.step(16)
 
-          def enqueueReq() {
+          def enqueueReq() = {
             dut.io.req.valid.poke(true.B)
             dut.clock.step(1)
             dut.io.req.valid.poke(false.B)
           }
 
-          def expectResp()(x: IEEEFAdd => Unit) {
+          def expectResp()(x: IEEEFAdd => Unit) = {
             val expectedCycles = stages - 1
             var cycles = 0
             while (dut.io.resp.valid.peek().litToBoolean == false) {

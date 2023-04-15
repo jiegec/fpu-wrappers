@@ -109,7 +109,7 @@ class IEEEFPU(
 
 object IEEEFPU extends EmitChiselModule {
   emitChisel(
-    (floatType, lanes, stages) => new IEEEFPU(floatType, lanes, stages),
+    (floatType, lanes, stages, _) => new IEEEFPU(floatType, lanes, stages),
     "IEEEFPU",
     "fpnew"
   )
@@ -121,7 +121,7 @@ object IEEEFPUSynth extends EmitChiselModule {
     for (stages <- Seq(2, 3)) {
       for (lanes <- Seq(1)) {
         emitChisel(
-          (floatType, lanes, stages) => new IEEEFPU(floatType, lanes, stages),
+          (floatType, lanes, stages, _) => new IEEEFPU(floatType, lanes, stages),
           "IEEEFPU",
           "fpnew",
           allStages = Seq(stages),

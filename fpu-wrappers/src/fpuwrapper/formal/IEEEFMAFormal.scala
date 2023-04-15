@@ -1,11 +1,11 @@
 package fpuwrapper.formal
 
 import chisel3._
-import chisel3.stage.ChiselStage
 import chisel3.util._
 import fpuwrapper.ChiselEmitVerilog
 import fpuwrapper.FloatH
 import fpuwrapper.FloatType
+import _root_.circt.stage.ChiselStage
 
 class FMARequest(val floatType: FloatType, val lanes: Int) extends Bundle {
   val a = Vec(lanes, UInt(floatType.width().W))
@@ -57,10 +57,8 @@ class IEEEFMAFormal(floatType: FloatType, lanes: Int, stages: Int)
   }
 }
 
-object IEEEFMAFormal extends ChiselEmitVerilog {
-  (new ChiselStage()).emitSystemVerilog(
-    new IEEEFMAFormal(FloatH, 1, 1),
-    Array("-o", "IEEEFMAFormal"),
-    Seq()
+object IEEEFMAFormal extends App {
+  ChiselStage.emitSystemVerilogFile(
+    new IEEEFMAFormal(FloatH, 1, 1)
   )
 }

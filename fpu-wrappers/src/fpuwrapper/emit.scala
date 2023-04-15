@@ -2,27 +2,21 @@ package fpuwrapper
 
 import chisel3._
 import chisel3.stage.ChiselGeneratorAnnotation
-import chisel3.stage.ChiselStage
 import firrtl.CustomDefaultRegisterEmission
 import firrtl.options.Dependency
 import firrtl.stage.RunFirrtlTransformAnnotation
+import chisel3.experimental.ChiselAnnotation
+import circt.stage.FirtoolOption
+import circt.stage.ChiselStage
 
 /** Emit Verilog from Chisel module
   */
 trait ChiselEmitVerilog extends App {
   def emit(genModule: () => RawModule, name: String) = {
-    val prefix = s"${name}_"
-    new ChiselStage().execute(
-      Array("-X", "mverilog", "-o", s"${name}.v"),
-      Seq(
-        ChiselGeneratorAnnotation(genModule),
-        RunFirrtlTransformAnnotation(Dependency(PrefixModulesPass)),
-        ModulePrefix(prefix),
-        CustomDefaultRegisterEmission(
-          useInitAsPreset = false,
-          disableRandomization = true
-        )
-      )
+    ChiselStage.emitSystemVerilogFile(
+      genModule(),
+      Array(),
+      Array("-o", s"${name}.v")
     )
   }
 }
@@ -31,7 +25,7 @@ trait ChiselEmitVerilog extends App {
   */
 trait EmitChiselModule extends ChiselEmitVerilog {
   def emitChisel(
-      genModule: (FloatType, Int, Int) => RawModule,
+      genModule: (FloatType, Int, Int, String) => RawModule,
       name: String,
       library: String,
       allStages: Seq[Int] = Seq(1, 2, 3),
@@ -42,9 +36,11 @@ trait EmitChiselModule extends ChiselEmitVerilog {
       val floatName = floatType.kind().toString()
       for (lanes <- lanes) {
         for (stages <- allStages) {
+          val moduleName = s"${name}_${floatName}${lanes}l${stages}s_${library}"
+          val prefix = s"${moduleName}_"
           emit(
-            () => genModule(floatType, lanes, stages),
-            s"${name}_${floatName}${lanes}l${stages}s_${library}"
+            () => genModule(floatType, lanes, stages, prefix),
+            moduleName
           )
         }
       }

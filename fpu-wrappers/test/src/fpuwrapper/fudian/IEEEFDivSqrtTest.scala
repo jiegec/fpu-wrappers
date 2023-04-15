@@ -12,13 +12,13 @@ class IEEEFDivSqrtTest extends AnyFreeSpec with ChiselScalatestTester {
       .withAnnotations(Simulator.getAnnotations()) { dut =>
         dut.clock.step(16)
 
-        def enqueueReq() {
+        def enqueueReq() = {
           dut.io.req.valid.poke(true.B)
           dut.clock.step(1)
           dut.io.req.valid.poke(false.B)
         }
 
-        def expectResp()(x: IEEEFDivSqrt => Unit) {
+        def expectResp()(x: IEEEFDivSqrt => Unit) = {
           while (dut.io.resp.valid.peek().litToBoolean == false) {
             dut.clock.step(1)
           }

@@ -30,17 +30,17 @@ object Simulator {
       useIcarus: Boolean = true,
       useVerilator: Boolean = true
   ): AnnotationSeq = {
-    val annotations = if (vcsFound && useVCS) {
+    val annotations = if (vcsFound() && useVCS) {
       println("Using VCS")
       Seq(
         VcsBackendAnnotation
       )
-    } else if (icarusFound && useIcarus) {
+    } else if (icarusFound() && useIcarus) {
       println("Using Icarus Verilog")
       Seq(
         IcarusBackendAnnotation
       )
-    } else if (verilatorFound && useVerilator) {
+    } else if (verilatorFound() && useVerilator) {
       println("Using Verilator")
       Seq(
         VerilatorBackendAnnotation,

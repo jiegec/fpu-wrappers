@@ -72,7 +72,7 @@ class IEEEFAdd(floatType: FloatType, lanes: Int, stages: Int) extends Module {
 
 object IEEEFAdd extends EmitChiselModule {
   emitChisel(
-    (floatType, lanes, stages) => new IEEEFAdd(floatType, lanes, stages),
+    (floatType, lanes, stages, _) => new IEEEFAdd(floatType, lanes, stages),
     "IEEEFAdd",
     "fudian"
   )
@@ -83,7 +83,7 @@ object IEEEFAddSynth extends EmitChiselModule {
     val floatName = floatType.kind().toString()
     for (stages <- Seq(4)) {
       emitChisel(
-        (floatType, lanes, stages) => new IEEEFAdd(floatType, lanes, stages),
+        (floatType, lanes, stages, _) => new IEEEFAdd(floatType, lanes, stages),
         "IEEEFAdd",
         "fudian",
         allStages = Seq(stages),

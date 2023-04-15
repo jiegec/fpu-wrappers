@@ -19,7 +19,7 @@ class HFFMulTest extends AnyFreeSpec with ChiselScalatestTester {
             dut.io.req.valid.poke(false.B)
           }
 
-          def expectResp()(x: HFFMul => Unit) {
+          def expectResp()(x: HFFMul => Unit) = {
             val expectedCycles = stages - 1
             var cycles = 0
             while (dut.io.resp.valid.peek().litToBoolean == false) {

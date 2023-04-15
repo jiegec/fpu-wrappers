@@ -3,6 +3,9 @@ package fpuwrapper.hardfloat
 import chisel3._
 import chisel3.util._
 import fpuwrapper._
+import chisel3.experimental.annotate
+import _root_.sifive.enterprise.firrtl.NestedPrefixModulesAnnotation
+import chisel3.experimental.ChiselAnnotation
 
 class HFFMARequest(val floatType: FloatType, val lanes: Int) extends Bundle {
   val op = FMAOp()
@@ -16,9 +19,19 @@ class HFFMAResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
   val exc = Vec(lanes, Bits(5.W))
 }
 
-class HFFMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
-  // for bench
-  util.experimental.forceName(clock, "clk")
+class HFFMA(
+    floatType: FloatType,
+    lanes: Int,
+    stages: Int,
+    prefix: String = null
+) extends Module {
+  if (prefix != null) {
+    val module = this
+    annotate(new ChiselAnnotation {
+      def toFirrtl =
+        new NestedPrefixModulesAnnotation(module.toTarget, prefix, true)
+    })
+  }
 
   val io = IO(new Bundle {
     val req = Flipped(Valid(new HFFMARequest(floatType, lanes)))
@@ -130,7 +143,8 @@ class HFFMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
 
 object HFFMA extends EmitChiselModule {
   emitChisel(
-    (floatType, lanes, stages) => new HFFMA(floatType, lanes, stages),
+    (floatType, lanes, stages, prefix) =>
+      new HFFMA(floatType, lanes, stages, prefix),
     "HFFMA",
     "hardfloat"
   )
@@ -141,7 +155,7 @@ object HFFMASynth extends EmitChiselModule {
     val floatName = floatType.kind().toString()
     for (stages <- Seq(3)) {
       emitChisel(
-        (floatType, lanes, stages) => new HFFMA(floatType, lanes, stages),
+        (floatType, lanes, stages, _) => new HFFMA(floatType, lanes, stages),
         "HFFMA",
         "hardfloat",
         allStages = Seq(stages),
@@ -159,7 +173,7 @@ object HFFMABench extends EmitChiselModule with VivadoBench {
     val floatName = floatType.kind().toString()
     for (stages <- Seq(3)) {
       emitChisel(
-        (floatType, lanes, stages) => new HFFMA(floatType, lanes, stages),
+        (floatType, lanes, stages, _) => new HFFMA(floatType, lanes, stages),
         "HFFMA",
         "hardfloat",
         allStages = Seq(stages),

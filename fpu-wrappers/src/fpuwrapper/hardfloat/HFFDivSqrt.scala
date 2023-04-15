@@ -104,7 +104,7 @@ class HFFDivSqrt(val floatType: FloatType, val lanes: Int)
 
 object HFFDivSqrt extends EmitChiselModule {
   emitChisel(
-    (floatType, lanes, _) => new HFFDivSqrt(floatType, lanes),
+    (floatType, lanes, _, _) => new HFFDivSqrt(floatType, lanes),
     "HFFDivSqrt",
     "hardfloat"
   )
