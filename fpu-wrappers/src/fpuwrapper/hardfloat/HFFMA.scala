@@ -4,7 +4,7 @@ import chisel3._
 import chisel3.util._
 import fpuwrapper._
 import chisel3.experimental.annotate
-import _root_.sifive.enterprise.firrtl.NestedPrefixModulesAnnotation
+import sifive.enterprise.firrtl.NestedPrefixModulesAnnotation
 import chisel3.experimental.ChiselAnnotation
 
 class HFFMARequest(val floatType: FloatType, val lanes: Int) extends Bundle {

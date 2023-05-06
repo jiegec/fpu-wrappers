@@ -6,6 +6,7 @@ import org.scalatest.freespec.AnyFreeSpec
 import fpuwrapper.FloatS
 import fpuwrapper.Simulator
 
+
 class IEEEFMATest extends AnyFreeSpec with ChiselScalatestTester {
   for (stages <- 1 to 5) {
     s"IEEEFMA of ${stages} stages should work" in {

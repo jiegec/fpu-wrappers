@@ -13,7 +13,7 @@ import $file.thirdparty.`berkeley-hardfloat`.build
 val defaultVersions = Map(
   "chisel3" -> ("edu.berkeley.cs", "3.6.0", false),
   "chisel3-plugin" -> ("edu.berkeley.cs", "3.6.0", true),
-  "chiseltest" -> ("edu.berkeley.cs", "0.6.0-RC2", false),
+  "chiseltest" -> ("edu.berkeley.cs", "0.6.0", false),
   "scalatest" -> ("org.scalatest", "3.2.10", false),
   "spinalhdl-core" -> ("com.github.spinalhdl", "1.8.1", false),
   "spinalhdl-lib" -> ("com.github.spinalhdl", "1.8.1", false),
@@ -41,7 +41,7 @@ trait CommonModule extends ScalaModule {
     )
   }
 
-  override def scalacOptions = Seq("-deprecation")
+  override def scalacOptions = Seq("-deprecation", "-feature", "-language:reflectiveCalls")
 }
 
 object hardfloat extends thirdparty.`berkeley-hardfloat`.build.hardfloat {

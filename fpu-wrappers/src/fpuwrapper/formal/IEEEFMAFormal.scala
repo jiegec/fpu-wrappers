@@ -1,11 +1,11 @@
 package fpuwrapper.formal
 
+import circt.stage.ChiselStage
 import chisel3._
 import chisel3.util._
 import fpuwrapper.ChiselEmitVerilog
 import fpuwrapper.FloatH
 import fpuwrapper.FloatType
-import _root_.circt.stage.ChiselStage
 
 class FMARequest(val floatType: FloatType, val lanes: Int) extends Bundle {
   val a = Vec(lanes, UInt(floatType.width().W))

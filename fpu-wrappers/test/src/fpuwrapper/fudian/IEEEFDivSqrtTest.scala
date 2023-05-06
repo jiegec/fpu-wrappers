@@ -6,6 +6,7 @@ import org.scalatest.freespec.AnyFreeSpec
 import fpuwrapper.FloatS
 import fpuwrapper.Simulator
 
+
 class IEEEFDivSqrtTest extends AnyFreeSpec with ChiselScalatestTester {
   s"IEEEFDivSqrt should work" in {
     test(new IEEEFDivSqrt(FloatS, 2))

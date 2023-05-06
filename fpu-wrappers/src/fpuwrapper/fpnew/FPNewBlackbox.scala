@@ -8,7 +8,7 @@ class FPNewBlackbox(
     floatType: FloatType,
     lanes: Int,
     stages: Int,
-    tagWidth: Int,
+    tagWidth: Int
 ) extends BlackBox(
       Map()
     )
@@ -37,5 +37,7 @@ class FPNewBlackbox(
     val busy_o = Output(Bool())
   }).suggestName("io")
 
-  addResource(s"/fpnew/FPNewBlackbox_${floatType.kind().toString()}${lanes}l${stages}s.synth.v")
+  addResource(
+    s"/fpnew/FPNewBlackbox_${floatType.kind().toString()}${lanes}l${stages}s.synth.v"
+  )
 }

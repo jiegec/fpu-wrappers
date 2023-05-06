@@ -8,8 +8,7 @@ import fpuwrapper.FloatS
 import fpuwrapper.FloatD
 import fpuwrapper.Synthesis
 
-class FPConfig(
-)
+class FPConfig()
 
 object FPFloatFormat extends ChiselEnum {
   val Fp32, Fp64, Fp16, Fp8, Fp16Alt = Value
@@ -75,7 +74,7 @@ class IEEEFPU(
       floatType,
       lanes,
       stages,
-      tagWidth = 0,
+      tagWidth = 0
     )
   )
 
@@ -121,7 +120,12 @@ object IEEEFPUSynth extends EmitChiselModule {
     for (stages <- Seq(2, 3)) {
       for (lanes <- Seq(1)) {
         emitChisel(
-          (floatType, lanes, stages, _) => new IEEEFPU(floatType, lanes, stages),
+          (
+              floatType,
+              lanes,
+              stages,
+              _
+          ) => new IEEEFPU(floatType, lanes, stages),
           "IEEEFPU",
           "fpnew",
           allStages = Seq(stages),
@@ -130,7 +134,8 @@ object IEEEFPUSynth extends EmitChiselModule {
         )
         val name = s"IEEEFPU_${floatName}${lanes}l${stages}s_fpnew"
 
-        val fileName = s"FPNewBlackbox_${floatType.kind().toString()}${lanes}l${stages}s.synth.v"
+        val fileName =
+          s"FPNewBlackbox_${floatType.kind().toString()}${lanes}l${stages}s.synth.v"
         Synthesis.build(
           Seq(s"${name}.v", s"./fpu-wrappers/resources/fpnew/${fileName}"),
           s"${name}_IEEEFPU",

@@ -1,7 +1,7 @@
 package fpuwrapper.formal
 
+import circt.stage.ChiselStage
 import chisel3._
-import chisel3.stage.ChiselStage
 import fpuwrapper.FloatS
 import fpuwrapper.FloatType
 import fpuwrapper.hardfloat.HFToIEEE
@@ -30,10 +30,9 @@ class HFRoundtrip(floatType: FloatType) extends Module {
 }
 
 object HFRoundtrip extends App {
-  (new ChiselStage()).emitSystemVerilog(
+  ChiselStage.emitSystemVerilog(
     new HFRoundtrip(FloatS),
-    Array("-o", "HFRoundtrip"),
-    Seq()
+    Array("-o", "HFRoundtrip")
   )
   Seq(
     "yosys",
