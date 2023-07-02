@@ -13,7 +13,7 @@ class HFFMulTest extends AnyFreeSpec with ChiselScalatestTester {
         .withAnnotations(Simulator.getAnnotations()) { dut =>
           dut.clock.step(16)
 
-          def enqueueReq() {
+          def enqueueReq(): Unit = {
             dut.io.req.valid.poke(true.B)
             dut.clock.step(1)
             dut.io.req.valid.poke(false.B)

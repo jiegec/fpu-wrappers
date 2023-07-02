@@ -3,7 +3,7 @@ package fpuwrapper
 import chiseltest.simulator.IcarusBackendAnnotation
 import chiseltest.simulator.VerilatorBackendAnnotation
 import chiseltest.simulator.WriteVcdAnnotation
-import firrtl.AnnotationSeq
+import firrtl2.AnnotationSeq
 import chiseltest.simulator.VcsBackendAnnotation
 import chiseltest.simulator.VerilatorFlags
 

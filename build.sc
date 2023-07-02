@@ -11,9 +11,9 @@ import $file.thirdparty.`berkeley-hardfloat`.build
 
 // learned from https://github.com/OpenXiangShan/fudian/blob/main/build.sc
 val defaultVersions = Map(
-  "chisel3" -> ("edu.berkeley.cs", "3.6.0", false),
-  "chisel3-plugin" -> ("edu.berkeley.cs", "3.6.0", true),
-  "chiseltest" -> ("edu.berkeley.cs", "0.6.0", false),
+  "chisel" -> ("org.chipsalliance", "5.0.0", false),
+  "chisel-plugin" -> ("org.chipsalliance", "5.0.0", true),
+  "chiseltest" -> ("edu.berkeley.cs", "5.0.0", false),
   "scalatest" -> ("org.scalatest", "3.2.10", false),
   "spinalhdl-core" -> ("com.github.spinalhdl", "1.8.1", false),
   "spinalhdl-lib" -> ("com.github.spinalhdl", "1.8.1", false),
@@ -47,26 +47,26 @@ trait CommonModule extends ScalaModule {
 object hardfloat extends thirdparty.`berkeley-hardfloat`.build.hardfloat {
   override def scalaVersion = commonScalaVersion
 
-  // override with our chisel3 version
+  // override with our chisel version
   override def chisel3IvyDeps = Agg(
-    getVersion("chisel3")
+    getVersion("chisel")
   )
 
-  override def scalacPluginIvyDeps = super.scalacPluginIvyDeps() ++ Agg(
-    getVersion("chisel3-plugin")
+  override def chisel3PluginIvyDeps = Agg(
+    getVersion("chisel-plugin")
   )
 }
 
 object fudian extends CommonModule with PublishModule {
   override def ivyDeps = super.ivyDeps() ++ Agg(
-    getVersion("chisel3"),
+    getVersion("chisel"),
     getVersion("scalatest")
   )
 
   override def millSourcePath = os.pwd / "thirdparty" / "fudian"
 
   override def scalacPluginIvyDeps = super.scalacPluginIvyDeps() ++ Agg(
-    getVersion("chisel3-plugin")
+    getVersion("chisel-plugin")
   )
 
   // publish
@@ -87,7 +87,7 @@ object `fpu-wrappers`
     with ScalafmtModule
     with ScalafixModule {
   override def ivyDeps = super.ivyDeps() ++ Agg(
-    getVersion("chisel3"),
+    getVersion("chisel"),
     getVersion("chiseltest"),
     getVersion("spinalhdl-core"),
     getVersion("spinalhdl-lib")
@@ -95,7 +95,7 @@ object `fpu-wrappers`
 
   override def scalacPluginIvyDeps = super.scalacPluginIvyDeps() ++ Agg(
     getVersion("spinalhdl-idsl-plugin"),
-    getVersion("chisel3-plugin")
+    getVersion("chisel-plugin")
   )
 
   override def moduleDeps = super.moduleDeps ++ Seq(hardfloat, fudian)
