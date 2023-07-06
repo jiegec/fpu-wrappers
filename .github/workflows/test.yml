@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        scala: [2.12.15]
+        scala: [2.13.10]
         jvm: [adopt@1.11]
     steps:
       - name: Checkout
@@ -19,7 +19,7 @@ jobs:
       - name: Setup Mill
         uses: jodersky/setup-mill@master
         with:
-          mill-version: 0.10.0
+          mill-version: 0.11.0
       - name: Install simulators
         run: sudo apt-get install -y verilator iverilog
       - name: Install other dependencies
