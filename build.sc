@@ -3,11 +3,6 @@ import mill.scalalib.publish._
 import scalalib._
 import scalafmt._
 import coursier.maven.MavenRepository
-import $ivy.`com.goyeau::mill-scalafix_mill0.10:0.2.11`
-import com.goyeau.mill.scalafix.ScalafixModule
-
-// third party build.sc
-import $file.thirdparty.`berkeley-hardfloat`.build
 
 // learned from https://github.com/OpenXiangShan/fudian/blob/main/build.sc
 val defaultVersions = Map(
@@ -44,16 +39,31 @@ trait CommonModule extends ScalaModule {
   override def scalacOptions = Seq("-deprecation", "-feature", "-language:reflectiveCalls")
 }
 
-object hardfloat extends thirdparty.`berkeley-hardfloat`.build.hardfloat {
+object hardfloat extends SbtModule with PublishModule {
   override def scalaVersion = commonScalaVersion
+  override def millSourcePath = os.pwd / "thirdparty" / "berkeley-hardfloat"
 
-  // override with our chisel version
-  override def chisel3IvyDeps = Agg(
+  override def ivyDeps = super.ivyDeps() ++ Agg(
     getVersion("chisel")
   )
 
-  override def chisel3PluginIvyDeps = Agg(
+  override def scalacPluginIvyDeps = super.scalacPluginIvyDeps() ++ Agg(
     getVersion("chisel-plugin")
+  )
+
+  // publish
+  def publishVersion = "1.5-SNAPSHOT"
+  def pomSettings = PomSettings(
+    description = artifactName(),
+    organization = "edu.berkeley.cs",
+    url = "http://chisel.eecs.berkeley.edu",
+    licenses = Seq(License.`BSD-3-Clause`),
+    versionControl = VersionControl.github("ucb-bar", "berkeley-hardfloat"),
+    developers = Seq(
+      Developer("jhauser-ucberkeley", "John Hauser", "https://www.colorado.edu/faculty/hauser/about/"),
+      Developer("aswaterman", "Andrew Waterman", "https://aspire.eecs.berkeley.edu/author/waterman/"),
+      Developer("yunsup", "Yunsup Lee", "https://aspire.eecs.berkeley.edu/author/yunsup/")
+    )
   )
 }
 
@@ -84,8 +94,7 @@ object fudian extends CommonModule with PublishModule {
 object `fpu-wrappers`
     extends CommonModule
     with PublishModule
-    with ScalafmtModule
-    with ScalafixModule {
+    with ScalafmtModule {
   override def ivyDeps = super.ivyDeps() ++ Agg(
     getVersion("chisel"),
     getVersion("chiseltest"),
@@ -100,11 +109,7 @@ object `fpu-wrappers`
 
   override def moduleDeps = super.moduleDeps ++ Seq(hardfloat, fudian)
 
-  override def scalafixIvyDeps = Agg(
-    ivy"com.github.liancheng::organize-imports:0.5.0"
-  )
-
-  object test extends Tests with TestModule.ScalaTest {
+  object test extends ScalaTests with TestModule.ScalaTest {
     override def ivyDeps = super.ivyDeps() ++ Agg(
       getVersion("scalatest")
     )
