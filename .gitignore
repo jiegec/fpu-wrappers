@@ -1,6 +1,7 @@
 .metals/
 .bsp/
 .bloop/
+.direnv/
 target/
 project/project/
 test_run_dir/

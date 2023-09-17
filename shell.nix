@@ -5,5 +5,6 @@ pkgs.mkShell {
   buildInputs = with pkgs; [
     circt # 1.40.0
     mill
+    boost
   ];
 }
