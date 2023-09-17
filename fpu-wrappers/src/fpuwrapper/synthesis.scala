@@ -40,7 +40,11 @@ object Synthesis {
     var template = Source.fromResource("syn.tcl").mkString
     template = template.replace(
       "INPUT_VERILOG",
-      names.filter((s) => s.endsWith(".v") || s.endsWith(".sv")).mkString(" ")
+      names.filter((s) => s.endsWith(".v")).mkString(" ")
+    )
+    template = template.replace(
+      "INPUT_SYSTEMVERILOG",
+      names.filter((s) => s.endsWith(".sv")).mkString(" ")
     )
     template = template.replace(
       "INPUT_VHDL",
