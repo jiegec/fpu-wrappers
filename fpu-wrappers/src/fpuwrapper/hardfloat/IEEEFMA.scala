@@ -141,7 +141,7 @@ object IEEEFMA extends EmitChiselModule {
 }
 
 object IEEEFMASynth extends EmitChiselModule {
-  for (floatType <- Seq(FloatH)) {
+  for (floatType <- Seq(FloatH, FloatS, FloatD)) {
     val floatName = floatType.kind().toString()
     for (stages <- Seq(3)) {
       emitChisel(
