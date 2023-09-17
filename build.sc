@@ -41,7 +41,7 @@ trait CommonModule extends ScalaModule {
 
 object hardfloat extends SbtModule with PublishModule {
   override def scalaVersion = commonScalaVersion
-  override def millSourcePath = os.pwd / "thirdparty" / "berkeley-hardfloat"
+  override def millSourcePath = os.pwd / "thirdparty" / "berkeley-hardfloat" / "hardfloat"
 
   override def ivyDeps = super.ivyDeps() ++ Agg(
     getVersion("chisel")
