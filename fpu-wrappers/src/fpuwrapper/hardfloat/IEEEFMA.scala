@@ -16,7 +16,8 @@ class IEEEFMAResponse(val floatType: FloatType, val lanes: Int) extends Bundle {
   val exc = Vec(lanes, Bits(5.W))
 }
 
-class IEEEFMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
+class IEEEFMA(floatType: FloatType, lanes: Int, stages: Int, prefix: String = "") extends Module {
+  AddPrefix(this, prefix)
   val io = IO(new Bundle {
     val req = Flipped(Valid(new IEEEFMARequest(floatType, lanes)))
     val resp = Valid(new IEEEFMAResponse(floatType, lanes))
@@ -133,7 +134,7 @@ class IEEEFMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
 
 object IEEEFMA extends EmitChiselModule {
   emitChisel(
-    (floatType, lanes, stages, _) => new IEEEFMA(floatType, lanes, stages),
+    (floatType, lanes, stages, prefix) => new IEEEFMA(floatType, lanes, stages, prefix),
     "IEEEFMA",
     "hardfloat"
   )
@@ -144,7 +145,7 @@ object IEEEFMASynth extends EmitChiselModule {
     val floatName = floatType.kind().toString()
     for (stages <- Seq(3)) {
       emitChisel(
-        (floatType, lanes, stages, _) => new IEEEFMA(floatType, lanes, stages),
+        (floatType, lanes, stages, prefix) => new IEEEFMA(floatType, lanes, stages, prefix),
         "IEEEFMA",
         "hardfloat",
         allStages = Seq(stages),
@@ -153,7 +154,7 @@ object IEEEFMASynth extends EmitChiselModule {
       )
       val name = s"IEEEFMA_${floatName}1l${stages}s_hardfloat"
       Synthesis.build(
-        Seq(s"${name}.v"),
+        Seq(s"${name}.sv"),
         s"${name}_IEEEFMA",
         name
       )
