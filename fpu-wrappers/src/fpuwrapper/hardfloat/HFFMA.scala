@@ -23,7 +23,7 @@ class HFFMA(
     floatType: FloatType,
     lanes: Int,
     stages: Int,
-    prefix: String = null
+    prefix: String = ""
 ) extends Module {
   AddPrefix(this, prefix)
 

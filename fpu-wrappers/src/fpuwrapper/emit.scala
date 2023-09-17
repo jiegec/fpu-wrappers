@@ -12,7 +12,7 @@ import chisel3.experimental.annotate
   */
 object AddPrefix {
   def apply(module: Module, prefix: String, inclusive: Boolean = true) = {
-    if (prefix != null) {
+    if (prefix != null && prefix != "") {
       annotate(new ChiselAnnotation {
         def toFirrtl =
           new NestedPrefixModulesAnnotation(module.toTarget, prefix, true)
