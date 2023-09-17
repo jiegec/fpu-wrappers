@@ -1,13 +1,28 @@
+IEEEFMA_D1l2s_hardfloat:
+  Cells: 17432
+  Area: Comb=30823 Buf=3175 NonComb=1110 Macro=0 Total=31933
+  Power: Switch(32.621 mW) Internal(14.072 mW) Leakage(1.150 mW) Total(47.841 mW)
+  Max Freq: 662 MHz (1.51 ns)
 IEEEFMA_D1l3s_hardfloat:
   Cells: 18451
   Area: Comb=30849 Buf=3251 NonComb=2898 Macro=0 Total=33746
   Power: Switch(26.427 mW) Internal(14.495 mW) Leakage(1.200 mW) Total(42.118 mW)
   Max Freq: 862 MHz (1.16 ns)
+IEEEFMA_H1l2s_hardfloat:
+  Cells: 2724
+  Area: Comb=4096 Buf=435 NonComb=315 Macro=0 Total=4411
+  Power: Switch(3.905 mW) Internal(1.788 mW) Leakage(0.161 mW) Total(5.854 mW)
+  Max Freq: 1020 MHz (0.98 ns)
 IEEEFMA_H1l3s_hardfloat:
   Cells: 2614
   Area: Comb=2864 Buf=297 NonComb=476 Macro=0 Total=3340
   Power: Switch(2.124 mW) Internal(1.127 mW) Leakage(0.106 mW) Total(3.357 mW)
   Max Freq: 1020 MHz (0.98 ns)
+IEEEFMA_S1l2s_hardfloat:
+  Cells: 6829
+  Area: Comb=11081 Buf=1122 NonComb=606 Macro=0 Total=11687
+  Power: Switch(10.686 mW) Internal(4.941 mW) Leakage(0.431 mW) Total(16.057 mW)
+  Max Freq: 806 MHz (1.24 ns)
 IEEEFMA_S1l3s_hardfloat:
   Cells: 7191
   Area: Comb=10342 Buf=1083 NonComb=1199 Macro=0 Total=11541
