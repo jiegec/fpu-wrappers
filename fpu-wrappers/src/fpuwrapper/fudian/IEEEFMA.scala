@@ -3,7 +3,10 @@ package fpuwrapper.fudian
 import chisel3._
 import chisel3.util._
 import fpuwrapper.EmitChiselModule
+import fpuwrapper.FloatH
+import fpuwrapper.FloatS
 import fpuwrapper.FloatD
+import fpuwrapper.AddPrefix
 import fpuwrapper.FloatType
 import fpuwrapper.Synthesis
 
@@ -47,7 +50,8 @@ class FCMAPipe(val expWidth: Int, val precision: Int, val stages: Int)
   io.fflags := fadd.io.fflags
 }
 
-class IEEEFMA(floatType: FloatType, lanes: Int, stages: Int) extends Module {
+class IEEEFMA(floatType: FloatType, lanes: Int, stages: Int, prefix: String = "") extends Module {
+  AddPrefix(this, prefix)
   val io = IO(new Bundle {
     val req = Flipped(Valid(new IEEEFMARequest(floatType, lanes)))
     val resp = Valid(new IEEEFMAResponse(floatType, lanes))
@@ -112,11 +116,11 @@ object IEEEFMA extends EmitChiselModule {
 }
 
 object IEEEFMASynth extends EmitChiselModule {
-  for (floatType <- Seq(FloatD)) {
+  for (floatType <- Seq(FloatH, FloatS, FloatD)) {
     val floatName = floatType.kind().toString()
-    for (stages <- Seq(3, 5)) {
+    for (stages <- Seq(2, 3, 4)) {
       emitChisel(
-        (floatType, lanes, stages, _) => new IEEEFMA(floatType, lanes, stages),
+        (floatType, lanes, stages, prefix) => new IEEEFMA(floatType, lanes, stages, prefix),
         "IEEEFMA",
         "fudian",
         allStages = Seq(stages),
@@ -125,7 +129,7 @@ object IEEEFMASynth extends EmitChiselModule {
       )
       val name = s"IEEEFMA_${floatName}1l${stages}s_fudian"
       Synthesis.build(
-        Seq(s"${name}.v"),
+        Seq(s"${name}.sv"),
         s"${name}_IEEEFMA",
         s"${name}"
       )
