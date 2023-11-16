@@ -6,8 +6,8 @@ import coursier.maven.MavenRepository
 
 // learned from https://github.com/OpenXiangShan/fudian/blob/main/build.sc
 val defaultVersions = Map(
-  "chisel" -> ("org.chipsalliance", "5.0.0", false),
-  "chisel-plugin" -> ("org.chipsalliance", "5.0.0", true),
+  "chisel" -> ("org.chipsalliance", "5.1.0", false),
+  "chisel-plugin" -> ("org.chipsalliance", "5.1.0", true),
   "chiseltest" -> ("edu.berkeley.cs", "5.0.2", false),
   "scalatest" -> ("org.scalatest", "3.2.10", false),
   "spinalhdl-core" -> ("com.github.spinalhdl", "1.9.4", false),
