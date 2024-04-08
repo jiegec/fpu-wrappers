@@ -50,7 +50,12 @@ class FCMAPipe(val expWidth: Int, val precision: Int, val stages: Int)
   io.fflags := fadd.io.fflags
 }
 
-class IEEEFMA(floatType: FloatType, lanes: Int, stages: Int, prefix: String = "") extends Module {
+class IEEEFMA(
+    floatType: FloatType,
+    lanes: Int,
+    stages: Int,
+    prefix: String = ""
+) extends Module {
   AddPrefix(this, prefix)
   val io = IO(new Bundle {
     val req = Flipped(Valid(new IEEEFMARequest(floatType, lanes)))
@@ -120,7 +125,8 @@ object IEEEFMASynth extends EmitChiselModule {
     val floatName = floatType.kind().toString()
     for (stages <- Seq(2, 3, 4)) {
       emitChisel(
-        (floatType, lanes, stages, prefix) => new IEEEFMA(floatType, lanes, stages, prefix),
+        (floatType, lanes, stages, prefix) =>
+          new IEEEFMA(floatType, lanes, stages, prefix),
         "IEEEFMA",
         "fudian",
         allStages = Seq(stages),

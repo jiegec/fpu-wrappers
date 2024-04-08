@@ -1,55 +1,50 @@
 package fpuwrapper
 
-import chiseltest.simulator.IcarusBackendAnnotation
-import chiseltest.simulator.VerilatorBackendAnnotation
-import chiseltest.simulator.WriteVcdAnnotation
-import firrtl2.AnnotationSeq
-import chiseltest.simulator.VcsBackendAnnotation
-import chiseltest.simulator.VerilatorFlags
+import svsim._
+import chisel3.RawModule
+import chisel3.simulator._
 
-object Simulator {
+// custom EphemeralSimulator to add options to verilator
+object Simulator extends PeekPokeAPI {
 
-  /** check if vcs is found */
-  def vcsFound(): Boolean = {
-    os.proc("which", "vcs").call(check = false).exitCode == 0
-  }
-
-  /** check if icarus verilog is found */
-  def icarusFound(): Boolean = {
-    os.proc("which", "iverilog").call(check = false).exitCode == 0
-  }
-
-  /** check if verilator is found */
-  def verilatorFound(): Boolean = {
-    os.proc("which", "verilator").call(check = false).exitCode == 0
-  }
-
-  /** get annotations for chiseltest */
-  def getAnnotations(
-      useVCS: Boolean = true,
-      useIcarus: Boolean = true,
-      useVerilator: Boolean = true
-  ): AnnotationSeq = {
-    val annotations = if (vcsFound() && useVCS) {
-      println("Using VCS")
-      Seq(
-        VcsBackendAnnotation
-      )
-    } else if (icarusFound() && useIcarus) {
-      println("Using Icarus Verilog")
-      Seq(
-        IcarusBackendAnnotation
-      )
-    } else if (verilatorFound() && useVerilator) {
-      println("Using Verilator")
-      Seq(
-        VerilatorBackendAnnotation,
-        VerilatorFlags(Seq("-Wno-BLKANDNBLK"))
-      )
-    } else {
-      throw new RuntimeException("No usable simulator")
-      Seq()
+  def simulate[T <: RawModule](
+      module: => T
+  )(body: (T) => Unit): Unit = {
+    synchronized {
+      simulator.simulate(module)({ (_, dut) => body(dut) }).result
     }
-    annotations ++ Seq(WriteVcdAnnotation)
+  }
+
+  private class DefaultSimulator(val workspacePath: String)
+      extends SingleBackendSimulator[verilator.Backend] {
+    val backend = verilator.Backend.initializeFromProcessEnvironment()
+    val tag = "default"
+    val commonCompilationSettings = CommonCompilationSettings()
+    val backendSpecificCompilationSettings =
+      verilator.Backend.CompilationSettings(
+        // for fpnew
+        disabledWarnings = Seq(
+          "UNOPTFLAT",
+          "CASEOVERLAP",
+          "UNSIGNED",
+          "WIDTHTRUNC",
+          "WIDTHEXPAND",
+          "ASCRANGE",
+          "PINMISSING"
+        )
+      )
+
+    // Try to clean up temporary workspace if possible
+    sys.addShutdownHook {
+      Runtime.getRuntime().exec(Array("rm", "-rf", workspacePath)).waitFor()
+    }
+  }
+  private lazy val simulator: DefaultSimulator = {
+    val temporaryDirectory = System.getProperty("java.io.tmpdir")
+    // TODO: Use ProcessHandle when we can drop Java 8 support
+    // val id = ProcessHandle.current().pid().toString()
+    val id = java.lang.management.ManagementFactory.getRuntimeMXBean().getName()
+    val className = getClass().getName().stripSuffix("$")
+    new DefaultSimulator(Seq(temporaryDirectory, className, id).mkString("/"))
   }
 }

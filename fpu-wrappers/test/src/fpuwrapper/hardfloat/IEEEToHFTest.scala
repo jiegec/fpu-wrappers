@@ -1,16 +1,16 @@
 package fpuwrapper.hardfloat
 
 import chisel3._
-import chiseltest._
+import chisel3.experimental.BundleLiterals._
+import chisel3.simulator.EphemeralSimulator._
 import org.scalatest.freespec.AnyFreeSpec
 import fpuwrapper.FloatS
-import fpuwrapper.Simulator
 
-class IEEEToHFTest extends AnyFreeSpec with ChiselScalatestTester {
+
+class IEEEToHFTest extends AnyFreeSpec {
   for (stages <- 1 to 5) {
     s"IEEEToHF of ${stages} stages should work" in {
-      test(new IEEEToHF(FloatS, 2, stages))
-        .withAnnotations(Simulator.getAnnotations()) { dut =>
+      simulate(new IEEEToHF(FloatS, 2, stages)) { dut =>
           dut.clock.step(16)
 
           def enqueueReq() = {

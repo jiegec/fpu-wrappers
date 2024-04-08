@@ -1,15 +1,15 @@
 package fpuwrapper.hardfloat
 
 import chisel3._
-import chiseltest._
+import chisel3.experimental.BundleLiterals._
+import chisel3.simulator.EphemeralSimulator._
 import org.scalatest.freespec.AnyFreeSpec
 import fpuwrapper.FloatS
-import fpuwrapper.Simulator
 
-class HFFDivSqrtTest extends AnyFreeSpec with ChiselScalatestTester {
+
+class HFFDivSqrtTest extends AnyFreeSpec {
   s"HFFDivSqrt should work" in {
-    test(new HFFDivSqrt(FloatS, 2))
-      .withAnnotations(Simulator.getAnnotations()) { dut =>
+    simulate(new HFFDivSqrt(FloatS, 2)) { dut =>
         dut.clock.step(16)
 
         def enqueueReq() = {

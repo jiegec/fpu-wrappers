@@ -1,16 +1,16 @@
 package fpuwrapper.hardfloat
 
 import chisel3._
-import chiseltest._
+import chisel3.experimental.BundleLiterals._
+import chisel3.simulator.EphemeralSimulator._
 import org.scalatest.freespec.AnyFreeSpec
 import fpuwrapper.FloatS
-import fpuwrapper.Simulator
 
-class HFFMATest extends AnyFreeSpec with ChiselScalatestTester {
+
+class HFFMATest extends AnyFreeSpec {
   for (stages <- 1 to 5) {
     s"HFFMA of ${stages} stages should work" in {
-      test(new HFFMA(FloatS, 2, stages))
-        .withAnnotations(Simulator.getAnnotations()) { dut =>
+      simulate(new HFFMA(FloatS, 2, stages)) { dut =>
           dut.clock.step(16)
 
           def enqueueReq() = {

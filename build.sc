@@ -8,7 +8,6 @@ import coursier.maven.MavenRepository
 val defaultVersions = Map(
   "chisel" -> ("org.chipsalliance", "5.1.0", false),
   "chisel-plugin" -> ("org.chipsalliance", "5.1.0", true),
-  "chiseltest" -> ("edu.berkeley.cs", "5.0.2", false),
   "scalatest" -> ("org.scalatest", "3.2.10", false),
   "spinalhdl-core" -> ("com.github.spinalhdl", "1.9.4", false),
   "spinalhdl-lib" -> ("com.github.spinalhdl", "1.9.4", false),
@@ -97,7 +96,6 @@ object `fpu-wrappers`
     with ScalafmtModule {
   override def ivyDeps = super.ivyDeps() ++ Agg(
     getVersion("chisel"),
-    getVersion("chiseltest"),
     getVersion("spinalhdl-core"),
     getVersion("spinalhdl-lib")
   )
