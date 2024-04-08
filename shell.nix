@@ -7,5 +7,6 @@ pkgs.mkShell {
     mill
     boost
     verilog # iverilog
+    verilator
   ];
 }
