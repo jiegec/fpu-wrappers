@@ -11,7 +11,14 @@ object Simulator extends PeekPokeAPI {
       module: => T
   )(body: (T) => Unit): Unit = {
     synchronized {
-      simulator.simulate(module)({ (_, dut) => body(dut) }).result
+      simulator
+        .simulate(module)({ (sim, dut) =>
+          {
+            sim.setTraceEnabled(true);
+            body(dut)
+          }
+        })
+        .result
     }
   }
 

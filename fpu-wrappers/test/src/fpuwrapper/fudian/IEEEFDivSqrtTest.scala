@@ -6,12 +6,14 @@ import fpuwrapper.Simulator._
 import org.scalatest.freespec.AnyFreeSpec
 import fpuwrapper.FloatS
 
-
 class IEEEFDivSqrtTest extends AnyFreeSpec {
-  // FIXME: hang
-  /*
   s"IEEEFDivSqrt should work" in {
     simulate(new IEEEFDivSqrt(FloatS, 2)) { dut =>
+      dut.reset.poke(true.B)
+      dut.clock.step()
+      dut.reset.poke(false.B)
+      dut.clock.step()
+
       dut.clock.step(16)
 
       def enqueueReq() = {
@@ -52,5 +54,4 @@ class IEEEFDivSqrtTest extends AnyFreeSpec {
       }
     }
   }
-  */
 }
