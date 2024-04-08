@@ -3,31 +3,25 @@ package fpuwrapper
 import svsim._
 import chisel3.RawModule
 import chisel3.simulator._
+import java.nio.file.Files
+import java.io.File
+import scala.reflect.io.Directory
 
 // custom EphemeralSimulator to add options to verilator
+
 object Simulator extends PeekPokeAPI {
 
   def simulate[T <: RawModule](
       module: => T
   )(body: (T) => Unit): Unit = {
-    synchronized {
-      simulator
-        .simulate(module)({ (sim, dut) =>
-          {
-            sim.setTraceEnabled(true);
-            body(dut)
-          }
-        })
-        .result
-    }
+    makeSimulator.simulate(module)({ module => body(module.wrapped) }).result
   }
 
   private class DefaultSimulator(val workspacePath: String)
       extends SingleBackendSimulator[verilator.Backend] {
     val backend = verilator.Backend.initializeFromProcessEnvironment()
     val tag = "default"
-    val commonCompilationSettings = CommonCompilationSettings(
-    )
+    val commonCompilationSettings = CommonCompilationSettings()
     val backendSpecificCompilationSettings =
       verilator.Backend.CompilationSettings(
         traceStyle =
@@ -43,13 +37,19 @@ object Simulator extends PeekPokeAPI {
           "PINMISSING"
         )
       )
+
+    // Try to clean up temporary workspace if possible
+    sys.addShutdownHook {
+      (new Directory(new File(workspacePath))).deleteRecursively()
+    }
   }
-  private lazy val simulator: DefaultSimulator = {
-    val currentDirectory = System.getProperty("user.dir")
+  private def makeSimulator: DefaultSimulator = {
     // TODO: Use ProcessHandle when we can drop Java 8 support
     // val id = ProcessHandle.current().pid().toString()
     val id = java.lang.management.ManagementFactory.getRuntimeMXBean().getName()
     val className = getClass().getName().stripSuffix("$")
-    new DefaultSimulator(Seq(currentDirectory, className, id).mkString("/"))
+    new DefaultSimulator(
+      Files.createTempDirectory(s"${className}_${id}_").toString
+    )
   }
 }

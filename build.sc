@@ -6,12 +6,12 @@ import coursier.maven.MavenRepository
 
 // learned from https://github.com/OpenXiangShan/fudian/blob/main/build.sc
 val defaultVersions = Map(
-  "chisel" -> ("org.chipsalliance", "5.1.0", false),
-  "chisel-plugin" -> ("org.chipsalliance", "5.1.0", true),
+  "chisel" -> ("org.chipsalliance", "6.2.0", false),
+  "chisel-plugin" -> ("org.chipsalliance", "6.2.0", true),
   "scalatest" -> ("org.scalatest", "3.2.10", false),
-  "spinalhdl-core" -> ("com.github.spinalhdl", "1.9.4", false),
-  "spinalhdl-lib" -> ("com.github.spinalhdl", "1.9.4", false),
-  "spinalhdl-idsl-plugin" -> ("com.github.spinalhdl", "1.9.4", false)
+  "spinalhdl-core" -> ("com.github.spinalhdl", "1.10.1", false),
+  "spinalhdl-lib" -> ("com.github.spinalhdl", "1.10.1", false),
+  "spinalhdl-idsl-plugin" -> ("com.github.spinalhdl", "1.10.1", false)
 )
 
 val commonScalaVersion = "2.13.10"
@@ -35,12 +35,14 @@ trait CommonModule extends ScalaModule {
     )
   }
 
-  override def scalacOptions = Seq("-deprecation", "-feature", "-language:reflectiveCalls")
+  override def scalacOptions =
+    Seq("-deprecation", "-feature", "-language:reflectiveCalls")
 }
 
 object hardfloat extends SbtModule with PublishModule {
   override def scalaVersion = commonScalaVersion
-  override def millSourcePath = os.pwd / "thirdparty" / "berkeley-hardfloat" / "hardfloat"
+  override def millSourcePath =
+    os.pwd / "thirdparty" / "berkeley-hardfloat" / "hardfloat"
 
   override def ivyDeps = super.ivyDeps() ++ Agg(
     getVersion("chisel")
@@ -59,9 +61,21 @@ object hardfloat extends SbtModule with PublishModule {
     licenses = Seq(License.`BSD-3-Clause`),
     versionControl = VersionControl.github("ucb-bar", "berkeley-hardfloat"),
     developers = Seq(
-      Developer("jhauser-ucberkeley", "John Hauser", "https://www.colorado.edu/faculty/hauser/about/"),
-      Developer("aswaterman", "Andrew Waterman", "https://aspire.eecs.berkeley.edu/author/waterman/"),
-      Developer("yunsup", "Yunsup Lee", "https://aspire.eecs.berkeley.edu/author/yunsup/")
+      Developer(
+        "jhauser-ucberkeley",
+        "John Hauser",
+        "https://www.colorado.edu/faculty/hauser/about/"
+      ),
+      Developer(
+        "aswaterman",
+        "Andrew Waterman",
+        "https://aspire.eecs.berkeley.edu/author/waterman/"
+      ),
+      Developer(
+        "yunsup",
+        "Yunsup Lee",
+        "https://aspire.eecs.berkeley.edu/author/yunsup/"
+      )
     )
   )
 }
