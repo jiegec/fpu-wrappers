@@ -1072,16 +1072,16 @@ module \$paramod$d3e186537850836205aaef2cb0f7b0732c13a483\fpnew_top_21317_11D0A 
   wire [2:0] dst_fmt_i;
   input flush_i;
   wire flush_i;
-  wire [3:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8190$212.op ;
-  wire [1:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8190$55.$result ;
-  wire [1:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$109.$result ;
-  wire [1:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$144.$result ;
-  wire [1:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$179.$result ;
-  wire [3:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$228.op ;
-  wire [3:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$244.op ;
-  wire [3:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$260.op ;
-  wire [3:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$276.op ;
-  wire [1:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$74.$result ;
+  wire [3:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8198$212.op ;
+  wire [1:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8198$55.$result ;
+  wire [1:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$109.$result ;
+  wire [1:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$144.$result ;
+  wire [1:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$179.$result ;
+  wire [3:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$228.op ;
+  wire [3:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$244.op ;
+  wire [3:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$260.op ;
+  wire [3:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$276.op ;
+  wire [1:0] \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$74.$result ;
   wire \gen_operation_groups[0].in_valid ;
   wire [14:0] \gen_operation_groups[0].input_boxed ;
   wire [31:0] \gen_operation_groups[0].slice_inputs.sv2v_autoblock_3.fmt ;
@@ -1155,7 +1155,7 @@ module \$paramod$d3e186537850836205aaef2cb0f7b0732c13a483\fpnew_top_21317_11D0A 
     \$auto$proc_rom.cc:150:do_switch$1341 [14] = 2'h3;
     \$auto$proc_rom.cc:150:do_switch$1341 [15] = 2'h2;
   end
-  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$179.$result  = \$auto$proc_rom.cc:150:do_switch$1341 [op_i];
+  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$179.$result  = \$auto$proc_rom.cc:150:do_switch$1341 [op_i];
   reg [1:0] \$auto$proc_rom.cc:150:do_switch$1345  [15:0];
   initial begin
     \$auto$proc_rom.cc:150:do_switch$1345 [0] = 2'h0;
@@ -1175,7 +1175,7 @@ module \$paramod$d3e186537850836205aaef2cb0f7b0732c13a483\fpnew_top_21317_11D0A 
     \$auto$proc_rom.cc:150:do_switch$1345 [14] = 2'h3;
     \$auto$proc_rom.cc:150:do_switch$1345 [15] = 2'h2;
   end
-  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$144.$result  = \$auto$proc_rom.cc:150:do_switch$1345 [op_i];
+  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$144.$result  = \$auto$proc_rom.cc:150:do_switch$1345 [op_i];
   reg [1:0] \$auto$proc_rom.cc:150:do_switch$1349  [15:0];
   initial begin
     \$auto$proc_rom.cc:150:do_switch$1349 [0] = 2'h0;
@@ -1195,7 +1195,7 @@ module \$paramod$d3e186537850836205aaef2cb0f7b0732c13a483\fpnew_top_21317_11D0A 
     \$auto$proc_rom.cc:150:do_switch$1349 [14] = 2'h3;
     \$auto$proc_rom.cc:150:do_switch$1349 [15] = 2'h2;
   end
-  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$109.$result  = \$auto$proc_rom.cc:150:do_switch$1349 [op_i];
+  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$109.$result  = \$auto$proc_rom.cc:150:do_switch$1349 [op_i];
   reg [1:0] \$auto$proc_rom.cc:150:do_switch$1353  [15:0];
   initial begin
     \$auto$proc_rom.cc:150:do_switch$1353 [0] = 2'h0;
@@ -1215,7 +1215,7 @@ module \$paramod$d3e186537850836205aaef2cb0f7b0732c13a483\fpnew_top_21317_11D0A 
     \$auto$proc_rom.cc:150:do_switch$1353 [14] = 2'h3;
     \$auto$proc_rom.cc:150:do_switch$1353 [15] = 2'h2;
   end
-  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$74.$result  = \$auto$proc_rom.cc:150:do_switch$1353 [op_i];
+  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$74.$result  = \$auto$proc_rom.cc:150:do_switch$1353 [op_i];
   reg [1:0] \$auto$proc_rom.cc:150:do_switch$1357  [15:0];
   initial begin
     \$auto$proc_rom.cc:150:do_switch$1357 [0] = 2'h0;
@@ -1235,7 +1235,7 @@ module \$paramod$d3e186537850836205aaef2cb0f7b0732c13a483\fpnew_top_21317_11D0A 
     \$auto$proc_rom.cc:150:do_switch$1357 [14] = 2'h3;
     \$auto$proc_rom.cc:150:do_switch$1357 [15] = 2'h2;
   end
-  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8190$55.$result  = \$auto$proc_rom.cc:150:do_switch$1357 [op_i];
+  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8198$55.$result  = \$auto$proc_rom.cc:150:do_switch$1357 [op_i];
   assign in_ready_o = in_valid_i & _10_;
   assign \gen_operation_groups[0].in_valid  = in_valid_i & _06_;
   assign \gen_operation_groups[1].in_valid  = in_valid_i & _07_;
@@ -1247,13 +1247,13 @@ module \$paramod$d3e186537850836205aaef2cb0f7b0732c13a483\fpnew_top_21317_11D0A 
   assign _00_ = operands_i[31:16] == 16'hffff;
   assign _01_ = operands_i[63:48] == 16'hffff;
   assign _02_ = operands_i[95:80] == 16'hffff;
-  assign _06_ = ! \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$74.$result ;
-  assign _07_ = \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$109.$result  == 2'h1;
-  assign _08_ = \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$144.$result  == 2'h2;
-  assign _09_ = \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$179.$result  == 2'h3;
+  assign _06_ = ! \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$74.$result ;
+  assign _07_ = \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$109.$result  == 2'h1;
+  assign _08_ = \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$144.$result  == 2'h2;
+  assign _09_ = \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$179.$result  == 2'h3;
   assign busy_o = | opgrp_busy;
   wire [3:0] _44_ = opgrp_in_ready;
-  assign _10_ = _44_[\fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8190$55.$result  +: 1];
+  assign _10_ = _44_[\fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8198$55.$result  +: 1];
   assign \gen_operation_groups[0].input_boxed [9] = vectorial_op_i ? 1'h1 : _03_;
   assign \gen_operation_groups[0].input_boxed [10] = vectorial_op_i ? 1'h1 : _04_;
   assign \gen_operation_groups[0].input_boxed [11] = vectorial_op_i ? 1'h1 : _05_;
@@ -1372,11 +1372,11 @@ module \$paramod$d3e186537850836205aaef2cb0f7b0732c13a483\fpnew_top_21317_11D0A 
     .rr_i(2'h0),
     .rst_ni(rst_ni)
   );
-  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8190$212.op  = 4'hx;
-  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$228.op  = 4'hx;
-  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$244.op  = 4'hx;
-  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$260.op  = 4'hx;
-  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8239$276.op  = 4'hx;
+  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8198$212.op  = 4'hx;
+  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$228.op  = 4'hx;
+  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$244.op  = 4'hx;
+  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$260.op  = 4'hx;
+  assign \fpnew_pkg_get_opgroup$func$FPNewBlackbox_S1l1s.preprocessed.v:8247$276.op  = 4'hx;
   assign \gen_operation_groups[0].input_boxed [8:0] = { \gen_operation_groups[0].input_boxed [14:12], 6'h3f };
   assign \gen_operation_groups[0].slice_inputs.sv2v_autoblock_3.fmt  = 32'd5;
   assign \gen_operation_groups[1].input_boxed  = { \gen_operation_groups[0].input_boxed [13:12], \gen_operation_groups[0].input_boxed [10:9], \gen_operation_groups[0].input_boxed [13:12], 4'hf };
