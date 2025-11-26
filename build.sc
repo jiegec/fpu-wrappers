@@ -9,9 +9,9 @@ val defaultVersions = Map(
   "chisel" -> ("org.chipsalliance", "6.2.0", false),
   "chisel-plugin" -> ("org.chipsalliance", "6.2.0", true),
   "scalatest" -> ("org.scalatest", "3.2.10", false),
-  "spinalhdl-core" -> ("com.github.spinalhdl", "1.10.1", false),
-  "spinalhdl-lib" -> ("com.github.spinalhdl", "1.10.1", false),
-  "spinalhdl-idsl-plugin" -> ("com.github.spinalhdl", "1.10.1", false)
+  "spinalhdl-core" -> ("com.github.spinalhdl", "1.13.0", false),
+  "spinalhdl-lib" -> ("com.github.spinalhdl", "1.13.0", false),
+  "spinalhdl-idsl-plugin" -> ("com.github.spinalhdl", "1.13.0", false)
 )
 
 val commonScalaVersion = "2.13.10"
