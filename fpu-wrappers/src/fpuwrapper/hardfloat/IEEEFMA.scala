@@ -20,9 +20,7 @@ class IEEEFMA(
     floatType: FloatType,
     lanes: Int,
     stages: Int,
-    prefix: String = ""
 ) extends Module {
-  AddPrefix(this, prefix)
   val io = IO(new Bundle {
     val req = Flipped(Valid(new IEEEFMARequest(floatType, lanes)))
     val resp = Valid(new IEEEFMAResponse(floatType, lanes))
@@ -139,8 +137,8 @@ class IEEEFMA(
 
 object IEEEFMA extends EmitChiselModule {
   emitChisel(
-    (floatType, lanes, stages, prefix) =>
-      new IEEEFMA(floatType, lanes, stages, prefix),
+    (floatType, lanes, stages) =>
+      new IEEEFMA(floatType, lanes, stages),
     "IEEEFMA",
     "hardfloat"
   )
@@ -151,8 +149,8 @@ object IEEEFMASynth extends EmitChiselModule {
     val floatName = floatType.kind().toString()
     for (stages <- Seq(4)) {
       emitChisel(
-        (floatType, lanes, stages, prefix) =>
-          new IEEEFMA(floatType, lanes, stages, prefix),
+        (floatType, lanes, stages) =>
+          new IEEEFMA(floatType, lanes, stages),
         "IEEEFMA",
         "hardfloat",
         allStages = Seq(stages),

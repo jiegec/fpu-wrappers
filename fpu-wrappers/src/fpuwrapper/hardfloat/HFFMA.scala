@@ -4,8 +4,6 @@ import chisel3._
 import chisel3.util._
 import fpuwrapper._
 import chisel3.experimental.annotate
-import sifive.enterprise.firrtl.NestedPrefixModulesAnnotation
-import chisel3.experimental.ChiselAnnotation
 
 class HFFMARequest(val floatType: FloatType, val lanes: Int) extends Bundle {
   val op = FMAOp()
@@ -23,10 +21,7 @@ class HFFMA(
     floatType: FloatType,
     lanes: Int,
     stages: Int,
-    prefix: String = ""
 ) extends Module {
-  AddPrefix(this, prefix)
-
   val io = IO(new Bundle {
     val req = Flipped(Valid(new HFFMARequest(floatType, lanes)))
     val resp = Valid(new HFFMAResponse(floatType, lanes))
@@ -137,8 +132,8 @@ class HFFMA(
 
 object HFFMA extends EmitChiselModule {
   emitChisel(
-    (floatType, lanes, stages, prefix) =>
-      new HFFMA(floatType, lanes, stages, prefix),
+    (floatType, lanes, stages) =>
+      new HFFMA(floatType, lanes, stages),
     "HFFMA",
     "hardfloat"
   )
@@ -149,7 +144,7 @@ object HFFMASynth extends EmitChiselModule {
     val floatName = floatType.kind().toString()
     for (stages <- Seq(3)) {
       emitChisel(
-        (floatType, lanes, stages, _) => new HFFMA(floatType, lanes, stages),
+        (floatType, lanes, stages) => new HFFMA(floatType, lanes, stages),
         "HFFMA",
         "hardfloat",
         allStages = Seq(stages),
@@ -170,8 +165,8 @@ object HFFMABench extends EmitChiselModule with VivadoBench {
       for (lanes <- Seq(2)) {
         val floatName = floatType.kind().toString()
         emitChisel(
-          (floatType, lanes, stages, prefix) =>
-            new HFFMA(floatType, lanes, stages, prefix),
+          (floatType, lanes, stages) =>
+            new HFFMA(floatType, lanes, stages),
           moduleName,
           library,
           allStages = Seq(stages),

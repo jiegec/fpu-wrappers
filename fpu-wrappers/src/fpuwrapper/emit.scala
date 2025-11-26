@@ -2,30 +2,15 @@ package fpuwrapper
 
 import chisel3._
 import chisel3.stage.ChiselGeneratorAnnotation
-import chisel3.experimental.ChiselAnnotation
 import circt.stage.FirtoolOption
 import circt.stage.ChiselStage
-import _root_.sifive.enterprise.firrtl.NestedPrefixModulesAnnotation
 import chisel3.experimental.annotate
-
-/** Helper to add prefix
-  */
-object AddPrefix {
-  def apply(module: Module, prefix: String, inclusive: Boolean = true) = {
-    if (prefix != null && prefix != "") {
-      annotate(new ChiselAnnotation {
-        def toFirrtl =
-          new NestedPrefixModulesAnnotation(module.toTarget, prefix, true)
-      })
-    }
-  }
-}
 
 /** Emit Verilog from Chisel module
   */
 trait ChiselEmitVerilog extends App {
   def emit(genModule: () => RawModule, name: String) = {
-    ChiselStage.emitSystemVerilogFile(
+    ChiselStage.emitSystemVerilog(
       genModule(),
       Array(),
       Array("-o", s"${name}.sv")
@@ -37,7 +22,7 @@ trait ChiselEmitVerilog extends App {
   */
 trait EmitChiselModule extends ChiselEmitVerilog {
   def emitChisel(
-      genModule: (FloatType, Int, Int, String) => RawModule,
+      genModule: (FloatType, Int, Int) => RawModule,
       name: String,
       library: String,
       allStages: Seq[Int] = Seq(1, 2, 3),
@@ -49,9 +34,13 @@ trait EmitChiselModule extends ChiselEmitVerilog {
       for (lanes <- lanes) {
         for (stages <- allStages) {
           val moduleName = s"${name}_${floatName}${lanes}l${stages}s_${library}"
-          val prefix = s"${moduleName}_"
+          val prefix = moduleName
           emit(
-            () => genModule(floatType, lanes, stages, prefix),
+            () =>  {
+              withModulePrefix(prefix) {
+                genModule(floatType, lanes, stages)
+              }
+            },
             moduleName
           )
         }
