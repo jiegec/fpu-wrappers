@@ -18,14 +18,14 @@ object Simulator extends PeekPokeAPI {
   }
 
   private class DefaultSimulator(val workspacePath: String)
-      extends SingleBackendSimulator[verilator.Backend] {
-    val backend = verilator.Backend.initializeFromProcessEnvironment()
-    val tag = "default"
-    val commonCompilationSettings = CommonCompilationSettings()
-    val backendSpecificCompilationSettings =
+      extends Simulator[verilator.Backend] {
+    override val backend = verilator.Backend.initializeFromProcessEnvironment()
+    override val tag = "default"
+    override val commonCompilationSettings = CommonCompilationSettings()
+    override val backendSpecificCompilationSettings =
       verilator.Backend.CompilationSettings(
         traceStyle =
-          Some(verilator.Backend.CompilationSettings.TraceStyle.Vcd()),
+          Some(verilator.Backend.CompilationSettings.TraceStyle(verilator.Backend.CompilationSettings.TraceKind.Vcd)),
         // for fpnew
         disabledWarnings = Seq(
           "UNOPTFLAT",
