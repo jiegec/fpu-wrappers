@@ -14,7 +14,7 @@ val defaultVersions = Map(
   "spinalhdl-idsl-plugin" -> ("com.github.spinalhdl", "1.13.0", false)
 )
 
-val commonScalaVersion = "2.13.10"
+val commonScalaVersion = "2.13.17"
 
 def getVersion(dep: String) = {
   val (org, ver, cross) = defaultVersions(dep)
