@@ -13,7 +13,7 @@ trait ChiselEmitVerilog extends App {
     ChiselStage.emitSystemVerilog(
       genModule(),
       Array(),
-      Array("-o", s"${name}.sv")
+      Array("-o", s"${name}.sv", "--default-layer-specialization=disable")
     )
   }
 }
